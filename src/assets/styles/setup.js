@@ -119,7 +119,7 @@ export const StepperStyles = theme => ({
     backgroundColor: '#E4E4E4',
   },
   stepper: {
-    padding: `${theme.spacing.unit * 3}px 0 ${theme.spacing.unit * 5}px`,
+    padding: '50px 0 20px',
     backgroundColor: '#E4E4E4',
   },
   buttons: {
@@ -138,9 +138,42 @@ export const StepperStyles = theme => ({
     marginLeft: theme.spacing.unit * 3,
     width: '160px',
   },
-  iconContainer: {
-    transform: 'scale(2)',
-  }
+  root: {
+    color: '#424242',
+    display: 'flex',
+    height: 22,
+    alignItems: 'center',
+    borderRadius: '50%',
+  },
+  iconWrapper: {
+    display: 'relative'
+  },
+  active: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 1,
+    color: '#FAF33E',
+    transform: 'scale(3.5)'
+  },
+  dots: {
+    position: 'absolute',
+    top: '-1.5px',
+    left: '2px',
+    color: '#424242'
+  },
+  circle: {
+    width: 14,
+    height: 14,
+    borderRadius: '50%',
+    backgroundColor: 'currentColor',
+  },
+  completed: {
+    color: '#424242',
+    zIndex: 1,
+    fontSize: '1.4rem',
+    paddingTop: 5,
+  },
 });
 
 export const BusinessSetUpStyles = {
@@ -674,8 +707,8 @@ export const NavBarStyles = {
   },
   typography: {
     color: '#FAF33E',
-    fontSize: '1.8rem',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    textTransform: 'uppercase'
   },
 };
 

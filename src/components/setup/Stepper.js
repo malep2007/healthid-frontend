@@ -11,6 +11,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import { Fab } from '@material-ui/core';
+import initialState from './stepperInitialState';
 import AdminSetUp from './adminSetup';
 import BusinessSetUp from './businessSetup';
 import OutletSetUp from './outletSetup';
@@ -37,106 +38,15 @@ import UserSetup from './userSetup';
 import { ADD_NEW_USER, ADMIN_UPDATE_USER } from '../../mutations/addUsersSetupMutation';
 import { GET_ROLES, GET_OUTLETS } from '../../queries/addUsersSetupQuery';
 import { StateContext } from '../../providers/stateProvider';
+import StepperConnector from './stepperConnector';
+import StepperIcon from './stepperIcon';
 
 const styles = StepperStyles;
 
 const steps = ['Admin Account', 'Business Information', 'Add Outlet(s)', 'Add User(s)'];
 
 export class StepperNav extends React.Component {
-  state = {
-    activeStep: 0,
-    checked: false,
-    isAcknowledged: false,
-    isLoading: false,
-    firstName: '',
-    lastName: '',
-    username: '',
-    email: '',
-    secondaryEmail: '',
-    mobileNumber: '',
-    secondaryPhoneNumber: '',
-    legalName: '',
-    tradingName: '',
-    businessEmail: '',
-    addressLine1: '',
-    addressLine2: '',
-    phoneNumber: '',
-    city: 'Lagos',
-    cityId: 4,
-    country: 'Nigeria',
-    localGovernmentArea: '',
-    website: '',
-    twitter: '',
-    instagram: '',
-    logo: '',
-    facebook: '',
-    serverError: '',
-    formError: false,
-    isError: false,
-    src: '',
-    crop: {
-      x: 50,
-      y: 50,
-      width: 50,
-      height: 50,
-    },
-    fileName: '',
-    originalImageFile: '',
-    croppedImage: '',
-    open: false,
-    businessId: 0,
-    cities: [],
-    countries: [],
-    dateLaunched: '2019-01-01',
-    outletName: '',
-    outletType: 'warehouse',
-    kindId: 1,
-    outletsActive: false,
-    outletIsLoading: false,
-    unhideMainButtons: true,
-    receiptOpen: false,
-    amountToPay: false,
-    barcode: false,
-    cashier: true,
-    changeDue: false,
-    discountTotal: false,
-    loyalty: false,
-    loyaltyBalance: false,
-    loyaltyEarned: false,
-    outletId: NaN,
-    receiptId: NaN,
-    registerId: NaN,
-    registerName: '',
-    registerHidden: true,
-    clickedOutlet: 0,
-    purchaseTotal: false,
-    receipt: false,
-    receiptNo: false,
-    subtotal: false,
-    totalTax: false,
-    outletSet: [],
-    edittingOutlet: false,
-    // step 4: Add User(s)
-    jobTitle: '',
-    startingDate: '2019-01-01',
-    target: '',
-    fName: '',
-    lName: '',
-    userEmail: '',
-    userUsername: '',
-    phone: '',
-    roleId: '',
-    outlet: '',
-    userId: '',
-    roles: [],
-    outlets: [],
-    editMode: false,
-    users: [],
-    showUsers: true,
-    phoneError: false,
-    usernameError: false,
-    emailError: false,
-  };
+  state = initialState
 
   componentDidMount() {
     const [, dispatch] = Object.values(this.context);
@@ -1363,17 +1273,16 @@ export class StepperNav extends React.Component {
             <React.Fragment>
               <Stepper
                 alternativeLabel
-                nonLinear
                 activeStep={activeStep}
                 className={classes.stepper}
+                connector={<StepperConnector />}
               >
                 {steps.map(label => (
                   <Step key={label}>
                     <StepLabel
-                      classes={{ iconContainer: classes.iconContainer }}
+                      StepIconComponent={StepperIcon}
                     >
                       {label}
-
                     </StepLabel>
                   </Step>
                 ))}
@@ -1384,7 +1293,7 @@ export class StepperNav extends React.Component {
                   <div className={classes.buttons}>
                     {((activeStep !== 0 && showUsers && unhideMainButtons)
                         || (showUsers && activeStep === 3 && unhideMainButtons)) && (
-                      <Button
+                        <Button
                         onClick={this.handleBackButton}
                         className={classes.backButton}
                         variant="text"
