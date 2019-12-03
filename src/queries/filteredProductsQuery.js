@@ -23,6 +23,14 @@ query ($isApproved: Boolean, $productName: String ) {
           }
         }
       }
+      batchInfo {
+        id
+        batchNo
+        expiryDate
+        batchQuantities {
+          quantityRemaining
+        }
+      }
       image
       skuNumber
       description

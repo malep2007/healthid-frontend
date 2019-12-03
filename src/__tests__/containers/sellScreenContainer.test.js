@@ -647,40 +647,13 @@ describe('SellScreenContainer', () => {
     wrapper.instance().renderGrandTotal();
     expect(spy).toHaveBeenCalled();
   });
-  it('filter Clicked Product with same product', () => {
-    const spy = jest.spyOn(wrapper.instance(), 'updateQuantityInStock');
-    const cartItem = {
-      productName: 'Panadol',
-      quantity: 10
-    };
-    const cartItems = [
-      cartItem
-    ];
-    wrapper.setState({ cartItems });
-    wrapper.instance().filterClickedProduct(cartItem);
-    expect(spy).toHaveBeenCalled();
-  });
-  it('filter Clicked Product with different product', () => {
-    const cartItem = {
-      productName: 'Panadol',
-      quantity: 10
-    };
-    wrapper.setState({ cartItem });
-    const cartItems = [{
-      productName: 'Aspirin',
-      quantity: 1
-    }];
-    wrapper.setState({ cartItems });
-    wrapper.instance().filterClickedProduct(cartItem);
-    expect(wrapper.state('cartItem')).toBeTruthy();
-  });
   it('handles Click To Add a Product', () => {
-    const spy = jest.spyOn(wrapper.instance(), 'filterClickedProduct');
+    const spy = jest.spyOn(wrapper.instance(), 'handleClickViewDetails');
     const product = {
-      productName: 'Panadol',
-      salesPrice: 10,
-      image: '',
-      dispensingSize: 'packets'
+      quantity: 10,
+      batchId: '4937hrjk',
+      discount: '500',
+      note: '',
     };
     const cartItem = {
       productName: 'Panadol',

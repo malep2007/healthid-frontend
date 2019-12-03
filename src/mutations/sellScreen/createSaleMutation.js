@@ -11,7 +11,7 @@ const CREATE_SALE_MUTATION = gql`
         $paidAmount: Float!,
         $paymentMethod: String!,
         $subTotal: Float!
-        $products: [Products]!,
+        $batches: [Batches]!,
         ) {
             createSale(
             amountToPay: $amountToPay,
@@ -23,7 +23,7 @@ const CREATE_SALE_MUTATION = gql`
             paidAmount: $paidAmount,
             paymentMethod: $paymentMethod,
             subTotal: $subTotal,
-            products: $products
+            batches: $batches
             ) 
         {
       sale {

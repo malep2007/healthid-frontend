@@ -23,6 +23,7 @@ const initialState = {
   openCustomerDialog: false,
   openCustomerDetailsDialog: false,
   openHoldSaleDialog: false,
+  openSaleDetailsDialog: false,
   openDicountPopper: false,
   openNotePopper: false,
   openSalesOnHoldDialog: false,

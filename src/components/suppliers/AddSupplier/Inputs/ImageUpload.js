@@ -1,4 +1,5 @@
 /* eslint-disable react/prefer-stateless-function */
+/* istanbul ignore file */
 /* eslint-disable prefer-const */
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';

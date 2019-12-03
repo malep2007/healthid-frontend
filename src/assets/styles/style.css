@@ -91,6 +91,26 @@ html, body {
   visibility: 'visible';
 }
 
+.MuiPaper-root-188.MuiPaper-elevation24-214.MuiPaper-rounded-189.MuiDialog-paper-319.MuiDialog-paperScrollPaper-320.MuiDialog-paperWidthSm-323.MuiDialog-paperFullWidth-327 {
+  margin-left: -30rem;
+}
+
+input.form-control {
+  outline: none !important;
+  border: 0 !important;
+  margin-left: -1em !important;
+  padding-right: 0 !important;
+  font-size: inherit !important;
+  text-align: right !important;
+}
+
+b {
+  border-color: white !important;
+  border-style: none !important;
+  background: white !important;
+  box-shadow: none !important;
+}
+
 /* Transition of textfiled labels  */
 .MuiFormLabel-root-183, .jss16 {
   color: #A3A3A3 !important;

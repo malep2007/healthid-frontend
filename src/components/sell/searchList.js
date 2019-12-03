@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -9,7 +10,9 @@ import Zoom from '@material-ui/core/Zoom';
 import FormatCurrency from '../utils/formatCurrency';
 import searchListStyles from '../../assets/css/searchListStyles';
 
-const SearchList = ({ product, currency, handleClickToAddProduct }) => {
+const SearchList = ({
+  product, currency, handleClickViewDetails
+}) => {
   const {
     image, productName, salesPrice, quantityInStock
   } = product;
@@ -20,13 +23,12 @@ const SearchList = ({ product, currency, handleClickToAddProduct }) => {
       <ListItem
         id={productName}
         button
-        onClick={() => handleClickToAddProduct(product)}
       >
         <ListItemIcon>
           {
             quantityInStock > 0
               ? (
-                <IconButton id={productName}>
+                <IconButton id={productName} onClick={() => handleClickViewDetails(product)}>
                   <Add style={searchListStyles.addIcon} />
                 </IconButton>
               )
@@ -59,7 +61,7 @@ const SearchList = ({ product, currency, handleClickToAddProduct }) => {
 
 SearchList.propTypes = {
   product: PropTypes.instanceOf(Object).isRequired,
-  handleClickToAddProduct: PropTypes.func.isRequired,
+  handleClickViewDetails: PropTypes.func.isRequired,
   currency: PropTypes.string.isRequired,
 };
 

@@ -249,6 +249,13 @@ export const tableQuantityStyles = theme => ({
     color: '#707070',
     cursor: 'pointer',
   },
+  iconBatch: {
+    margin: 0,
+    fontSize: '15px',
+    color: '#707070',
+    cursor: 'pointer',
+    height: '10px'
+  },
   iconHover: {
     margin: theme.spacing.unit * 2,
     '&:hover': {
@@ -257,6 +264,10 @@ export const tableQuantityStyles = theme => ({
   },
   iconsCell: {
     display: 'inline-flex',
+  },
+  iconsCellBatch: {
+    display: 'inline-flex',
+    marginLeft: '-1.5em'
   },
   paperQuantity: {
     marginTop: '5px',
@@ -275,10 +286,26 @@ export const tableQuantityStyles = theme => ({
     paddingLeft: '5px',
     color: 'white',
   },
+  paperBatchInput: {
+    marginTop: '5px',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    width: '40px',
+    height: '15px',
+    paddingLeft: '5px',
+    color: '#707070',
+  },
   paperIcon: {
     justifyContent: 'space-between',
     backgroundColor: '#424242',
     maxWidth: '20px',
+  },
+
+  paperBatchIcon: {
+    justifyContent: 'space-between',
+    backgroundColor: 'white',
+    maxWidth: '20px',
+    maxHeight: '0'
   },
 
 });
@@ -490,4 +517,61 @@ export const customerDetailsDialog = {
     fontSize: '13px',
     margin: '0px'
   },
+};
+
+export const saleDetailsDialog = {
+  dialogTitle: {
+    padding: '1em 1.5em 1em 2.5em'
+  },
+  name: {
+    fontWeight: '500',
+    color: '#424242',
+    fontSize: '20px',
+    marginLeft: '-0.8em'
+  },
+  icon: {
+    fontSize: 'large',
+    marginRight: '-0.7em'
+  },
+  dialogContent: {
+    padding: '12px 0px',
+    backgroundColor: '#E8E8E8',
+  },
+  saleBatchListPaper: {
+    margin: '0.1em 1em 0.1em 1em',
+    padding: '0.5em 0.5em',
+  },
+  captionText: {
+    color: '#808080'
+  },
+  captionTextProdType: {
+    color: '#808080',
+    marginLeft: '-1.2em'
+  },
+  BatchNum: {
+    marginLeft: '-1.5em'
+  },
+  saleBatchListPaperColor: {
+    color: 'rgb(78, 76, 76)',
+    marginTop: '5px'
+  },
+  saleBatchListPaperQtyLeft: {
+    color: 'rgb(78, 76, 76)',
+    marginLeft: '3.7em',
+    marginTop: '5px'
+  },
+  saleBatchListPaperInput: {
+    color: 'rgb(78, 76, 76)',
+    marginLeft: '4.2em',
+    marginTop: '5px'
+  },
+  MuiIconButtonCheck: {
+    padding: '6px',
+  },
+  requiredQuantity: {
+    marginRight: '5px'
+  },
+  leftQuantity: {
+    marginRight: '10px'
+  }
 };

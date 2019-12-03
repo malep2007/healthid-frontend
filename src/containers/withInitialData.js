@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import React from 'react';
 import { Query } from 'react-apollo';
 import GET_COUNTRIES_PRODUCTS_CUSTOMERS from '../queries/countryProductsCustomerQuery';

@@ -109,9 +109,9 @@ export class PaymentContainer extends Component {
   );
 
   filterMutationProducts = products => products.map(({
-    id, quantity, discount, salesPrice, note
+    batchId, quantity, discount, salesPrice, note
   }) => ({
-    productId: id, quantity, discount, price: salesPrice, note
+    batchId, quantity, discount, price: salesPrice, note
   }))
 
   productTotals = () => {
@@ -176,7 +176,7 @@ export class PaymentContainer extends Component {
       paidAmount: parseFloat(cashRecieved || totalToPay),
       paymentMethod: cashChecked ? 'cash' : 'card',
       subTotal: parseFloat(this.productTotals().computedSubTotal),
-      products: mutationProducts,
+      batches: mutationProducts,
     };
 
     createSale({

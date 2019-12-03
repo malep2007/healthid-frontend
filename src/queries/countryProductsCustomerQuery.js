@@ -18,15 +18,20 @@ query {
         }
       }
     }
+    batchInfo {
+      id
+      batchNo
+      expiryDate
+      batchQuantities {
+        quantityRemaining
+      }
+    }
     image
     skuNumber
     description
     brand
     manufacturer
     quantityInStock
-
-
-
     salesPrice
     tags
   }

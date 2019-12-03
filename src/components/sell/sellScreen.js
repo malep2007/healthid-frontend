@@ -12,6 +12,7 @@ import FormatCurrency from '../utils/formatCurrency';
 import { addedItems, tableStyles } from '../../assets/css/sellScreenStyles';
 import AddCustomerDialog from './addCustomerDialog';
 import CustomerDetailDialog from './customerDetailDialog';
+import SaleDetailDialog from './salesBatchDialog';
 import HoldSaleDialog from './holdSaleDialog';
 import AddDiscountPopper from './addDiscountPopper';
 import AddProductNotePopper from './addProductNotePoppper';
@@ -45,6 +46,8 @@ export const SellScreen = ({
   handleAddNewCustomer,
   handleEditSelectedCustomer,
   handleCustomerDialogClose,
+  handleSaleDialogClose,
+  handleClickViewDetails,
   renderSingleCustomer,
   handleAddCustomerButton,
   renderCartTotal,
@@ -58,7 +61,13 @@ export const SellScreen = ({
   handlePrimaryPhoneChange,
   handleSecondaryPhoneChange,
   handleContactPhoneChange,
-  handleClickToPay
+  handleClickToPay,
+  handleClickToAddProduct,
+  handleSelectedCheckBox,
+  handleBatchInputChange,
+  isBatchSelected,
+  handleBatchQuantityButtons,
+  renderBatchQuantity
 }) => {
   const {
     mainCartNote,
@@ -175,6 +184,17 @@ export const SellScreen = ({
                   handlePrimaryPhoneChange={handlePrimaryPhoneChange}
                   handleSecondaryPhoneChange={handleSecondaryPhoneChange}
                   handleContactPhoneChange={handleContactPhoneChange}
+                />
+                <SaleDetailDialog
+                  state={state}
+                  handleClickViewDetails={handleClickViewDetails}
+                  handleSaleDialogClose={handleSaleDialogClose}
+                  handleClickToAddProduct={handleClickToAddProduct}
+                  handleSelectedCheckBox={handleSelectedCheckBox}
+                  handleBatchInputChange={handleBatchInputChange}
+                  isBatchSelected={isBatchSelected}
+                  handleBatchQuantityButtons={handleBatchQuantityButtons}
+                  renderBatchQuantity={renderBatchQuantity}
                 />
                 <HoldSaleDialog
                   state={state}
@@ -373,6 +393,7 @@ SellScreen.propTypes = {
   handleCustomerPopperClickAway: PropTypes.func.isRequired,
   handleAddNewCustomer: PropTypes.func.isRequired,
   handleCustomerDialogClose: PropTypes.func.isRequired,
+  handleSaleDialogClose: PropTypes.func.isRequired,
   renderSingleCustomer: PropTypes.func.isRequired,
   renderSearchBar: PropTypes.func.isRequired,
   handleAddCustomerButton: PropTypes.func.isRequired,
@@ -387,7 +408,14 @@ SellScreen.propTypes = {
   handleSecondaryPhoneChange: PropTypes.func.isRequired,
   handleContactPhoneChange: PropTypes.func.isRequired,
   handleClickToPay: PropTypes.func.isRequired,
-  handleEditSelectedCustomer: PropTypes.func.isRequired
+  handleEditSelectedCustomer: PropTypes.func.isRequired,
+  handleClickViewDetails: PropTypes.func.isRequired,
+  handleClickToAddProduct: PropTypes.func.isRequired,
+  handleSelectedCheckBox: PropTypes.func.isRequired,
+  handleBatchInputChange: PropTypes.func.isRequired,
+  isBatchSelected: PropTypes.func.isRequired,
+  handleBatchQuantityButtons: PropTypes.func.isRequired,
+  renderBatchQuantity: PropTypes.func.isRequired
 };
 
 SellScreen.defaultProps = {

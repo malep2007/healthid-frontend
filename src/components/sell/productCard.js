@@ -14,7 +14,7 @@ const ProductCard = (props) => {
   const {
     product,
     currency,
-    handleClickToAddProduct,
+    handleClickViewDetails,
   } = props;
   const {
     productCategory: { name },
@@ -70,7 +70,7 @@ const ProductCard = (props) => {
           <CardActions disableActionSpacing style={productCardStyles.cardAction}>
             <IconButton
               id={product.name}
-              onClick={() => handleClickToAddProduct(product)}
+              onClick={() => handleClickViewDetails(product)}
               style={productCardStyles.iconButton}
             >
               <Add style={productCardStyles.addIcon} />
@@ -85,7 +85,7 @@ const ProductCard = (props) => {
 ProductCard.propTypes = {
   product: PropTypes.instanceOf(Object).isRequired,
   currency: PropTypes.string.isRequired,
-  handleClickToAddProduct: PropTypes.func.isRequired,
+  handleClickViewDetails: PropTypes.func.isRequired,
 };
 
 export default ProductCard;

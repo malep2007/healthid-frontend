@@ -12,7 +12,7 @@ const props = {
     dispensingSize: { name: '' }
   },
   currency: '₦',
-  handleClickToAddProduct: jest.fn(),
+  handleClickViewDetails: jest.fn(),
 };
 describe('test ProductCard component', () => {
   let wrapper;

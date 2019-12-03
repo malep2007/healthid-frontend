@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import React, { Component, Fragment } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
@@ -30,7 +31,9 @@ import { StateContext } from '../providers/stateProvider';
 
 export class SellScreenContainer extends Component {
   state = {
-    ...initialState
+    ...initialState,
+    currentProduct: {},
+    selectedProductBatches: [],
   };
 
   componentDidMount() {
@@ -218,14 +221,13 @@ export class SellScreenContainer extends Component {
 
   updateQuantityInStock = (item, quantity) => {
     const { cartItems } = this.state;
-    const newItem = { ...item, quantity };
-    const index = cartItems.findIndex(x => x.id === item.id);
     this.setState({
-      cartItems: [
-        ...cartItems.slice(0, index),
-        Object.assign({}, cartItems[index], newItem),
-        ...cartItems.slice(index + 1)
-      ]
+      cartItems: cartItems.map((cartItem) => {
+        if (cartItem.batchId === item.batchId) {
+          return { ...cartItem, quantity };
+        }
+        return cartItem;
+      })
     });
   }
 
@@ -324,7 +326,13 @@ export class SellScreenContainer extends Component {
       region: '',
       emergencyContactName: '',
       emergencyContactEmail: '',
-      emergencyContactNumber: '',
+      emergencyContactNumber: ''
+    });
+  };
+
+  handleSaleDialogClose = () => {
+    this.setState({
+      openSaleDetailsDialog: false,
     });
   };
 
@@ -717,44 +725,75 @@ export class SellScreenContainer extends Component {
     return grandTotal;
   };
 
-  filterClickedProduct = (cartItem) => {
-    const { cartItems } = this.state;
-    const step = 1;
-    cartItems.map(({ productName, quantity }) => {
-      if (productName === cartItem.productName) {
-        this.updateQuantityInStock(cartItem, quantity + step);
-        return null;
-      }
-      return cartItem;
-    });
-  }
-
   handleClickToAddProduct = (product) => {
-    const { cartItems } = this.state;
-    const {
-      productName,
-      salesPrice,
-      image,
-      dispensingSize,
-      quantityInStock
-    } = product;
-    let { id } = product;
-    const newFields = {
-      quantity: 1, discount: 0, note: '',
-    };
-    id = Number(id);
-    const cartItem = {
-      id, productName, salesPrice, image, dispensingSize, ...newFields
-    };
+    const { selectedProductBatches } = this.state;
+    let items = [];
+    (selectedProductBatches || []).forEach((selected) => {
+      if (selected.productId === product.id) {
+        items = [...items, {
+          ...product,
+          quantity: Number(selected.quantity || 1),
+          batchId: selected.batchId,
+          discount: selected.discount,
+          note: selected.note,
+        }
+        ];
+      }
+      return items;
+    });
+    const { quantityInStock } = product;
 
     if (quantityInStock > 0) {
-      if (!this.filterClickedProduct(cartItem)) {
-        this.setState({
-          ...cartItems.unshift(cartItem)
-        });
-      }
+      this.setState({
+        cartItems: items,
+        openSaleDetailsDialog: false,
+      });
     }
   };
+
+  handleSelectedCheckBox = (selectedBatch, product) => {
+    const { selectedProductBatches } = this.state;
+    const batch = selectedProductBatches.find(({ batchId }) => batchId === selectedBatch.id);
+    this.setState(prevState => ({
+      ...prevState,
+      selectedProductBatches: !batch
+        ? [
+          ...selectedProductBatches,
+          {
+            productId: product.id,
+            batchId: selectedBatch.id,
+            quantity: 1,
+            price: product.salesPrice,
+            discount: 0
+          }
+        ]
+        : selectedProductBatches.filter(({ batchId }) => batchId !== selectedBatch.id)
+    }));
+  };
+
+  isBatchSelected = (selectedBatch) => {
+    const { selectedProductBatches } = this.state;
+    const batch = selectedProductBatches.find(({ batchId }) => batchId === selectedBatch.id);
+    return !!batch;
+  }
+
+  handleBatchInputChange = (value, selectedBatch) => {
+    const { selectedProductBatches } = this.state;
+    this.setState(prevState => ({
+      ...prevState,
+      selectedProductBatches:
+        selectedProductBatches.map(selected => (selected.batchId === selectedBatch.id
+          ? { ...selected, quantity: value }
+          : selected))
+    }));
+  }
+
+  handleClickViewDetails = (product) => {
+    this.setState({
+      openSaleDetailsDialog: true,
+      currentProduct: product
+    });
+  }
 
   renderProductCard = (products, currency) => products.map(product => (
     <Grid item key={product.productName} xs={4}>
@@ -804,7 +843,7 @@ export class SellScreenContainer extends Component {
 
   switchComponentRendering = () => {
     const {
-      searchValue, preferedProducts, currency, filteredProducts
+      searchValue, preferedProducts, currency, filteredProducts, currentProduct,
     } = this.state;
 
     if (searchValue && filteredProducts) {
@@ -820,10 +859,13 @@ export class SellScreenContainer extends Component {
                   product => (
                     <SearchList
                       key={product.node.id}
-                      id={product.node.name}
+                      id={product.node.id}
                       product={product.node}
+                      currentProduct={currentProduct}
                       currency={currency}
                       handleClickToAddProduct={this.handleClickToAddProduct}
+                      handleClickViewDetails={this.handleClickViewDetails}
+                      handleSelectedCheckBox={this.handleSelectedCheckBox}
                     />
                   )
                 )
@@ -942,6 +984,7 @@ export class SellScreenContainer extends Component {
           handleAddNewCustomer={this.handleAddNewCustomer}
           handleEditSelectedCustomer={this.handleEditSelectedCustomer}
           handleCustomerDialogClose={this.handleCustomerDialogClose}
+          handleSaleDialogClose={this.handleSaleDialogClose}
           renderSingleCustomer={this.renderSingleCustomer}
           handleAddCustomerButton={this.handleAddCustomerButton}
           renderCartTotal={this.renderCartTotal}
@@ -957,6 +1000,13 @@ export class SellScreenContainer extends Component {
           handleSecondaryPhoneChange={this.handleSecondaryPhoneChange}
           handleContactPhoneChange={this.handleContactPhoneChange}
           handleClickToPay={this.handleClickToPay}
+          handleClickViewDetails={this.handleClickViewDetails}
+          handleSelectedCheckBox={this.handleSelectedCheckBox}
+          handleClickToAddProduct={this.handleClickToAddProduct}
+          handleBatchInputChange={this.handleBatchInputChange}
+          isBatchSelected={this.isBatchSelected}
+          handleBatchQuantityButtons={this.handleBatchQuantityButtons}
+          renderBatchQuantity={this.renderBatchQuantity}
         />
       </Fragment>
     );
