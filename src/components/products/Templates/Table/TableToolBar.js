@@ -43,7 +43,9 @@ export class TableToolBar extends Component {
       handleViewProposed,
       status,
       client,
-      currentPath
+      currentPath,
+      hiddenColumns,
+      handleChangeColumn,
 
     } = this.props;
 
@@ -89,6 +91,8 @@ export class TableToolBar extends Component {
               currentPath={currentPath}
               status={status}
               componentRef={componentRef}
+              hiddenColumns={hiddenColumns}
+              handleChangeColumn={handleChangeColumn}
             />
           )}
         </div>
@@ -113,7 +117,9 @@ TableToolBar.propTypes = {
   status: PropTypes.string.isRequired,
   client: PropTypes.instanceOf(Object).isRequired,
   componentRef: PropTypes.instanceOf(Object).isRequired,
-  currentPath: PropTypes.string.isRequired
+  currentPath: PropTypes.string.isRequired,
+  handleChangeColumn: PropTypes.func.isRequired,
+  hiddenColumns: PropTypes.func.isRequired,
 
 };
 

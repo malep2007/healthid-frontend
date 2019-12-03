@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { DataTable } from '../../../components/suppliers/Templates/Table/DataTable';
+
 describe('Supplier Page DataTable ', () => {
   const suppliers = [
     {
@@ -11,13 +12,17 @@ describe('Supplier Page DataTable ', () => {
       name: 'eric',
       isApproved: false
     }
-  ]
+  ];
   const props = {
     classes: {},
     columns: ['id', 'name', 'tier', 'rating', 'notes'],
     data: [
-      { id: '1', name: 'panadol', tier: 'one' , rating: '5', notes: ['note1', 'note2'] }, 
-      { id: '3', name: 'chloro', tier: 'two', rating: '3', notes: ['note1', 'note2'] }],
+      {
+        id: '1', name: 'panadol', tier: 'one', rating: '5', notes: ['note1', 'note2']
+      },
+      {
+        id: '3', name: 'chloro', tier: 'two', rating: '3', notes: ['note1', 'note2']
+      }],
     title: 'Suppliers',
     onRowClick: jest.fn(),
     isAdmin: true,

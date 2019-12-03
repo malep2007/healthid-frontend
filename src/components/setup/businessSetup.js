@@ -38,7 +38,7 @@ const BusinessSetUp = (props) => {
 
   return (
     <React.Fragment>
-      <form>
+      <form style={{ padding: '40px' }}>
         <Grid container spacing={24} justify="center">
           <Grid item xs={6}>
             <TextField
@@ -96,34 +96,6 @@ const BusinessSetUp = (props) => {
               onChange={handleInPutChange}
             />
           </Grid>
-
-          <Grid item xs={4}>
-            <TextField
-              id="lga"
-              name="localGovernmentArea"
-              label="Local Government Area"
-              fullWidth
-              autoComplete="local Government Area"
-              value={localGovernmentArea}
-              onChange={handleInPutChange}
-            />
-          </Grid>
-
-          <Grid item xs={4}>
-            <TextField
-              required
-              id="city"
-              name="city"
-              label="City"
-              fullWidth
-              autoComplete="City"
-              value={city}
-              error={city ? false : formError}
-              helperText={city ? '' : errorHandler()}
-              onChange={handleInPutChange}
-            />
-          </Grid>
-
           <Grid item xs={4}>
             <TextField
               required
@@ -138,7 +110,31 @@ const BusinessSetUp = (props) => {
               onChange={handleInPutChange}
             />
           </Grid>
-
+          <Grid item xs={4}>
+            <TextField
+              required
+              id="city"
+              name="city"
+              label="City"
+              fullWidth
+              autoComplete="City"
+              value={city}
+              error={city ? false : formError}
+              helperText={city ? '' : errorHandler()}
+              onChange={handleInPutChange}
+            />
+          </Grid>
+          <Grid item xs={4}>
+            <TextField
+              id="lga"
+              name="localGovernmentArea"
+              label="Region"
+              fullWidth
+              autoComplete="local Government Area"
+              value={localGovernmentArea}
+              onChange={handleInPutChange}
+            />
+          </Grid>
           <Grid item xs={6}>
             <TextField
               required
@@ -159,7 +155,7 @@ const BusinessSetUp = (props) => {
               required
               id="email"
               name="businessEmail"
-              label="business Email"
+              label="Business Email"
               fullWidth
               autoComplete="Business Email"
               value={businessEmail}

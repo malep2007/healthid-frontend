@@ -17,6 +17,9 @@ describe('Product Page CustomToolBar ', () => {
       handleTextChange: jest.fn(),
       handleToggleAddProduct: jest.fn(),
       handleViewProposed: jest.fn(),
+      handleChangeView: jest.fn(),
+      handlePrintButton: jest.fn(),
+      isColumnHidden: jest.fn(),
       currentPath: []
     };
 
@@ -47,6 +50,9 @@ describe('Product Page CustomToolBar ', () => {
       handleHideSearch: jest.fn(),
       handleTextChange: jest.fn(),
       handleViewProposed: jest.fn(),
+      handlePrintButton: jest.fn(),
+      handleToggleAddProduct: jest.fn(),
+      isColumnHidden: jest.fn(),
       currentPath: []
 
     };
@@ -67,6 +73,9 @@ describe('Product Page CustomToolBar ', () => {
       status: 'approved',
       currentPath: [],
       handleViewProposed: jest.fn(),
+      handleChangeView: jest.fn(),
+      handleToggleAddProduct: jest.fn(),
+      isColumnHidden: jest.fn(),
     };
     const wrapper = shallow(<CustomToolBar {...props} />);
     wrapper.instance().handleToggleViewMenu();

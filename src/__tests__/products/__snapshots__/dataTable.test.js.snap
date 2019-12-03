@@ -14,11 +14,17 @@ exports[`Supplier Page DataTable  renders without crashing 1`] = `
           "current": null,
         }
       }
+      handleChangeColumn={[Function]}
       handleClickSearch={[Function]}
       handleEdit={[Function]}
       handleHideSearch={[Function]}
       handleSearchTextChange={[Function]}
       handleViewProposed={[Function]}
+      hiddenColumns={
+        Array [
+          "sku",
+        ]
+      }
       isAdmin={false}
       isSearchActive={true}
       name="toolbar"
@@ -34,6 +40,11 @@ exports[`Supplier Page DataTable  renders without crashing 1`] = `
       handleOnRowHover={[Function]}
       handleRowSeleted={[Function]}
       handleSelectAllClick={[Function]}
+      hiddenColumns={
+        Array [
+          "sku",
+        ]
+      }
       isSelected={[Function]}
       onRowClick={[Function]}
       order="asc"

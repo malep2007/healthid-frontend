@@ -26,11 +26,12 @@ describe('Supplier Page DataTable ', () => {
     pageNumber: 3,
     rowsCount: 10,
     handleSearch: () => { },
+    handleChangeColumn: () => { },
     loading: false,
     client: {
       query: () => { }
     },
-  }
+  };
   const props2 = {
     data: [],
     classes: {},
@@ -42,6 +43,7 @@ describe('Supplier Page DataTable ', () => {
     handleViewProposed: () => { },
     totalCount: () => { },
     handleChangePage: () => { },
+    handleChangeColumn: () => { },
     pageNumber: 3,
     rowsCount: 10,
     handleSearch: () => { },
@@ -49,7 +51,7 @@ describe('Supplier Page DataTable ', () => {
     client: {
       query: () => { }
     },
-  }
+  };
   const props3 = {
     data: [
       {
@@ -92,6 +94,7 @@ describe('Supplier Page DataTable ', () => {
     handleViewProposed: () => { },
     totalCount: () => { },
     handleChangePage: () => { },
+    handleChangeColumn: () => { },
     pageNumber: 3,
     rowsCount: 10,
     handleSearch: () => { },
@@ -125,6 +128,7 @@ describe('Supplier Page DataTable ', () => {
     wrapper.instance().handleRequestSort(null, 'name');
     wrapper3.instance().handleSelectAllClick({ target: { checked: true } });
     wrapper3.instance().handleSelectAllClick({ target: { checked: false } });
+    wrapper.instance().handleChangeColumn({ target: { value: 'sku' } });
     expect(toJson(wrapper)).toMatchSnapshot();
   });
 });

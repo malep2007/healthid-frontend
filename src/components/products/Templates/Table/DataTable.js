@@ -24,6 +24,7 @@ export class DataTable extends Component {
     isSearching: false,
     order: 'asc',
     orderBy: 'name',
+    hiddenColumns: [],
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -92,6 +93,24 @@ export class DataTable extends Component {
     this.setState({ selected: [] });
   };
 
+  handleChangeColumn = ({ target }) => {
+    const { hiddenColumns } = this.state;
+    const value = target.value.toLowerCase();
+    if (!hiddenColumns.includes(value)) {
+      this.setState(prevState => ({
+        ...prevState,
+        hiddenColumns: [...hiddenColumns, value]
+      }));
+    } else {
+      const index = hiddenColumns.indexOf(value);
+      hiddenColumns.splice(index, 1);
+      this.setState(prevState => ({
+        ...prevState,
+        hiddenColumns,
+      }));
+    }
+  }
+
   render() {
     const {
       classes,
@@ -120,6 +139,7 @@ export class DataTable extends Component {
       isSearchActive,
       rows,
       order,
+      hiddenColumns
     } = this.state;
     const componentRef = React.createRef();
     return (
@@ -141,6 +161,8 @@ export class DataTable extends Component {
             currentPath={currentPath}
             session={session}
             componentRef={componentRef}
+            hiddenColumns={hiddenColumns}
+            handleChangeColumn={this.handleChangeColumn}
           />
           {
             loading ? (<DataTableLoader />)
@@ -159,6 +181,7 @@ export class DataTable extends Component {
                   hoverdItem={hoverdItem}
                   isSelected={this.isSelected}
                   onRowClick={onRowClick}
+                  hiddenColumns={hiddenColumns}
                   x={x}
                   y={y}
                 />

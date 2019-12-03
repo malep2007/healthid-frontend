@@ -28,73 +28,79 @@ const ProductsTable = React.forwardRef(({
   isSelected,
   handleOnRowHover,
   handleRowSeleted,
-  onRowClick
-}, ref) => (
-  <div className={classes.tableWrapper} ref={ref}>
-    <Table
-      onMouseLeave={handleHidePopup}
-      className={classes.table}
-      aria-labelledby="tableTitle"
-    >
-      <TableHeader
-        numSelected={selected.length}
-        order={order}
-        orderBy={orderBy}
-        onSelectAllClick={handleSelectAllClick}
-        onRequestSort={handleRequestSort}
-        rowCount={rows.length}
-        headRows={columns}
-      />
+  onRowClick,
+  hiddenColumns,
+}, ref) => {
+  const filteredColumns = (columns || [])
+    .filter(({ name }) => !hiddenColumns.includes(name.toLowerCase()));
 
-      {
-        hoverdItem && (
-          <ProductInfoPopup
-            onForwardButtonClick={onRowClick}
-            handleHidePopup={handleHidePopup}
-            position={{ x, y }}
-            row={hoverdItem}
-            classes={classes}
-          />
-        )
-      }
-      <TableBody>
-        {rows.length > 0
-          ? getSortedData(rows, order, orderBy)
-            .map((row) => {
-              const isItemSelected = isSelected(row.id);
-              return (
-                <TableRow
-                  role="checkbox"
-                  aria-checked={isItemSelected}
-                  tabIndex={-1}
-                  onMouseEnter={e => handleOnRowHover(e, row)}
-                  key={row.id}
-                  style={TableStyles.tableRow}
-                  selected={isItemSelected}
-                  onClick={() => {
-                    onRowClick(row.id);
-                  }}
-                >
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={isItemSelected}
-                      onClick={(event) => {
-                        event.stopPropagation();
-                        handleRowSeleted(event, row.id);
-                      }}
-                    />
-                  </TableCell>
-                  {
-                    columns.map(col => (col.options.display !== false && (<TableCell align="left">{row[col.name]}</TableCell>)))
-                  }
-                </TableRow>
-              );
-            }) : (<TableRow><TableCell align="center" colSpan={14}>No Products</TableCell></TableRow>)
+  return (
+    <div className={classes.tableWrapper} ref={ref}>
+      <Table
+        onMouseLeave={handleHidePopup}
+        className={classes.table}
+        aria-labelledby="tableTitle"
+      >
+        <TableHeader
+          numSelected={selected.length}
+          order={order}
+          orderBy={orderBy}
+          onSelectAllClick={handleSelectAllClick}
+          onRequestSort={handleRequestSort}
+          rowCount={rows.length}
+          headRows={filteredColumns}
+        />
+
+        {
+          hoverdItem && (
+            <ProductInfoPopup
+              onForwardButtonClick={onRowClick}
+              handleHidePopup={handleHidePopup}
+              position={{ x, y }}
+              row={hoverdItem}
+              classes={classes}
+            />
+          )
         }
-      </TableBody>
-    </Table>
-  </div>
-));
+        <TableBody>
+          {rows.length > 0
+            ? getSortedData(rows, order, orderBy)
+              .map((row) => {
+                const isItemSelected = isSelected(row.id);
+                return (
+                  <TableRow
+                    role="checkbox"
+                    aria-checked={isItemSelected}
+                    tabIndex={-1}
+                    onMouseEnter={e => handleOnRowHover(e, row)}
+                    key={row.id}
+                    style={TableStyles.tableRow}
+                    selected={isItemSelected}
+                    onClick={() => {
+                      onRowClick(row.id);
+                    }}
+                  >
+                    <TableCell padding="checkbox">
+                      <Checkbox
+                        checked={isItemSelected}
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          handleRowSeleted(event, row.id);
+                        }}
+                      />
+                    </TableCell>
+                    {
+                      filteredColumns.map(col => (col.options.display !== false && (<TableCell align="left">{row[col.name]}</TableCell>)))
+                    }
+                  </TableRow>
+                );
+              }) : (<TableRow><TableCell align="center" colSpan={14}>No Products</TableCell></TableRow>)
+          }
+        </TableBody>
+      </Table>
+    </div>
+  );
+});
 ProductsTable.propTypes = {
   classes: PropTypes.instanceOf(Object).isRequired,
   handleHidePopup: PropTypes.func.isRequired,
@@ -110,7 +116,8 @@ ProductsTable.propTypes = {
   handleRequestSort: PropTypes.func.isRequired,
   handleOnRowHover: PropTypes.func.isRequired,
   handleRowSeleted: PropTypes.func.isRequired,
-  onRowClick: PropTypes.func.isRequired
+  onRowClick: PropTypes.func.isRequired,
+  hiddenColumns: PropTypes.func.isRequired,
 };
 
 export default ProductsTable;

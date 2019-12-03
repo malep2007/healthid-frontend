@@ -35,7 +35,8 @@ export class CustomToolBar extends Component {
     openViewMenu: false,
     openColumnMenu: false,
     addSupplierOpen: false,
-    savePrintOpen: false
+    savePrintOpen: false,
+
   };
 
 
@@ -108,6 +109,10 @@ export class CustomToolBar extends Component {
     this.handlePrintButton();
   }
 
+  isColumnHidden = (columnName = '') => {
+    const { hiddenColumns } = this.props;
+    return (hiddenColumns || []).includes(columnName.toLowerCase());
+  };
 
   render() {
     const {
@@ -122,9 +127,9 @@ export class CustomToolBar extends Component {
       handleHideSearch,
       handleSearchTextChange,
       currentPath,
+      handleChangeColumn,
 
     } = this.props;
-
     const active = currentPath.slice(10);
 
     return (
@@ -269,112 +274,184 @@ export class CustomToolBar extends Component {
                 id="menu-list-grow"
                 style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
               >
-                <Paper className={classes.paper} style={{ width: '250px', height: '450px', overflow: 'scroll' }}>
-                  <p style={{
-                    fontSize: '11px', color: 'grey', marginLeft: '12px',
-                  }}
-                  >
-                      Toggle columns to show on the product table
-                  </p>
-                  <hr />
+                <Paper className={classes.paper} style={{ width: '250px', height: '450px', overflow: 'auto' }}>
+                  <Paper className={classes.paper} style={{ padding: '3px', borderRadius: '1px', boxShadow: '1px 1px #e8e8e8', position: 'sticky', top: 0, zIndex: '500' }}>
+                    <p style={{
+                      fontSize: '11px', color: '#a4a4a4', marginLeft: '10px',
+                    }}
+                    >
+                      <i>Toggle columns to show on the product table</i>
+                    </p>
+                  </Paper>
+
                   <FormGroup>
                     <FormControlLabel
                       className={classes.switchFormGroupSupplier}
                       control={(
-                        <Switch />
-                      )}
-                      label="Product ID"
-                    />
-                    <FormControlLabel
-                      className={classes.switchFormGroupSupplier}
-                      control={(
-                        <Switch />
+                        <Switch
+                          checked={!this.isColumnHidden('productName')}
+                          onChange={handleChangeColumn}
+                          value="productName"
+                          color="primary"
+                        />
                       )}
                       label="Product Name"
                     />
                     <FormControlLabel
                       className={classes.switchFormGroupSupplier}
                       control={(
-                        <Switch />
+                        <Switch
+                          checked={!this.isColumnHidden('skuNumber')}
+                          onChange={handleChangeColumn}
+                          value="skuNumber"
+                          color="primary"
+                        />
                       )}
                       label="SKU"
                     />
                     <FormControlLabel
                       className={classes.switchFormGroupSupplier}
                       control={(
-                        <Switch />
+                        <Switch
+                          checked={!this.isColumnHidden('category')}
+                          onChange={handleChangeColumn}
+                          value="Category"
+                          color="primary"
+                        />
                       )}
                       label="Category"
                     />
                     <FormControlLabel
                       className={classes.switchFormGroupSupplier}
                       control={(
-                        <Switch />
+                        <Switch
+                          checked={!this.isColumnHidden('dispensingSize')}
+                          onChange={handleChangeColumn}
+                          value="dispensingSize"
+                          color="primary"
+                        />
                       )}
                       label="Dispensing Size"
                     />
                     <FormControlLabel
                       className={classes.switchFormGroupSupplier}
                       control={(
-                        <Switch />
+                        <Switch
+                          checked={!this.isColumnHidden('brand')}
+                          onChange={handleChangeColumn}
+                          value="brand"
+                          color="primary"
+                        />
                       )}
-                      label="Quantity in Stock"
+                      label="Brand"
                     />
                     <FormControlLabel
                       className={classes.switchFormGroupSupplier}
                       control={(
-                        <Switch />
+                        <Switch
+                          checked={!this.isColumnHidden('manufacturer')}
+                          onChange={handleChangeColumn}
+                          value="manufacturer"
+                          color="primary"
+                        />
                       )}
-                      label="Re-order Point"
+                      label="Manufacturer"
                     />
                     <FormControlLabel
                       className={classes.switchFormGroupSupplier}
                       control={(
-                        <Switch />
+                        <Switch
+                          checked={!this.isColumnHidden('salesPrice')}
+                          onChange={handleChangeColumn}
+                          value="salesPrice"
+                          color="primary"
+                        />
                       )}
-                      label="Re-order Max"
+                      label="Sales Price"
                     />
                     <FormControlLabel
                       className={classes.switchFormGroupSupplier}
                       control={(
-                        <Switch />
+                        <Switch
+                          checked={!this.isColumnHidden('reorderPoint')}
+                          onChange={handleChangeColumn}
+                          value="reorderPoint"
+                          color="primary"
+                        />
                       )}
-                      label="Sale Price"
+                      label="Reorder Point"
                     />
                     <FormControlLabel
                       className={classes.switchFormGroupSupplier}
                       control={(
-                        <Switch />
+                        <Switch
+                          checked={!this.isColumnHidden('reorderMax')}
+                          onChange={handleChangeColumn}
+                          value="reorderMax"
+                          color="primary"
+                        />
+                      )}
+                      label="Reorder Max"
+                    />
+                    <FormControlLabel
+                      className={classes.switchFormGroupSupplier}
+                      control={(
+                        <Switch
+                          checked={!this.isColumnHidden('loyaltyWeight')}
+                          onChange={handleChangeColumn}
+                          value="loyaltyWeight"
+                          color="primary"
+                        />
                       )}
                       label="Loyalty Weight"
                     />
                     <FormControlLabel
                       className={classes.switchFormGroupSupplier}
                       control={(
-                        <Switch />
+                        <Switch
+                          checked={!this.isColumnHidden('preferredSupplier')}
+                          onChange={handleChangeColumn}
+                          value="preferredSupplier"
+                          color="primary"
+                        />
                       )}
                       label="Preferred Supplier"
                     />
                     <FormControlLabel
                       className={classes.switchFormGroupSupplier}
                       control={(
-                        <Switch />
+                        <Switch
+                          checked={!this.isColumnHidden('backupSupplier')}
+                          onChange={handleChangeColumn}
+                          value="backupSupplier"
+                          color="primary"
+                        />
                       )}
                       label="Backup Supplier"
                     />
                     <FormControlLabel
                       className={classes.switchFormGroupSupplier}
                       control={(
-                        <Switch />
+                        <Switch
+                          checked={!this.isColumnHidden('nearestExpiryDate')}
+                          onChange={handleChangeColumn}
+                          value="nearestExpiryDate"
+                          color="primary"
+                        />
                       )}
                       label="Nearest Expiry Date"
                     />
                     <FormControlLabel
                       className={classes.switchFormGroupSupplier}
                       control={(
-                        <Switch />
+                        <Switch
+                          checked={!this.isColumnHidden('vatStatus')}
+                          onChange={handleChangeColumn}
+                          value="vatStatus"
+                          color="primary"
+                        />
                       )}
-                      label="VAT Status"
+                      label="Vat Status"
                     />
                   </FormGroup>
                 </Paper>
@@ -420,10 +497,12 @@ CustomToolBar.propTypes = {
   handleHideSearch: PropTypes.func.isRequired,
   isSearchActive: PropTypes.bool,
   handleSearchTextChange: PropTypes.func.isRequired,
+  handleChangeColumn: PropTypes.func.isRequired,
   status: PropTypes.func.isRequired,
   handleViewProposed: PropTypes.func.isRequired,
   componentRef: PropTypes.instanceOf(Object),
-  currentPath: PropTypes.string.isRequired
+  currentPath: PropTypes.string.isRequired,
+  hiddenColumns: PropTypes.func.isRequired,
 
 };
 
