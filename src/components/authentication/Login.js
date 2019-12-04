@@ -9,7 +9,7 @@ import LoginAlert from './Alerts/LoginAlert';
 import ForgotPasswordAlert from './Alerts/ForgotPasswordAlert';
 import '../../assets/styles/authentication/Login.scss';
 import PasswordField from './Inputs/PasswordField';
-import SelectCountry from './Inputs/SelectCountryCode';
+import CustomPhoneField from '../shared/customPhoneField';
 
 class Login extends Component {
   renderInputFields = (type) => {
@@ -34,8 +34,8 @@ class Login extends Component {
             {email && EmailError ? helperEmailText : ''}
           </FormControl>
         ) : (
-          this.renderPhoneInputs(phoneLabelNum)
-        )}
+            this.renderPhoneInputs(phoneLabelNum)
+          )}
       </div>
     );
   };
@@ -46,7 +46,10 @@ class Login extends Component {
       handlePhoneChange
     } = this.props;
     return (
-      <SelectCountry phone={phone} onChange={handlePhoneChange} label={phoneLabelNum} />
+      <CustomPhoneField
+        value={phone}
+        onChange={handlePhoneChange}
+      />
     );
   };
 
@@ -166,14 +169,14 @@ class Login extends Component {
               {loginLabel}
             </button>
           ) : (
-            <button
-              className={!switchAccount ? 'register-btn' : 'login-btn'}
-              type="submit"
-              style={hidden}
-            >
-              {loginLabel}
-            </button>
-          )}
+              <button
+                className={!switchAccount ? 'register-btn' : 'login-btn'}
+                type="submit"
+                style={hidden}
+              >
+                {loginLabel}
+              </button>
+            )}
           <LoginAlert
             open={openAlert}
             onClose={handleCloseLoginAlert}

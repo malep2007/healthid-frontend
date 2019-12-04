@@ -32,7 +32,7 @@ const GET_USER_INFO = gql`
           jobTitle
         }
       }
-      businesses {
+      businessSet {
         id
         legalName
         tradingName

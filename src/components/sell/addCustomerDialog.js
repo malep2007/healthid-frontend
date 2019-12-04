@@ -8,11 +8,10 @@ import {
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Loader from '../shared/Loader';
-import PhoneField from './phoneField';
 import { addCustomerDialog } from '../../assets/css/sellScreenStyles';
 import CREATE_CUSTOMER from '../../mutations/sellScreen/createCustomerMutation';
 import EDIT_CUSTOMER from '../../mutations/sellScreen/editCustomerMutation';
-
+import CustomPhoneField from '../shared/customPhoneField';
 
 const styles = addCustomerDialog;
 
@@ -97,15 +96,10 @@ const AddCustomerDialog = ({
                         helperText={nameHelper}
                         onChange={handleCustomerDialogInPutChange}
                       />
-                      <Grid container item style={addCustomerDialog.phoneInput}>
-                        <Typography variant="caption" style={addCustomerDialog.phoneInputLabel}>
-                          Mobile #
-                        </Typography>
-                        <PhoneField
-                          id="primarymobilenumber"
-                          name="primaryMobileNumber"
+                      <Grid container item>
+                        <CustomPhoneField
                           value={primaryMobileNumber}
-                          isSelected={isSelected}
+                          label="Mobile #"
                           onChange={handlePrimaryPhoneChange}
                         />
                         <Typography variant="caption" style={addCustomerDialog.phoneInputHelper}>
@@ -151,17 +145,15 @@ const AddCustomerDialog = ({
                         value={lastName}
                         onChange={handleCustomerDialogInPutChange}
                       />
-                      <Grid container item style={addCustomerDialog.phoneInput}>
-                        <Typography variant="caption" style={addCustomerDialog.phoneInputLabel}>
-                          Other Phone #
-                        </Typography>
-                        <PhoneField
-                          id="secondarymobilenumber"
-                          name="secondaryMobileNumber"
+                      <Grid container item>
+                        <CustomPhoneField
                           value={secondaryMobileNumber}
-                          isSelected={isSelected}
+                          label="Other Phone #"
                           onChange={handleSecondaryPhoneChange}
                         />
+                        <Typography variant="caption" style={addCustomerDialog.phoneInputHelper}>
+                          {secondaryMobileNumber && mobileError ? mobileHelper : ''}
+                        </Typography>
                       </Grid>
                       <TextField
                         id="address"
@@ -239,24 +231,20 @@ const AddCustomerDialog = ({
                       />
                     </Grid>
                     <Grid item xs={6} style={addCustomerDialog.dialogContentGridTop}>
-                      <Grid container item style={addCustomerDialog.phoneInput}>
-                        <Typography variant="caption" style={addCustomerDialog.phoneInputLabel}>
-                          Contact Number
-                        </Typography>
-                        <PhoneField
-                          id="emergencycontactnumber"
-                          name="emergencyContactNumber"
-                          value={emergencyContactNumber}
-                          isSelected={isSelected}
-                          onChange={handleContactPhoneChange}
-                        />
-                      </Grid>
+                      <CustomPhoneField
+                        value={emergencyContactNumber}
+                        label="Contact Number"
+                        onChange={handleContactPhoneChange}
+                      />
+                      <Typography variant="caption" style={addCustomerDialog.phoneInputHelper}>
+                        {emergencyContactNumber && mobileError ? mobileHelper : ''}
+                      </Typography>
                     </Grid>
                   </Grid>
                 </DialogContent>
                 <DialogActions>
                   <Grid item xs={12} align="right" style={addCustomerDialog.buttonWrapper}>
-                    { isLoading ? (<Loader />)
+                    {isLoading ? (<Loader />)
                       : [
                         <Button
                           key="cancel-button"
@@ -265,7 +253,7 @@ const AddCustomerDialog = ({
                           color="secondary"
                           onClick={handleCustomerDialogClose}
                         >
-                            Cancel
+                          Cancel
                         </Button>,
                         <Button
                           id="add-button"

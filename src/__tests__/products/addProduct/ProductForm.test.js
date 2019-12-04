@@ -5,16 +5,16 @@ import ProductForm from '../../../components/products/AddProduct/ProductForm';
 describe('Render Product Form component', () => {
   const props = {
     state: {
-      productName: '',
-      productDescription: '',
+      productName: 'pink',
+      productDescription: 'cool',
       productImage: '',
       imageFile: '',
-      brand: '',
-      manufacturer: '',
-      preferredSupplierId: '',
-      backupSupplierId: '',
-      categoryId: '',
-      dispensingSizeId: '',
+      brand: 'new',
+      manufacturer: 'biggie',
+      preferredSupplierId: '5',
+      backupSupplierId: 'newer',
+      categoryId: '1',
+      dispensingSizeId: '2',
       loyaltyWeight: '',
       vatStatus: '',
       tags: [],
@@ -61,10 +61,9 @@ describe('Render Product Form component', () => {
     onDrop: jest.fn(),
     handleFile: jest.fn()
   };
-
+  const wrapper = shallow(<ProductForm {...props} />);
 
   it('renders without crashing', () => {
-    const wrapper = shallow(<ProductForm {...props} />);
     expect(wrapper.find('ProductDescriptions').length).toBe(1);
     expect(wrapper.find('ImageUpload').length).toBe(1);
     expect(wrapper.find('TagInput').length).toBe(1);
@@ -72,7 +71,13 @@ describe('Render Product Form component', () => {
   });
 
   it('renders with filled select fields without crashing ', () => {
-    const wrapper = shallow(<ProductForm {...props} />);
+    expect(wrapper.find('ProductDescriptions').length).toBe(1);
+    expect(wrapper.find('ImageUpload').length).toBe(1);
+    expect(wrapper.find('TagInput').length).toBe(1);
+    expect(wrapper.find('ActionButtons').length).toBe(1);
+  });
+
+  it('checks all fields for disableButton option ', () => {
     expect(wrapper.find('ProductDescriptions').length).toBe(1);
     expect(wrapper.find('ImageUpload').length).toBe(1);
     expect(wrapper.find('TagInput').length).toBe(1);

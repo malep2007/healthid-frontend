@@ -95,15 +95,6 @@ html, body {
   margin-left: -30rem;
 }
 
-input.form-control {
-  outline: none !important;
-  border: 0 !important;
-  margin-left: -1em !important;
-  padding-right: 0 !important;
-  font-size: inherit !important;
-  text-align: right !important;
-}
-
 b {
   border-color: white !important;
   border-style: none !important;
@@ -217,7 +208,10 @@ b {
   margin-top: 25px !important;
 }
 .grid-container{
-  margin-top: 25px !important;
+  margin: 5px 0 !important;
+}
+div .react-tel-input input[type="tel"]{
+  margin-top: 10px !important;
 }
 
 .checkbox{

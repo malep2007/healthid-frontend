@@ -345,10 +345,6 @@ export const addCustomerDialog = {
   dialogContentGrid: {
     paddingBottom: 0,
   },
-  phoneInput: {
-    marginTop: '2px',
-    marginBottom: '4px',
-  },
   phoneInputLabel: {
     color: '#898989'
   },

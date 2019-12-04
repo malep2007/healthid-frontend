@@ -112,8 +112,8 @@ describe('Login Component', () => {
       handlePhoneChange: jest.fn()
     };
     const wrapper = mount(<Router><Login {...props} /></Router>);
-    expect(wrapper.find('SelectCountry').length).toBe(1);
-    expect(wrapper.find('TextField').length).toBe(1);
+    expect(wrapper.find('CustomPhoneField').length).toBe(1);
+    expect(wrapper.find('input').length).toBe(3);
   });
 
   it('renders loader when loading is true', () => {

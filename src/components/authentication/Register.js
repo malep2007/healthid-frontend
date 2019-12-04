@@ -6,8 +6,7 @@ import {
 } from '@material-ui/core';
 import RegisterAlert from './Alerts/RegisterAlert';
 import PasswordField from './Inputs/PasswordField';
-import SelectCountry from './Inputs/SelectCountryCode';
-
+import CustomPhoneField from '../shared/customPhoneField';
 
 const Register = (props) => {
   const {
@@ -42,9 +41,9 @@ const Register = (props) => {
         onChange={handleEmailChange}
       />
       {email && EmailError ? helperEmailText : ''}
-      <Grid container spacing={16} className="grid-container">
-        <SelectCountry
-          phone={phone}
+      <Grid container className="grid-container">
+        <CustomPhoneField
+          value={phone}
           onChange={handlePhoneChange}
         />
       </Grid>
@@ -60,14 +59,14 @@ const Register = (props) => {
         <div>
           <label className="check-container">
             <small className="small-text">
-    By signing up, you agree to our&nbsp;
+              By signing up, you agree to our&nbsp;
               {' '}
               <a href="/terms-of-service" className="small-anchor">Terms of Service</a>
               {' '}
-                &nbsp;and&nbsp;
+              &nbsp;and&nbsp;
               {' '}
               <a href="/privacy-policy" className="small-anchor">Privacy Policy</a>
-    .
+              .
             </small>
             <input type="checkbox" checked={checked} name="checked" onChange={handleCheckbox} />
             <span className="checkmark" />
@@ -88,7 +87,7 @@ const Register = (props) => {
         />
       </div>
       <p className="login-qn">
-              Already have an account?
+        Already have an account?
         {' '}
         <Link to="/" className="login-link">LOGIN</Link>
       </p>

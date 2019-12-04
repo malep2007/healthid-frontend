@@ -14,10 +14,10 @@ describe('Register Component', () => {
         checked: false
       },
       handleCloseSignupAlert: jest.fn(),
-      
+
     };
     const wrapper = mount(<Router><Register {...props} /></Router>);
-    expect(wrapper.find('TextField').length).toBe(2);
+    expect(wrapper.find('TextField').length).toBe(1);
     expect(wrapper.find('PasswordField').length).toBe(1);
   });
 
@@ -48,7 +48,7 @@ describe('Register Component', () => {
         openRegisterAlert: false,
         checked: true
       },
-      handleCloseSignupAlert: jest.fn(), 
+      handleCloseSignupAlert: jest.fn(),
     };
     const wrapper = mount(<Router><Register {...props} /></Router>);
     expect(wrapper.find('.register-btn').length).toBe(1);

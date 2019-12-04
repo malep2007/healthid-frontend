@@ -25,6 +25,6 @@ describe('Container Component', () => {
   })
 
   it('renders without crashing', () => {
-    expect(wrapper.find('div').length).toBe(19);
+    expect(wrapper.find('div').length).toBe(17);
   });
 });
