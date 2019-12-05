@@ -75,6 +75,7 @@ const AdminSetUp = ({
 
           <Grid item xs={10}>
             <TextField
+              required
               id="outlined-with-placeholder"
               label="Email"
               type="email"
@@ -99,7 +100,6 @@ const AdminSetUp = ({
               value={secondaryEmail}
               autoComplete="email"
               fullWidth
-              required
               error={secondaryEmail ? false : formError}
               helperText={secondaryEmail ? '' : errorHandler()}
               onChange={handleInputChange}
@@ -108,6 +108,7 @@ const AdminSetUp = ({
 
           <Grid item xs={10}>
             <TextField
+              required
               id="outlined-with-placeholder"
               label="Phone #"
               name="mobileNumber"
@@ -129,7 +130,6 @@ const AdminSetUp = ({
               name="secondaryPhoneNumber"
               value={secondaryPhoneNumber}
               fullWidth
-              required
               error={secondaryPhoneNumber ? false : formError}
               helperText={secondaryPhoneNumber ? '' : errorHandler()}
               onChange={handleInputChange}

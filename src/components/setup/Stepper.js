@@ -186,12 +186,12 @@ export class StepperNav extends React.Component {
       firstName,
       lastName,
       username,
-      secondaryEmail,
-      secondaryPhoneNumber,
+      email,
+      mobileNumber,
     } = this.state;
     const isInvalid = (
       !firstName || !lastName
-      || !username || !secondaryEmail || !secondaryPhoneNumber
+      || !username || !email || !mobileNumber
     );
     if (isInvalid) {
       this.setState({ formError: true });
@@ -331,8 +331,8 @@ export class StepperNav extends React.Component {
       lastName,
       username,
       legalName,
-      secondaryEmail,
-      secondaryPhoneNumber,
+      email,
+      mobileNumber,
       tradingName,
       addressLine1,
       phoneNumber,
@@ -352,8 +352,8 @@ export class StepperNav extends React.Component {
         firstName === ''
           || lastName === ''
           || username === ''
-          || secondaryEmail === ''
-          || secondaryPhoneNumber === ''
+          || email === ''
+          || mobileNumber === ''
           || isAcknowledged === false
       ) {
         this.setState({ checked: false });
