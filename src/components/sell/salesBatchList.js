@@ -7,8 +7,7 @@ import { saleDetailsDialog as styles } from '../../assets/css/sellScreenStyles';
 
 export const SaleBatchList = ({
   state: {
-    currentProduct,
-    selectedProductBatches
+    currentProduct
   },
   handleSelectedCheckBox,
   handleBatchInputChange,
@@ -45,35 +44,32 @@ export const SaleBatchList = ({
           </Grid>
           <Grid item xs={2.4} direction="column" style={styles.leftQuantity}>
             <Typography variant="caption" style={styles.captionText}>
-            Quantity left
+            Quantity Left
             </Typography>
             <Typography variant="subtitle2" style={styles.saleBatchListPaperQtyLeft}>
               {batch.batchQuantities.map(qty => qty.quantityRemaining)}
             </Typography>
           </Grid>
-          { selectedProductBatches.length > 0 && (
-            <Grid item xs={2.4} direction="column" style={styles.requiredQuantity}>
-              {isBatchSelected(batch) ? (
-                <>
-                  <Typography variant="caption" style={styles.captionText}>
-                    Quantity required
-                  </Typography>
-                  <Typography variant="subtitle2" style={styles.saleBatchListPaperInput}>
-                    <NumericInput
-                      className="form-control"
-                      onChange={e => handleBatchInputChange(e, batch)}
-                      valueAsNumber={1}
-                      min={0}
-                      max={99}
-                      step={1}
-                      size={3}
-                    />
-                  </Typography>
-                </>
-              ) : <div style={{ marginLeft: '100px' }}><span /></div>}
-            </Grid>
-          )
-          }
+          <Grid item xs={2.4} direction="column" style={styles.requiredQuantity}>
+            {isBatchSelected(batch) ? (
+              <>
+                <Typography variant="caption" style={styles.captionText}>
+                    Quantity Required
+                </Typography>
+                <Typography variant="subtitle2" style={styles.saleBatchListPaperInput}>
+                  <NumericInput
+                    className="numeric-input"
+                    onChange={e => handleBatchInputChange(e, batch)}
+                    valueAsNumber={1}
+                    min={0}
+                    max={99}
+                    step={1}
+                    size={3}
+                  />
+                </Typography>
+              </>
+            ) : <div style={{ marginLeft: '100px' }}><span /></div>}
+          </Grid>
         </Grid>
       </Paper>
     </Fragment>

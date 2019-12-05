@@ -102,6 +102,14 @@ b {
   box-shadow: none !important;
 }
 
+input.numeric-input {
+  outline: none !important;
+  border: 0 !important;
+  margin-left: -1em !important;
+  font-size: inherit !important;
+  text-align: right !important;
+}
+
 /* Transition of textfiled labels  */
 .MuiFormLabel-root-183, .jss16 {
   color: #A3A3A3 !important;
