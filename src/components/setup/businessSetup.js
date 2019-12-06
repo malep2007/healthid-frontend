@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import Paper from '@material-ui/core/Paper';
+import {
+  Grid, TextField, Typography, Paper
+} from '@material-ui/core';
 import FileUpload from './fileUpload';
 import { BusinessSetUpStyles } from '../../assets/styles/setup';
+import CustomCheckbox from '../shared/customCheckbox';
 
 const BusinessSetUp = (props) => {
   const {
@@ -15,6 +16,7 @@ const BusinessSetUp = (props) => {
     onCropChange,
     handleClose,
     handleSave,
+    handleCheckboxChange,
     state,
   } = props;
 
@@ -34,7 +36,19 @@ const BusinessSetUp = (props) => {
     logo,
     facebook,
     formError,
+    boxChecked,
   } = state;
+
+  const renderLabel = () => (
+    <Grid item container>
+      <Typography variant="caption">
+        save &amp; complete later in &nbsp;
+      </Typography>
+      <Typography variant="caption" style={{ fontWeight: 500 }}>
+        SETUP
+      </Typography>
+    </Grid>
+  );
 
   return (
     <React.Fragment>
@@ -221,9 +235,14 @@ const BusinessSetUp = (props) => {
               />
             </Paper>
           </Grid>
-
+          <Grid xs={12} style={BusinessSetUpStyles.checkbox}>
+            <CustomCheckbox
+              checked={boxChecked}
+              onChange={handleCheckboxChange}
+              label={renderLabel()}
+            />
+          </Grid>
         </Grid>
-
       </form>
     </React.Fragment>
   );
@@ -238,6 +257,7 @@ BusinessSetUp.propTypes = {
   onCropChange: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
   handleSave: PropTypes.func.isRequired,
+  handleCheckboxChange: PropTypes.func.isRequired,
 };
 
 export default BusinessSetUp;

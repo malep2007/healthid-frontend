@@ -1,5 +1,6 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
+import _ from 'lodash';
 import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 import { AddUserStyles, ContentWrapper } from '../../assets/styles/setup';
@@ -26,7 +27,7 @@ const UserSetup = (props) => {
     startingDate,
     target,
     formError,
-    outlets,
+    outletSet,
     roles,
     users,
     phoneError,
@@ -34,7 +35,6 @@ const UserSetup = (props) => {
     usernameError,
     emailError,
   } = state;
-
   return (
     (users.length > 0 && showUsers)
       ? (
@@ -139,7 +139,7 @@ const UserSetup = (props) => {
                 >
                   <>
                     <option />
-                    {outlets && outlets.map(outlet => (
+                    {!_.isEmpty(outletSet) && outletSet.map(outlet => (
                       <option key={outlet.id} value={outlet.id}>{outlet.name}</option>
                     ))}
                   </>

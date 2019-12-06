@@ -85,6 +85,7 @@ export class StepperNav extends React.Component {
           onCropChange={this.onCropChange}
           handleClose={this.handleClose}
           handleSave={this.handleSave}
+          handleCheckboxChange={this.handleCheckboxChange}
         />
       );
 
@@ -102,6 +103,7 @@ export class StepperNav extends React.Component {
           toggleRegisterDisplay={this.toggleRegisterDisplay}
           handleOutletEdit={this.handleOutletEdit}
           handleOutletDelete={this.handleOutletDelete}
+          handleCheckboxChange={this.handleCheckboxChange}
         />
       );
     case 3:
@@ -302,7 +304,6 @@ export class StepperNav extends React.Component {
 
   handleInPutChange = (event) => {
     const { name, value } = event.target;
-
     this.setState({
       [name]: value,
       isError: false,
@@ -528,6 +529,12 @@ export class StepperNav extends React.Component {
     });
   }
 
+  handleCheckboxChange = () => {
+    this.setState(prevState => ({
+      boxChecked: !prevState.boxChecked
+    }));
+  };
+
   toggleRegisterDisplay = (event) => {
     const { clickedOutlet } = this.state;
     const { id } = event.target;
@@ -717,10 +724,11 @@ export class StepperNav extends React.Component {
     }
     const { mobileNumber, email } = me;
     const { activeStep } = this.state;
+
     if (activeStep === 3) {
       return this.setState({
-        outlets: business.outletSet,
-        users: business.user,
+        // outlets: business.outletSet,
+        // user: business.user,
         isLoading: false,
         roles,
         email,
@@ -791,6 +799,7 @@ export class StepperNav extends React.Component {
       logo,
       facebook,
       activeStep,
+      boxChecked
     } = this.state;
 
     const { createBusiness } = this.props;
@@ -815,10 +824,13 @@ export class StepperNav extends React.Component {
     }).then((results) => {
       localStorage.setItem('businessId', results.data.createBusiness.business.id);
       notify(results.data.createBusiness.success[0]);
+
+      // check whether we should jump to finish page
+      const newStep = boxChecked ? steps.length : activeStep + 1;
       this.setState({
         isLoading: false,
         checked: false,
-        activeStep: activeStep + 1,
+        activeStep: newStep,
         unhideMainButtons: false,
         outletsActive: false,
         businessId: results.data.createBusiness.business.id
@@ -871,8 +883,8 @@ export class StepperNav extends React.Component {
     }).then((results) => {
       if (outletType === 'warehouse') {
         const { outlet } = results.data.createOutlet;
-        this.setState(state => ({
-          outletSet: [...state.outletSet, outlet],
+        this.setState(PrevState => ({
+          outletSet: [...PrevState.outletSet, outlet],
           outletIsLoading: false,
           unhideMainButtons: true,
           outletsActive: true,
@@ -1143,14 +1155,14 @@ export class StepperNav extends React.Component {
   }
 
   finishAddOutlet = () => {
-    const { activeStep } = this.state;
-    const { assignedOutlets, userRoles } = this.props;
+    const { activeStep, boxChecked } = this.state;
+    const { userRoles } = this.props;
+    const newStep = boxChecked ? steps.length : activeStep + 1;
 
     this.setState({
-      activeStep: activeStep + 1,
+      activeStep: newStep,
       checked: false,
       roles: userRoles.roles,
-      outlets: assignedOutlets.business.outletSet
     });
   }
 
@@ -1254,9 +1266,12 @@ export class StepperNav extends React.Component {
 
   render() {
     const {
-      activeStep, checked, isLoading, unhideMainButtons, showUsers, users, editMode
+      activeStep, checked, isLoading, unhideMainButtons, showUsers, users,
+      editMode, boxChecked
     } = this.state;
     const { classes } = this.props;
+
+    console.log('mainState', this.state);
 
     return (
       <React.Fragment>
@@ -1293,7 +1308,7 @@ export class StepperNav extends React.Component {
                   <div className={classes.buttons}>
                     {((activeStep !== 0 && showUsers && unhideMainButtons)
                         || (showUsers && activeStep === 3 && unhideMainButtons)) && (
-                        <Button
+                      <Button
                         onClick={this.handleBackButton}
                         className={classes.backButton}
                         variant="text"
@@ -1327,7 +1342,8 @@ export class StepperNav extends React.Component {
                               className={classes.button}
                               id="next-button"
                             >
-                              {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                              {activeStep === steps.length - 1 || boxChecked
+                                ? 'Finish' : 'Next'}
                             </Fab>
                           ) : (
                           // eslint-disable-next-line no-nested-ternary
@@ -1353,7 +1369,7 @@ export class StepperNav extends React.Component {
                                   id="next-button"
                                 >
                                         Save Changes
-                                </Fab>
+                                      </Fab>
                               ) : (
                                 <Fab
                                   variant="extended"

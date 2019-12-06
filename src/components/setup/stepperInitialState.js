@@ -91,6 +91,7 @@ const initialState = {
   phoneError: false,
   usernameError: false,
   emailError: false,
+  boxChecked: false,
 };
 
 export default initialState;

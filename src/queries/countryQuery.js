@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-const outletId = localStorage.getItem('outletId');
+const outletId = localStorage.getItem('outletId') || 1;
 const GET_ALL_COUNTRIES = gql`
   query {
     outlet(id:${outletId}){

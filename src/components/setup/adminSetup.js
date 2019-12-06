@@ -138,10 +138,6 @@ const AdminSetUp = ({
 
           <Grid item xs={10}>
             <FormControlLabel
-              control={<Checkbox color="secondary" name="later" value="yes" />}
-              label="Save & complete later in SETUP"
-            />
-            <FormControlLabel
               control={<Checkbox type="checkbox" color="secondary" name="permission" value="yes" onChange={checked} id="save-1" />}
               label="I acknowledge that am the owner and/or I have been assigned full admin rights to the business"
             />

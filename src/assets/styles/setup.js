@@ -185,6 +185,9 @@ export const BusinessSetUpStyles = {
     opacity: '0.5',
     marginTop: '8px',
   },
+  checkbox: {
+    padding: '0 1rem'
+  }
 };
 
 export const MainProfileStyles = {
@@ -792,6 +795,9 @@ export const ContentWrapper = {
     width: '100%',
     margin: 0,
   },
+  checkbox: {
+    padding: '0 .9rem'
+  }
 };
 
 export const OutletsTable = {

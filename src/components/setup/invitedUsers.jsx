@@ -19,7 +19,7 @@ const InvitedUsers = (props) => {
         </Grid>
         <Grid>
           <Typography onClick={handleClickAddButton} style={AddUserStyles.underline}>
-                Add New User
+            Add New User
           </Typography>
         </Grid>
       </Grid>
@@ -30,7 +30,7 @@ const InvitedUsers = (props) => {
               <Grid container spacing={8}>
                 <Grid item xs={4}>{user.email}</Grid>
                 <Grid item xs={4}>{user.isActive ? 'Verified' : <em>awaiting verification</em>}</Grid>
-                <Grid item xs={4}>
+                <Grid item xs={4} align="right">
                   <table>
                     <tbody>
                       <tr>

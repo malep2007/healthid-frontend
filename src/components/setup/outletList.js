@@ -10,6 +10,7 @@ import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { ContentWrapper, OutletsTable } from '../../assets/styles/setup';
+import CustomCheckbox from '../shared/customCheckbox';
 
 const OutletList = ({
   state,
@@ -17,12 +18,25 @@ const OutletList = ({
   toggleRegisterDisplay,
   handleOutletEdit,
   handleOutletDelete,
+  handleCheckboxChange,
 }) => {
   const {
     outletSet,
     registerHidden,
     clickedOutlet,
+    boxChecked,
   } = state;
+
+  const renderLabel = () => (
+    <Grid item container>
+      <Typography variant="caption">
+        save &amp; complete later in &nbsp;
+      </Typography>
+      <Typography variant="caption" style={{ fontWeight: 500 }}>
+        SETUP
+      </Typography>
+    </Grid>
+  );
 
   return (
     <React.Fragment>
@@ -103,28 +117,35 @@ const OutletList = ({
                         </TableCell>
                       </TableRow>
                       {item.outletRegister
-                      && !registerHidden
-                      && (item.id === clickedOutlet)
-                      && item.outletRegister.map(register => (
-                        <TableRow key={item.id} id={item.id} display="none">
-                          <TableCell component="th" scope="row">
-                            <Typography variant="subtitle2">
-                              {register.name}
-                              {' '}
-                              {'('}
-                              {register.id}
-                              {')'}
-                            </Typography>
-                          </TableCell>
-                          <TableCell />
-                          <TableCell />
-                        </TableRow>
-                      ))}
+                        && !registerHidden
+                        && (item.id === clickedOutlet)
+                        && item.outletRegister.map(register => (
+                          <TableRow key={item.id} id={item.id} display="none">
+                            <TableCell component="th" scope="row">
+                              <Typography variant="subtitle2">
+                                {register.name}
+                                {' '}
+                                {'('}
+                                {register.id}
+                                {')'}
+                              </Typography>
+                            </TableCell>
+                            <TableCell />
+                            <TableCell />
+                          </TableRow>
+                        ))}
                     </>
                   ))}
                 </TableBody>
               </Table>
             </Grid>
+          </Grid>
+          <Grid xs={12} style={ContentWrapper.checkbox}>
+            <CustomCheckbox
+              checked={boxChecked}
+              onChange={handleCheckboxChange}
+              label={renderLabel()}
+            />
           </Grid>
         </Grid>
       </form>
@@ -137,6 +158,7 @@ OutletList.propTypes = {
   toggleRegisterDisplay: PropTypes.func.isRequired,
   handleOutletEdit: PropTypes.func.isRequired,
   handleOutletDelete: PropTypes.func.isRequired,
+  handleCheckboxChange: PropTypes.func.isRequired,
   state: PropTypes.instanceOf(Object).isRequired,
 };
 

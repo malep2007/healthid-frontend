@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -25,6 +26,7 @@ const OutletSetUp = ({
   toggleRegisterDisplay,
   handleOutletEdit,
   handleOutletDelete,
+  handleCheckboxChange,
 }) => {
   const {
     localGovernmentArea,
@@ -55,6 +57,7 @@ const OutletSetUp = ({
           toggleRegisterDisplay={toggleRegisterDisplay}
           handleOutletEdit={handleOutletEdit}
           handleOutletDelete={handleOutletDelete}
+          handleCheckboxChange={handleCheckboxChange}
         />
       ) : (
         <form>
@@ -110,11 +113,11 @@ const OutletSetUp = ({
                   value={country}
                   onChange={handleInPutChange}
                 >
-                  <>
-                    {countries && countries.map(item => (
-                      <option key={item.id}>{item.name}</option>
-                    ))}
-                  </>
+                    <>
+                      {countries && countries.map(item => !_.isEmpty(item.citySet) && (
+                        <option key={item.id}>{item.name}</option>
+                      ))}
+                    </>
                 </TextField>
               </Grid>
               <Grid item xs={4}>
@@ -128,11 +131,11 @@ const OutletSetUp = ({
                   value={city}
                   onChange={handleInPutChange}
                 >
-                  <>
-                    {cities && cities.map(item => (
-                      <option key={item.id}>{item.name}</option>
-                    ))}
-                  </>
+                    <>
+                      {!_.isEmpty(cities) && cities.map(item => (
+                        <option key={item.id}>{item.name}</option>
+                      ))}
+                    </>
                 </TextField>
               </Grid>
               <Grid item xs={4}>
@@ -181,8 +184,8 @@ const OutletSetUp = ({
 
             <Grid item xs={12} style={ContentWrapper.headers}>
               <Typography variant="h6">
-              Outlet Type
-              </Typography>
+                  Outlet Type
+                </Typography>
             </Grid>
 
             <Grid item xs={12} style={ContentWrapper.wrapper}>
@@ -209,57 +212,57 @@ const OutletSetUp = ({
             </Grid>
 
             {outletType === 'storefront' && (
-              <>
-                <Grid item xs={12} style={ContentWrapper.headers}>
-                  <Typography variant="h6">
-                  Set up Register
-                  </Typography>
-                </Grid>
-
-                <Grid item container spacing={24} style={ContentWrapper.wrapper}>
-                  <Grid item xs={12}>
-                    <TextField
-                      id="registername"
-                      required
-                      name="registerName"
-                      label="Register Name"
-                      fullWidth
-                      value={registerName}
-                      autoComplete="first name"
-                      error={registerName ? false : formError}
-                      helperText={registerName ? '' : errorHandler()}
-                      onChange={handleInPutChange}
-                    />
+                <>
+                  <Grid item xs={12} style={ContentWrapper.headers}>
+                    <Typography variant="h6">
+                      Set up Register
+                    </Typography>
                   </Grid>
 
-                  <Typography style={ContentWrapper.receiptHeader}>
-                  Select Receipt Template
-                  </Typography>
+                  <Grid item container spacing={24} style={ContentWrapper.wrapper}>
+                    <Grid item xs={12}>
+                      <TextField
+                        id="registername"
+                        required
+                        name="registerName"
+                        label="Register Name"
+                        fullWidth
+                        value={registerName}
+                        autoComplete="first name"
+                        error={registerName ? false : formError}
+                        helperText={registerName ? '' : errorHandler()}
+                        onChange={handleInPutChange}
+                      />
+                    </Grid>
 
-                  <Grid item xs={12}>
-                    <Grid container spacing={16}>
-                      <Grid item xs={2} style={ContentWrapper.receiptsWrapper}>
-                        <Paper onClick={handleReceiptTemplateOpen} style={ContentWrapper.receipts}>
-                          <img src={receiptTemp01} alt="receiptTemp01" style={ContentWrapper.receiptTemp} />
-                        </Paper>
-                      </Grid>
-                      <Grid item xs={2} style={ContentWrapper.receiptsWrapper}>
-                        <Paper onClick={handleReceiptTemplateOpen} style={ContentWrapper.receipts}>
-                          <img src={receiptTemp02} alt="receiptTemp01" style={ContentWrapper.receiptTemp} />
-                        </Paper>
-                      </Grid>
-                      <Grid item xs={12}>
-                        <ReceiptTemplate01
-                          state={state}
-                          handleTemplateChange={handleTemplateOnChange}
-                          handleReceiptTemplateClose={handleReceiptTemplateClose}
-                          handleReceiptTemplateSubmit={handleReceiptTemplateClose}
-                        />
+                    <Typography style={ContentWrapper.receiptHeader}>
+                      Select Receipt Template
+                    </Typography>
+
+                    <Grid item xs={12}>
+                      <Grid container spacing={16}>
+                        <Grid item xs={2} style={ContentWrapper.receiptsWrapper}>
+                          <Paper onClick={handleReceiptTemplateOpen} style={ContentWrapper.receipts}>
+                            <img src={receiptTemp01} alt="receiptTemp01" style={ContentWrapper.receiptTemp} />
+                          </Paper>
+                        </Grid>
+                        <Grid item xs={2} style={ContentWrapper.receiptsWrapper}>
+                          <Paper onClick={handleReceiptTemplateOpen} style={ContentWrapper.receipts}>
+                            <img src={receiptTemp02} alt="receiptTemp01" style={ContentWrapper.receiptTemp} />
+                          </Paper>
+                        </Grid>
+                        <Grid item xs={12}>
+                          <ReceiptTemplate01
+                            state={state}
+                            handleTemplateChange={handleTemplateOnChange}
+                            handleReceiptTemplateClose={handleReceiptTemplateClose}
+                            handleReceiptTemplateSubmit={handleReceiptTemplateClose}
+                          />
+                        </Grid>
                       </Grid>
                     </Grid>
                   </Grid>
-                </Grid>
-              </>
+                </>
             )}
             <Grid item container style={ContentWrapper.buttonStyle}>
               <Grid item xs={3} />
@@ -301,6 +304,7 @@ OutletSetUp.propTypes = {
   toggleRegisterDisplay: PropTypes.func.isRequired,
   handleOutletEdit: PropTypes.func.isRequired,
   handleOutletDelete: PropTypes.func.isRequired,
+  handleCheckboxChange: PropTypes.func.isRequired,
   state: PropTypes.instanceOf(Object).isRequired,
 };
 
