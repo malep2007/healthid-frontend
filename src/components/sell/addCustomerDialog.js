@@ -235,6 +235,7 @@ const AddCustomerDialog = ({
                         value={emergencyContactNumber}
                         label="Contact Number"
                         onChange={handleContactPhoneChange}
+                        styles={addCustomerDialog}
                       />
                       <Typography variant="caption" style={addCustomerDialog.phoneInputHelper}>
                         {emergencyContactNumber && mobileError ? mobileHelper : ''}

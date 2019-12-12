@@ -6,6 +6,7 @@ import {
 import FileUpload from './fileUpload';
 import { BusinessSetUpStyles } from '../../assets/styles/setup';
 import CustomCheckbox from '../shared/customCheckbox';
+import CustomPhoneField from '../shared/customPhoneField';
 
 const BusinessSetUp = (props) => {
   const {
@@ -18,6 +19,7 @@ const BusinessSetUp = (props) => {
     handleSave,
     handleCheckboxChange,
     state,
+    handlePhoneChange,
   } = props;
 
   const {
@@ -150,17 +152,16 @@ const BusinessSetUp = (props) => {
             />
           </Grid>
           <Grid item xs={6}>
-            <TextField
-              required
+            <CustomPhoneField
               id="phone"
               name="phoneNumber"
               label="Primary Phone #"
               fullWidth
               autoComplete="Your phone #"
-              value={phoneNumber}
               error={phoneNumber ? false : formError}
               helperText={phoneNumber ? '' : errorHandler()}
-              onChange={handleInPutChange}
+              value={phoneNumber}
+              onChange={handlePhoneChange}
             />
           </Grid>
 
@@ -258,6 +259,7 @@ BusinessSetUp.propTypes = {
   handleClose: PropTypes.func.isRequired,
   handleSave: PropTypes.func.isRequired,
   handleCheckboxChange: PropTypes.func.isRequired,
+  handlePhoneChange: PropTypes.func.isRequired,
 };
 
 export default BusinessSetUp;

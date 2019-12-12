@@ -4,10 +4,12 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import CustomPhoneField from '../shared/customPhoneField';
 
 const AdminSetUp = ({
   state,
   handleInputChange,
+  handlePhoneChange,
   checked,
   errorHandler,
   serverErrorHandler
@@ -22,6 +24,7 @@ const AdminSetUp = ({
     mobileNumber,
     formError,
     isError,
+    phone
   } = state;
 
   return (
@@ -123,16 +126,15 @@ const AdminSetUp = ({
             />
           </Grid>
 
-          <Grid item xs={10}>
-            <TextField
+          <Grid item xs={10} container className="grid-container">
+            <CustomPhoneField
               id="outlined-with-placeholder"
               label="Secondary Phone #"
               name="secondaryPhoneNumber"
-              value={secondaryPhoneNumber}
-              fullWidth
               error={secondaryPhoneNumber ? false : formError}
               helperText={secondaryPhoneNumber ? '' : errorHandler()}
-              onChange={handleInputChange}
+              value={phone}
+              onChange={handlePhoneChange}
             />
           </Grid>
 
@@ -155,6 +157,7 @@ AdminSetUp.propTypes = {
   errorHandler: PropTypes.func.isRequired,
   serverErrorHandler: PropTypes.func.isRequired,
   state: PropTypes.instanceOf(Object).isRequired,
+  handlePhoneChange: PropTypes.func.isRequired,
 };
 
 export default AdminSetUp;

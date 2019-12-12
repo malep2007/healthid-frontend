@@ -86,6 +86,7 @@ export class StepperNav extends React.Component {
           handleClose={this.handleClose}
           handleSave={this.handleSave}
           handleCheckboxChange={this.handleCheckboxChange}
+          handlePhoneChange={this.handlePhoneChange}
         />
       );
 
@@ -223,7 +224,7 @@ export class StepperNav extends React.Component {
       businessEmail,
       country,
       city,
-      addressLine1
+      addressLine1,
     } = this.state;
     const isInvalid = (
       !legalName
@@ -399,6 +400,11 @@ export class StepperNav extends React.Component {
     }
   }
 
+  handlePhoneChange = (value) => {
+    this.setState({
+      phoneNumber: value
+    });
+  };
 
   setOutletKindId = (value) => {
     const warehouse = 1;
@@ -772,8 +778,8 @@ export class StepperNav extends React.Component {
         secondaryEmail,
         secondaryPhoneNumber
       }
-    }).then((results) => {
-      notify(results.data.updateAdminUser.success);
+    }).then(() => {
+      notify('Admin account created successfully');
       this.setState({ isLoading: false, activeStep: activeStep + 1, checked: false });
     }).catch((error) => {
       notify(error.message);
@@ -1270,8 +1276,6 @@ export class StepperNav extends React.Component {
       editMode, boxChecked
     } = this.state;
     const { classes } = this.props;
-
-    console.log('mainState', this.state);
 
     return (
       <React.Fragment>

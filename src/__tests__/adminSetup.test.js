@@ -24,6 +24,6 @@ describe('Render adminSetup component', () => {
   it('renders seven text fields', () => {
     const wrapper = shallow(<AdminSetUp {...props} />);
     const textFields = wrapper.find('TextField').length;
-    expect(textFields).toBe(7);
+    expect(textFields).toBe(6);
   });
 });

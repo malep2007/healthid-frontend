@@ -376,7 +376,11 @@ export const addCustomerDialog = {
   cardContent: {
     display: 'flex',
     justifyContent: 'center'
-  }
+  },
+  containerStyles: {
+    width: '100%',
+    marginTop: '8px',
+  },
 };
 
 export const addDiscountPopper = {

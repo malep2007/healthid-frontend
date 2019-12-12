@@ -10,6 +10,7 @@ import ForgotPasswordAlert from './Alerts/ForgotPasswordAlert';
 import '../../assets/styles/authentication/Login.scss';
 import PasswordField from './Inputs/PasswordField';
 import CustomPhoneField from '../shared/customPhoneField';
+import loginStyles from '../../assets/styles/authentication/loginStyles';
 
 class Login extends Component {
   renderInputFields = (type) => {
@@ -49,6 +50,7 @@ class Login extends Component {
       <CustomPhoneField
         value={phone}
         onChange={handlePhoneChange}
+        styles={loginStyles}
       />
     );
   };

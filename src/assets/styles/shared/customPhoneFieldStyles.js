@@ -1,11 +1,7 @@
 const CustomPhoneFieldStyles = {
-  gridContainer: {
-    position: 'relative',
-    marginTop: '8px',
-    marginBottom: '4px',
-  },
   containerStyles: {
     width: '100%',
+    marginTop: '3px',
   },
   inputStyles: {
     width: '100%',

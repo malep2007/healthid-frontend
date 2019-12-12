@@ -31,6 +31,6 @@ describe('Render businessSetup component', () => {
   it('renders nine text fields', () => {
     const wrapper = shallow(<BusinessSetUp {...props} />);
     const textFields = wrapper.find('TextField').length;
-    expect(textFields).toBe(13);
+    expect(textFields).toBe(12);
   });
 });
