@@ -21,6 +21,16 @@ const GET_USER_INFO = gql`
         kind {
           name
         }
+        city{
+          name
+          country{
+            name
+          }
+        }
+        outletRegister{
+          name
+        }
+        dateLaunched
         users {
           id
           username
@@ -32,7 +42,7 @@ const GET_USER_INFO = gql`
           jobTitle
         }
       }
-      businessSet {
+      businessUser {
         id
         legalName
         tradingName

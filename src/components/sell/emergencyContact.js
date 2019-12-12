@@ -17,7 +17,7 @@ export const EmergencyContact = ({
     <Grid item container xs={12} style={styles.rowHeader}>
       <Typography variant="subtitle2" style={styles.rowHeaderTypo}>
           Emergency Contact Information
-        </Typography>
+      </Typography>
     </Grid>
     <div style={styles.contactDetails}>
       <Grid item container xs={12}>

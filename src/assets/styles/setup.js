@@ -367,8 +367,10 @@ export const MainOutletSetupStyles = {
     justifyContent: 'center',
   },
   formTitle: {
-    textAlign: 'center',
-    padding: '0.5rem 0',
+    width: '100%',
+    padding: '0.5rem 3rem',
+    color: '#424242',
+    fontSize: '1.3em',
   },
   tableBox: {
     margin: '0 auto',
@@ -383,7 +385,35 @@ export const MainOutletSetupStyles = {
   },
   outletType: {
     margin: '0 auto',
-  }
+  },
+  addIcon: {
+    float: 'right',
+  },
+  paginate: {
+    display: 'flex',
+    padding: '3rem',
+  },
+  previous: {
+  },
+  spacing: {
+    width: '2rem',
+  },
+  paginateText: {
+    fontSize: '1em',
+    marginRight: '4rem',
+    marginTop: '1rem',
+  },
+  paginateArrow: {
+    borderRadius: '0px',
+  },
+  addLink: {
+    float: 'right',
+    marginTop: '0px',
+  },
+  add: {
+    marginTop: '0.6rem',
+    fontSize: '1em',
+  },
 };
 
 export const SetupHeader = {

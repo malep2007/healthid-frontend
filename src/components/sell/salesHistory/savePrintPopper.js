@@ -38,8 +38,7 @@ const SavePrintPopper = (props) => {
                 {popperHeader && (
                   <Grid item xs={12}>
                     <Typography variant="p" style={{ marginBottom: '5%' }}>{ popperHeader }</Typography>
-                    <hr style={ImportProductStyles.horizontalLine}
-                    />
+                    <hr style={ImportProductStyles.horizontalLine} />
                   </Grid>
                 )}
                 <Grid item container justify="space-evenly">

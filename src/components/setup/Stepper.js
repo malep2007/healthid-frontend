@@ -1313,13 +1313,13 @@ export class StepperNav extends React.Component {
                     {((activeStep !== 0 && showUsers && unhideMainButtons)
                         || (showUsers && activeStep === 3 && unhideMainButtons)) && (
                       <Button
-                        onClick={this.handleBackButton}
-                        className={classes.backButton}
-                        variant="text"
-                        id="back-button"
-                      >
+                          onClick={this.handleBackButton}
+                          className={classes.backButton}
+                          variant="text"
+                          id="back-button"
+                        >
                             Back
-                      </Button>
+                        </Button>
                     )}
                     {!showUsers && activeStep === 3 && (
                       <Button

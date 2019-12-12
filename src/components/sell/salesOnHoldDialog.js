@@ -39,7 +39,7 @@ const SalesOnHoldDialog = ({
       style={addCustomerDialog.dialogTitle}
     >
         Sales on Hold
-      </DialogTitle>
+    </DialogTitle>
     <DialogContent style={addCustomerDialog.dialogContent}>
       {salesOnHold.length ? (
         <Grid container>
@@ -86,7 +86,7 @@ const SalesOnHoldDialog = ({
                             inline
                           >
                               Note:
-                              {' '}
+                            {' '}
                           </Typography>
                           {holdSaleNote}
                         </React.Fragment>
@@ -114,7 +114,7 @@ const SalesOnHoldDialog = ({
             </IconButton>
             <Typography color="textSecondary">
                   Nothing on Hold
-                </Typography>
+            </Typography>
           </CardContent>
         </Card>
       )}

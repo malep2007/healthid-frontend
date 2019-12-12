@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+
 export const GET_APPROVED_PRODUCTS = gql`
   query($pageNumber: Int, $pageCount: Int) {
     approvedProducts(pageNumber: $pageNumber, pageCount: $pageCount) {

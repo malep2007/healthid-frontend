@@ -6,11 +6,21 @@ import {
   Button,
   Typography,
   Paper,
+  Divider,
+  IconButton,
+  Tooltip,
 } from '@material-ui/core';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 
 import withAuth from '../withAuth';
 import { MainOutletSetupStyles, SetupHeader } from '../../assets/styles/setup';
+import {
+  Add,
+  Next,
+  Previous,
+  PreviousDisabled,
+  NextDisabled,
+} from '../../assets/SvgIcons/sellScreenSvgs';
 import MainOutletSetupList from './mainOutletSetupList';
 import MainOutletSetupForm from './mainOutletSetupForm';
 
@@ -19,6 +29,8 @@ import { StateContext } from '../../providers/stateProvider';
 class MainOutletSetup extends Component {
   state = {
     listView: true,
+    currentPage: 1,
+    outletsPerPage: 8,
   }
 
   componentDidMount() {
@@ -29,12 +41,29 @@ class MainOutletSetup extends Component {
     });
   }
 
+  handleNext = () => {
+    this.setState(prevState => ({
+      currentPage: prevState.currentPage + 1
+    }));
+  }
+
+  handlePrevious = () => {
+    this.setState(prevState => ({
+      currentPage: prevState.currentPage - 1
+    }));
+  }
+
   static contextType = StateContext;
 
   render() {
     const { session } = this.props;
     const { listView } = this.state;
     const { outlets } = session.me;
+    const { currentPage, outletsPerPage } = this.state;
+    const indexOfLast = currentPage * outletsPerPage;
+    const indexOfFirst = indexOfLast - outletsPerPage;
+    const currentOultets = outlets.slice(indexOfFirst, indexOfLast);
+    const lastPage = Math.ceil(outlets.length / outletsPerPage);
 
     return (
       <Fragment>
@@ -53,16 +82,72 @@ class MainOutletSetup extends Component {
               </Typography>
             </Grid>
             <Paper>
-              <Typography variant="h6" style={MainOutletSetupStyles.formTitle}>
-                Outlets &amp; Registers
-              </Typography>
-              <hr />
+              <Grid
+                container
+                item
+                style={MainOutletSetupStyles.formTitle}
+                justify="space-between"
+              >
+                <Typography
+                  style={MainOutletSetupStyles.add}
+                >
+                  {outlets.length}
+                  {' '}
+                  Outlets
+                </Typography>
+                <Tooltip title="Add Outlet">
+                  <Link
+                    to="/main_setup/outlets_registers/new"
+                    style={MainOutletSetupStyles.addLink}
+                  >
+                    <IconButton>
+                      <Add style={MainOutletSetupStyles.addIcon} />
+                    </IconButton>
+                  </Link>
+                </Tooltip>
+              </Grid>
+              <Divider />
               <Grid item xs={11} style={MainOutletSetupStyles.tableBox}>
                 {
                   listView
-                    ? <MainOutletSetupList outletsList={outlets} />
+                    ? <MainOutletSetupList outletsList={currentOultets} />
                     : <MainOutletSetupForm />
                 }
+              </Grid>
+              <Grid
+                container
+                style={MainOutletSetupStyles.paginate}
+                justify="flex-end"
+              >
+                <Typography variant="body1" style={MainOutletSetupStyles.paginateText}>
+                  { indexOfFirst + 1 }
+                  {'-'}
+                  { indexOfLast >= outlets.length ? outlets.length : indexOfLast }
+                  {' '}
+                  of
+                  {' '}
+                  {outlets.length}
+                </Typography>
+                <IconButton
+                  style={MainOutletSetupStyles.paginateArrow}
+                  onClick={this.handlePrevious}
+                  disabled={currentPage === 1}
+                >
+                  {currentPage !== 1
+                    ? <Previous style={MainOutletSetupStyles.previous} />
+                    : <PreviousDisabled style={MainOutletSetupStyles.previous} />}
+                </IconButton>
+                <Typography style={MainOutletSetupStyles.spacing} />
+                <IconButton
+                  disabled={currentPage === lastPage}
+                  style={MainOutletSetupStyles.paginateArrow}
+                  onClick={this.handleNext}
+                >
+                  {currentPage !== lastPage
+                    ? <Next />
+                    : <NextDisabled />}
+                </IconButton>
+
               </Grid>
             </Paper>
           </Grid>

@@ -2,40 +2,108 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import {
-  Table,
-  TableBody,
-  TableRow,
-  TableCell,
-  IconButton,
+  Typography,
+  Grid,
+  Card,
+  Paper,
+  Tooltip,
+  IconButton
 } from '@material-ui/core';
-import Settings from '@material-ui/icons/Settings';
-import { MainOutletSetupStyles } from '../../assets/styles/setup';
+import {
+  RegisterIcon, UserSvg, Preferences
+} from '../../assets/SvgIcons/sellScreenSvgs';
+import lowerDashboardStyles from '../../assets/styles/dashboard/lowerDashboardStyles';
+
+
+const styles = lowerDashboardStyles;
+
 
 const MainOutletSetupList = (props) => {
   const { outletsList } = props;
 
   return (
-    <Table>
-      <TableBody>
+    <>
+      <Grid
+        container
+        item
+        spacing={40}
+        style={styles.gridOutlets}
+        alignContent="center"
+      >
         {
           outletsList.map(
             store => (
-              <TableRow key={store.id}>
-                <TableCell>{store.name}</TableCell>
-                <TableCell>{store.kind.name}</TableCell>
-                <TableCell align="right">
-                  <IconButton>
-                    <Link to={`/main_setup/preferences/${store.id}`} style={MainOutletSetupStyles.optionsLink}>
-                      <Settings />
-                    </Link>
-                  </IconButton>
-                </TableCell>
-              </TableRow>
+              <Grid item xs={3} key={store.id}>
+                <Paper style={styles.paperBox}>
+                  <Grid component="div" style={styles.gridPrefenceBox}>
+                    <Tooltip title="Preferences">
+                      <IconButton style={styles.gridPrefenceBtn}>
+                        <Link
+                          to={`/main_setup/preferences/${store.id}`}
+                        >
+                          <Preferences
+                            style={styles.gridPrefences}
+                          />
+                        </Link>
+                      </IconButton>
+                    </Tooltip>
+                  </Grid>
+                  <Paper style={styles.gridPaper}>
+                    <Typography
+                      variant="h5"
+                      noWrap
+                      style={styles.gridTitleSize}
+                    >
+                      {store.name}
+                    </Typography>
+                    <Typography variant="body1" style={styles.gridTextSize}>
+                      {store.city.name}
+                      {', '}
+                      {store.city.country.name}
+                    </Typography>
+                    <Typography variant="body1" style={styles.gridTextSize}>
+                      {' Launched '}
+                      {store.dateLaunched}
+                    </Typography>
+                    <Typography variant="body2" style={styles.gridFooter}>
+                      {store.kind.name}
+                      {store.kind.name !== 'warehouse' ? (
+                        <Card
+                          component="span"
+                          display="inline"
+                          style={styles.gridIconText}
+                        >
+                          <RegisterIcon style={styles.gridIconCard} />
+                          <Typography
+                            component="span"
+                            style={styles.gridIconNum}
+                          >
+                            {store.outletRegister.length}
+                          </Typography>
+                        </Card>
+                      ) : ' '}
+                      <Card
+                        component="span"
+                        display="inline"
+                        style={styles.gridIconText}
+                      >
+                        <UserSvg style={styles.gridIconCard} />
+                        <Typography
+                          component="span"
+                          style={styles.gridIconNum}
+                        >
+                          {store.users.length}
+                        </Typography>
+                      </Card>
+                    </Typography>
+                  </Paper>
+                </Paper>
+              </Grid>
             )
           )
         }
-      </TableBody>
-    </Table>
+      </Grid>
+    </>
   );
 };
 

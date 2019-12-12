@@ -554,7 +554,7 @@ export class ManageProfile extends Component {
                 <div>
                   <Typography variant="h6" style={styles.contentHeader}>
                       Manage Account
-                    </Typography>
+                  </Typography>
                   <Grid item xs={10} style={styles.profileForm}>
                     <FormControl fullWidth margin="normal" error={errors.status}>
                       <TextField
