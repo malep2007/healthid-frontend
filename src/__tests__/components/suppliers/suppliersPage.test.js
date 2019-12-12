@@ -27,7 +27,8 @@ describe('SuppliersPage ', () => {
               'isApproved': true,
               'name': 'first',
               'commentary': 'sfsd',
-              "suppliernoteSet": []
+              "suppliernoteSet": [],
+              "suppliersmetaSet": []
             },
             {
               'id': '2',
@@ -38,7 +39,8 @@ describe('SuppliersPage ', () => {
               'isApproved': false,
               'name': 'sean2',
               'commentary': 'no comment',
-              "suppliernoteSet": []
+              "suppliernoteSet": [],
+              "suppliersmetaSet": []
             },
             {
               'id': '2px6ibtpi',
@@ -53,7 +55,8 @@ describe('SuppliersPage ', () => {
                 {
                   'note': 'Kuddy Comment'
                 }
-              ]
+              ],
+              "suppliersmetaSet": []
             },
           ]
         },
@@ -78,7 +81,8 @@ describe('SuppliersPage ', () => {
                   'isApproved': true,
                   'name': 'first',
                   'commentary': 'sfsd',
-                  "suppliernoteSet": []
+                  "suppliernoteSet": [],
+                  "suppliersmetaSet": []
                 }
               },
               {
@@ -91,7 +95,8 @@ describe('SuppliersPage ', () => {
                   'isApproved': true,
                   'name': 'first',
                   'commentary': 'sfsd',
-                  "suppliernoteSet": []
+                  "suppliernoteSet": [],
+                  "suppliersmetaSet": []
                 }
               }
             ]

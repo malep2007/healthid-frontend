@@ -111,8 +111,6 @@ export const DataTable = ({
     }
   };
 
-  // const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
@@ -157,7 +155,7 @@ export const DataTable = ({
                         .map((row) => {
                           const isItemSelected = isSelected(row.id);
                           const {
-                            id, name, rating, tier, notes, commentary
+                            id, displayName, rating, tier, notes, commentary
                           } = row;
                           return (
                             <TableRow
@@ -193,7 +191,7 @@ export const DataTable = ({
                                   }}
                                   className={classes.name}
                                 >
-                                  {name}
+                                  {displayName}
                                 </span>
                               </TableCell>
                               <TableCell align="left">{tier}</TableCell>

@@ -5,9 +5,29 @@ query{
   allSuppliers(pageCount: ${pageCount}, pageNumber: ${pageNumber}){
     id
     name
-    commentary
     user{
       id
+    }
+    supplierscontactsSet{
+      email
+      mobileNumber
+      addressLine1
+      addressLine2
+      country{
+        name
+      }
+      city{
+          country{
+            name
+          }
+      }
+    }
+    suppliersmetaSet{
+      displayName
+      logo
+      paymentTerms
+      creditDays
+      commentary
     }
     isApproved
     tier {
@@ -30,22 +50,30 @@ export const FILTER_SUPPLIERS = (type, value) => {
             node {
               id
               name
-              mobileNumber
-              addressLine1
-              addressLine2
               isApproved
-              creditDays
               user{
                 id
               }
-              paymentTerms {
-                id
-              }
-              city {
-                name
-                country {
+              supplierscontactsSet{
+                email
+                mobileNumber
+                addressLine1
+                addressLine2
+                country{
                   name
                 }
+                city{
+                    country{
+                      name
+                    }
+                }
+              }
+              suppliersmetaSet{
+                displayName
+                logo
+                paymentTerms
+                creditDays
+                commentary
               }
               suppliernoteSet {
                 note
@@ -53,7 +81,6 @@ export const FILTER_SUPPLIERS = (type, value) => {
               tier {
                 name
               }
-              commentary
             }
           }
         }
@@ -66,32 +93,39 @@ export const FILTER_SUPPLIERS = (type, value) => {
      filterSuppliers(name_Icontains: "${value}") {
        edges {
          node {
-           id
-           name
-           mobileNumber
-           addressLine1
-           addressLine2
-           isApproved
-           creditDays
-           user{
+          id
+          name
+          isApproved
+          user{
             id
-           }
-           paymentTerms {
-             id
-           }
-           city {
-             name
-             country {
-               name
-             }
-           }
-           suppliernoteSet {
-             note
-           }
-           tier {
-             name
-           }
-           commentary
+          }
+          supplierscontactsSet{
+            email
+            mobileNumber
+            addressLine1
+            addressLine2
+            country{
+              name
+            }
+            city{
+                country{
+                  name
+                }
+            }
+          }
+          suppliersmetaSet{
+            displayName
+            logo
+            paymentTerms
+            creditDays
+            commentary
+          }
+          suppliernoteSet {
+            note
+          }
+          tier {
+            name
+          }
          }
        }
      }

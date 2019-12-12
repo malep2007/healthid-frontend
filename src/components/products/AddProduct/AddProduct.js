@@ -281,7 +281,6 @@ export class AddProduct extends Component {
   static contextType = StateContext;
 
   render() {
-    console.log('this.props', this.props);
     return (
       <div>
         <Query query={GET_INITIAL_DATA} variables={{ outletId: localStorage.outletId || 1 }}>

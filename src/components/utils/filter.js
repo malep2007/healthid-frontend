@@ -16,7 +16,8 @@ export const getFiltedSuppliers = (data) => {
         rating: supplier.node.rating,
         notes: supplier.node.suppliernoteSet,
         isApproved: supplier.node.isApproved,
-        commentary: supplier.node.commentary,
+        commentary: supplier.node.suppliersmetaSet.map(comment => comment.commentary),
+        displayName: supplier.node.suppliersmetaSet.map(dispName => dispName.displayName),
         user: supplier.node.user,
       };
     }

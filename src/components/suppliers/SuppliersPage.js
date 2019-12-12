@@ -102,8 +102,8 @@ export class SuppliersPage extends Component {
       order,
       orderBy,
     } = this.state;
-    const columnHeaders = ['id', 'name', 'tier', ' rating', 'notes'];
-    const columnHeadersProposed = ['id', 'name', 'tier', ' commentary'];
+    const columnHeaders = ['id', 'display name', 'tier', ' rating', 'notes'];
+    const columnHeadersProposed = ['id', 'display name', 'tier', ' commentary'];
     return (
       <div>
         <OrdersAndSuppliersNavBar activeGrid="grid2" />
