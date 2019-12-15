@@ -1314,7 +1314,9 @@ export class StepperNav extends React.Component {
           {activeStep === steps.length ? (
             <Paper>
               <Paper className={classes.finalScreenPaper}>
-                <FinalScreen />
+                <FinalScreen
+                  state={this.state}
+                />
               </Paper>
             </Paper>
           ) : (

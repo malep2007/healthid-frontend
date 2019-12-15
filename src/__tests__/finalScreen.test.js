@@ -9,7 +9,8 @@ beforeEach(() => {
 
 describe('Render Final Screen component', () => {
   const props = {
-    history: { push: jest.fn() }
+    history: { push: jest.fn() },
+    state: {}
   }
   const wrapper = shallow(<FinalScreen {...props} />);
 

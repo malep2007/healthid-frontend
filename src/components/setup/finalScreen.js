@@ -10,7 +10,8 @@ import product from '../../assets/images/Create product list illustration@2x.png
 import { FinalScreenStyle } from '../../assets/styles/setup';
 import { useStateValue } from '../../providers/stateProvider';
 
-export const FinalScreen = ({ history }) => {
+export const FinalScreen = ({ history, state }) => {
+  const { outletsActive } = state;
   const [route, setRoute] = useState('');
   const [, dispatch] = Object.values(useStateValue());
 
@@ -45,7 +46,10 @@ export const FinalScreen = ({ history }) => {
             </div>
             <img className="logo" src={dot} alt="some text" style={FinalScreenStyle.logo} />
             <div>
-              {renderButton('Open Dashboard', FinalScreenStyle.button, '/sell')}
+              {
+                outletsActive === true ? renderButton('Open Dashboard', FinalScreenStyle.button, '/sell')
+                  : renderButton('Open Setup', FinalScreenStyle.button, '/main_setup')
+              }
             </div>
           </Grid>
 
@@ -84,10 +88,12 @@ export const FinalScreen = ({ history }) => {
 
 FinalScreen.propTypes = {
   history: PropTypes.objectOf(PropTypes.any),
+  state: PropTypes.instanceOf(Object),
 };
 
 FinalScreen.defaultProps = {
-  history: {}
+  history: {},
+  state: {}
 };
 
 export default withRouter(FinalScreen);
