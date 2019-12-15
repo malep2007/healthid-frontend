@@ -830,6 +830,19 @@ export const ContentWrapper = {
   }
 };
 
+export const countriesStyles = () => ({
+  texfield: {
+    width: '100%',
+    margin: 0,
+  },
+  menu: {
+    height: '20rem'
+  },
+  popperPaper: {
+    height: '20rem'
+  }
+});
+
 export const OutletsTable = {
   table: {
     borderCollapse: 'separate',

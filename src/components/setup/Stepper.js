@@ -2,7 +2,6 @@ import React from 'react';
 import { graphql, compose } from 'react-apollo';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import _ from 'lodash';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
@@ -35,7 +34,10 @@ import UPDATE_REGISTER from '../../mutations/updateRegisterMutation';
 import DELETE_RECEIPT_TEMPLATE from '../../mutations/deleteReceiptTempMutation';
 import withAuth from '../withAuth';
 import UserSetup from './userSetup';
-import { ADD_NEW_USER, ADMIN_UPDATE_USER } from '../../mutations/addUsersSetupMutation';
+import {
+  ADD_NEW_USER,
+  ADMIN_UPDATE_USER
+} from '../../mutations/addUsersSetupMutation';
 import { GET_ROLES, GET_OUTLETS } from '../../queries/addUsersSetupQuery';
 import { StateContext } from '../../providers/stateProvider';
 import StepperConnector from './stepperConnector';
@@ -43,10 +45,15 @@ import StepperIcon from './stepperIcon';
 
 const styles = StepperStyles;
 
-const steps = ['Admin Account', 'Business Information', 'Add Outlet(s)', 'Add User(s)'];
+const steps = [
+  'Admin Account',
+  'Business Information',
+  'Add Outlet(s)',
+  'Add User(s)'
+];
 
 export class StepperNav extends React.Component {
-  state = initialState
+  state = initialState;
 
   componentDidMount() {
     const [, dispatch] = Object.values(this.context);
@@ -89,7 +96,6 @@ export class StepperNav extends React.Component {
           handlePhoneChange={this.handlePhoneChange}
         />
       );
-
     case 2:
       return (
         <OutletSetUp
@@ -117,11 +123,10 @@ export class StepperNav extends React.Component {
           errorHandler={this.errorHandler}
         />
       );
-
     default:
       return null;
     }
-  }
+  };
 
   handleClickAddButton = () => {
     const { showUsers } = this.state;
@@ -142,16 +147,23 @@ export class StepperNav extends React.Component {
       isError: false,
       phoneError: false,
       usernameError: false,
-      emailError: false,
+      emailError: false
     });
-  }
+  };
 
   sendEditInfo = (user) => {
     const {
-      firstName, lastName,
-      email, mobileNumber,
-      jobTitle, role, username,
-      users, target, startingDate, id
+      firstName,
+      lastName,
+      email,
+      mobileNumber,
+      jobTitle,
+      role,
+      username,
+      users,
+      target,
+      startingDate,
+      id
     } = user;
     this.setState({
       fName: firstName,
@@ -170,32 +182,25 @@ export class StepperNav extends React.Component {
       isError: false,
       phoneError: false,
       usernameError: false,
-      emailError: false,
+      emailError: false
     });
-  }
+  };
 
   handleBackButton = () => {
     this.setState(state => ({
       activeStep: state.activeStep - 1,
       checked: true,
       showUsers: true,
-      formError: false,
+      formError: false
     }));
   };
 
   //  Form validation handlers
   handleInputValidation = () => {
     const {
-      firstName,
-      lastName,
-      username,
-      email,
-      mobileNumber,
+      firstName, lastName, username, email, mobileNumber
     } = this.state;
-    const isInvalid = (
-      !firstName || !lastName
-      || !username || !email || !mobileNumber
-    );
+    const isInvalid = !firstName || !lastName || !username || !email || !mobileNumber;
     if (isInvalid) {
       this.setState({ formError: true });
     }
@@ -204,17 +209,13 @@ export class StepperNav extends React.Component {
 
   handleUserFormValidation = () => {
     const {
-      userEmail,
-      phone,
-      roleId,
-      outlet,
-      userUsername
+      userEmail, phone, roleId, outlet, userUsername
     } = this.state;
 
-    const isFormValid = (userEmail && phone && roleId && outlet && userUsername);
+    const isFormValid = userEmail && phone && roleId && outlet && userUsername;
     !isFormValid && this.setState({ formError: true, isError: true });
     return isFormValid;
-  }
+  };
 
   handleBusinessFormInputValidation = () => {
     const {
@@ -224,16 +225,15 @@ export class StepperNav extends React.Component {
       businessEmail,
       country,
       city,
-      addressLine1,
+      addressLine1
     } = this.state;
-    const isInvalid = (
-      !legalName
+    const isInvalid = !legalName
       || !tradingName
       || !phoneNumber
       || !businessEmail
       || !country
       || !city
-      || !addressLine1);
+      || !addressLine1;
     if (isInvalid) {
       this.setState({ formError: true });
     }
@@ -251,17 +251,20 @@ export class StepperNav extends React.Component {
       outletType,
       registerName
     } = this.state;
-    let isInvalid = (
-      !outletName || !addressLine1
-      || !city || !country
-      || !phoneNumber || !dateLaunched
-    );
+    let isInvalid = !outletName
+      || !addressLine1
+      || !city
+      || !country
+      || !phoneNumber
+      || !dateLaunched;
     if (outletType === 'storefront') {
-      isInvalid = (
-        !outletName || !addressLine1
-        || !city || !country || !phoneNumber
-        || !dateLaunched || !registerName
-      );
+      isInvalid = !outletName
+        || !addressLine1
+        || !city
+        || !country
+        || !phoneNumber
+        || !dateLaunched
+        || !registerName;
     }
     if (isInvalid) {
       this.setState({ formError: true });
@@ -276,7 +279,7 @@ export class StepperNav extends React.Component {
       this.setState({ formError: true });
     }
     return isInvalid;
-  }
+  };
 
   errorHandler = (error) => {
     const { formError, isError } = this.state;
@@ -305,25 +308,22 @@ export class StepperNav extends React.Component {
 
   handleInPutChange = (event) => {
     const { name, value } = event.target;
-    this.setState({
-      [name]: value,
-      isError: false,
-      formError: false,
-      phoneError: false,
-      usernameError: false,
-      emailError: false,
-    }, () => this.checkForRequiredFields());
+    this.setState(
+      {
+        [name]: value,
+        isError: false,
+        formError: false,
+        phoneError: false,
+        usernameError: false,
+        emailError: false
+      },
+      () => this.checkForRequiredFields()
+    );
 
-    if (name === 'country') {
-      this.setLocale(value);
-    }
-    if (name === 'city') {
-      this.setCityId(value);
-    }
     if (name === 'outletType') {
       this.setOutletKindId(value);
     }
-  }
+  };
 
   checkForRequiredFields = () => {
     const {
@@ -344,7 +344,7 @@ export class StepperNav extends React.Component {
       outletType,
       userEmail,
       phone,
-      userUsername,
+      userUsername
     } = this.state;
 
     switch (activeStep) {
@@ -381,8 +381,7 @@ export class StepperNav extends React.Component {
       if (outletName === '' || addressLine1 === '' || phoneNumber === '') {
         this.setState({ checked: false });
       } else {
-        if (outletType === 'storefront'
-            && registerName === '') {
+        if (outletType === 'storefront' && registerName === '') {
           return this.setState({ checked: false });
         }
         this.setState({ checked: true });
@@ -398,7 +397,7 @@ export class StepperNav extends React.Component {
     default:
       return null;
     }
-  }
+  };
 
   handlePhoneChange = (value) => {
     this.setState({
@@ -414,32 +413,7 @@ export class StepperNav extends React.Component {
     } else {
       this.setState({ kindId: warehouse });
     }
-  }
-
-  setCityId = (value) => {
-    const { cities } = this.state;
-    cities && cities.map((city) => {
-      if (city.name === value) {
-        this.setState({ cityId: Number(city.id) });
-      }
-      return value;
-    });
-  }
-
-  setLocale = (value) => {
-    const { countries } = this.state;
-    countries.map((country) => {
-      if (country.name === value) {
-        const randomCity = _.sample(country.citySet);
-        this.setState({
-          cities: country.citySet,
-          city: randomCity.name,
-          cityId: Number(randomCity.id)
-        });
-      }
-      return value;
-    });
-  }
+  };
 
   // Image resize handlers
   onSelectFile = (e) => {
@@ -457,11 +431,11 @@ export class StepperNav extends React.Component {
       );
       reader.readAsDataURL(e.target.files[0]);
     }
-  }
+  };
 
   onCropChange = (crop) => {
     this.setState({ crop });
-  }
+  };
 
   getCroppedImg = (imageFile, pixelCrop, fileName) => {
     const canvas = document.createElement('canvas');
@@ -472,7 +446,7 @@ export class StepperNav extends React.Component {
     const image = new Image();
     // eslint-disable-next-line no-unused-vars
     const promise = new Promise((resolve, reject) => {
-      image.onload = (() => {
+      image.onload = () => {
         ctx.drawImage(
           image,
           pixelCrop.x,
@@ -485,55 +459,59 @@ export class StepperNav extends React.Component {
           pixelCrop.height
         );
         resolve();
-      });
+      };
       image.src = imageFile;
       // eslint-disable-next-line no-unused-vars
-    }).then(() => new Promise((resolve, reject) => {
-      canvas.toBlob((blob) => {
-        blob.name = fileName;
-        resolve(blob);
-      }, 'image/jpeg');
-    }));
+    }).then(
+      () => new Promise((resolve, reject) => {
+        canvas.toBlob((blob) => {
+          blob.name = fileName;
+          resolve(blob);
+        }, 'image/jpeg');
+      })
+    );
     return promise;
-  }
+  };
 
   handleImageDrop = (file) => {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', `${process.env.UPLOAD_PRESET}`);
     formData.append('api_key', `${process.env.API_KEY}`);
-    formData.append('timestamp', (Date.now() / 1000) || 0);
+    formData.append('timestamp', Date.now() / 1000 || 0);
 
-    return axios.post(`${process.env.CLOUDINARY_URL}`, formData, {
-      headers: { 'X-Requested-With': 'XMLHttpRequest' },
-    }).then((response) => {
-      const { data } = response;
-      const fileURL = data.secure_url;
-      this.setState({ logo: fileURL });
-    }).catch((err) => {
-      this.setState({ serverError: err });
-    });
-  }
+    return axios
+      .post(`${process.env.CLOUDINARY_URL}`, formData, {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      })
+      .then((response) => {
+        const { data } = response;
+        const fileURL = data.secure_url;
+        this.setState({ logo: fileURL });
+      })
+      .catch((err) => {
+        this.setState({ serverError: err });
+      });
+  };
 
   toggleIsAcknowledged = () => {
-    this.setState(state => ({
-      isAcknowledged: !state.isAcknowledged,
-    }), () => this.checkForRequiredFields());
-  }
+    this.setState(
+      state => ({
+        isAcknowledged: !state.isAcknowledged
+      }),
+      () => this.checkForRequiredFields()
+    );
+  };
 
   // Resize dialog handlers
   handleSave = () => {
-    const {
-      src,
-      fileName,
-      crop
-    } = this.state;
+    const { src, fileName, crop } = this.state;
 
     this.getCroppedImg(src, crop, fileName).then((data) => {
       this.handleImageDrop(data);
       this.setState({ src: '', open: false });
     });
-  }
+  };
 
   handleCheckboxChange = () => {
     this.setState(prevState => ({
@@ -547,16 +525,16 @@ export class StepperNav extends React.Component {
     if (id === clickedOutlet) {
       this.setState({
         clickedOutlet: '',
-        registerHidden: true,
+        registerHidden: true
       });
     }
     if (id !== clickedOutlet) {
       this.setState({
         clickedOutlet: id,
-        registerHidden: false,
+        registerHidden: false
       });
     }
-  }
+  };
 
   handleOutletEdit = ({
     id,
@@ -568,7 +546,7 @@ export class StepperNav extends React.Component {
     phoneNumber,
     dateLaunched,
     kind,
-    registerSet,
+    registerSet
   }) => {
     let isStorefront;
     if (registerSet === undefined || registerSet.length === 0) {
@@ -605,13 +583,13 @@ export class StepperNav extends React.Component {
       totalTax: isStorefront ? receipt.totalTax : '',
       edittingOutlet: true,
       outletsActive: false,
-      unhideMainButtons: false,
+      unhideMainButtons: false
     });
-  }
+  };
 
   handleOutletDelete = ({ id }) => {
     this.removeOutlet(id);
-  }
+  };
 
   addReceiptTemplate = () => {
     const { edittingOutlet, receiptId } = this.state;
@@ -621,11 +599,11 @@ export class StepperNav extends React.Component {
       if (edittingOutlet && receiptId) this.EditReceiptTemplate();
       else this.createReceiptTemplate();
     }
-  }
+  };
 
   addRegister = () => {
     this.createRegister();
-  }
+  };
 
   handleAddOutletButton = () => {
     const { edittingOutlet } = this.state;
@@ -638,14 +616,14 @@ export class StepperNav extends React.Component {
       if (edittingOutlet) this.handleEditOutlet();
       else this.addOutlet();
     }
-  }
+  };
 
   handleEditOutlet = () => {
     const { outletType, receiptId } = this.state;
     if (outletType === 'warehouse' && receiptId) {
       this.removeReceiptTemplate();
     } else this.editOutlet();
-  }
+  };
 
   handleAddNewOutletButton = async () => {
     await this.setState({
@@ -654,104 +632,116 @@ export class StepperNav extends React.Component {
       outletId: NaN,
       outletName: '',
       addressLine1: '',
-      phoneNumber: '',
+      phoneNumber: ''
     });
-  }
+  };
 
   handleNextButton = () => {
     const { activeStep } = this.state;
-
     switch (activeStep) {
-    case 0: {
-      const isValidated = this.handleInputValidation();
-      if (!isValidated) {
-        this.setState({ formError: false });
-        this.editAdminUser();
+    case 0:
+      {
+        const isValidated = this.handleInputValidation();
+        if (!isValidated) {
+          this.setState({ formError: false });
+          this.editAdminUser();
+        }
       }
-    }
       break;
 
-    case 1: {
-      const isFormValid = this.handleBusinessFormInputValidation();
-      if (!isFormValid) {
-        this.addBusiness();
+    case 1:
+      {
+        const isFormValid = this.handleBusinessFormInputValidation();
+        if (!isFormValid) {
+          this.addBusiness();
+        }
       }
-    }
       break;
     case 2: {
       this.finishAddOutlet();
       break;
     }
-    case 3: {
-      const { showUsers, users } = this.state;
-      if (showUsers && users.length > 0) {
-        return this.setState({ activeStep: activeStep + 1 });
+    case 3:
+      {
+        const { showUsers, users } = this.state;
+        if (showUsers && users.length > 0) {
+          return this.setState({ activeStep: activeStep + 1 });
+        }
+        const isUserFormValid = this.handleUserFormValidation();
+        isUserFormValid && this.addUser();
       }
-      const isUserFormValid = this.handleUserFormValidation();
-      isUserFormValid && this.addUser();
-    }
       break;
     default:
       break;
     }
-  }
+  };
 
   handleClose = () => {
     const { originalImageFile } = this.state;
     this.setState({ src: '', open: false });
     this.handleImageDrop(originalImageFile);
-  }
+  };
 
   handleReceiptTemplateOpen = () => {
     this.setState({ receiptOpen: true });
-  }
+  };
 
   handleReceiptTemplateClose = () => {
     this.setState({ receiptOpen: false });
-  }
+  };
 
   handleTemplateOnChange = name => (event) => {
     this.setState({ [name]: event.target.checked });
-  }
+  };
 
   fetchUserData = (nextProps) => {
     const {
       userData: { me, loading, error },
       countriesData: { countries },
       userRoles: { roles, loading: rolesLoading, error: rolesError },
-      assignedOutlets: { business, loading: outletsLoading, error: outletsError },
+      assignedOutlets: {
+        business,
+        loading: outletsLoading,
+        error: outletsError
+      }
     } = nextProps;
 
     if (loading || rolesLoading || outletsLoading) {
       return this.setState({ isLoading: true });
     }
     if (error || rolesError || outletsError) {
-      return this.setState({ serverError: error.message.slice(14), isError: true });
+      return this.setState({
+        serverError: error.message.slice(14),
+        isError: true
+      });
     }
     const { mobileNumber, email } = me;
     const { activeStep } = this.state;
 
     if (activeStep === 3) {
       return this.setState({
-        // outlets: business.outletSet,
-        // user: business.user,
         isLoading: false,
         roles,
-        email,
+        email
       });
     }
 
     let cities = [];
     // eslint-disable-next-line array-callback-return
-    countries && countries.map((country) => {
-      if (country.name === 'Nigeria') {
-        cities = country.citySet;
-      }
-    });
+    countries
+      && countries.map((country) => {
+        if (country.name === 'Nigeria') {
+          cities = country.citySet;
+        }
+      });
     return this.setState({
-      mobileNumber, email, cities, countries, isLoading: false
+      mobileNumber,
+      email,
+      cities,
+      countries,
+      isLoading: false
     });
-  }
+  };
 
   editAdminUser = () => {
     this.setState({ isLoading: true });
@@ -778,14 +768,24 @@ export class StepperNav extends React.Component {
         secondaryEmail,
         secondaryPhoneNumber
       }
-    }).then(() => {
-      notify('Admin account created successfully');
-      this.setState({ isLoading: false, activeStep: activeStep + 1, checked: false });
-    }).catch((error) => {
-      notify(error.message);
-      this.setState({ serverError: error.message.slice(14), isLoading: false, isError: true });
-    });
-  }
+    })
+      .then(() => {
+        notify('Admin account created successfully');
+        this.setState({
+          isLoading: false,
+          activeStep: activeStep + 1,
+          checked: false
+        });
+      })
+      .catch((error) => {
+        notify(error.message);
+        this.setState({
+          serverError: error.message.slice(14),
+          isLoading: false,
+          isError: true
+        });
+      });
+  };
 
   addBusiness = () => {
     this.setState({ isLoading: true });
@@ -825,27 +825,36 @@ export class StepperNav extends React.Component {
         twitter,
         instagram,
         logo,
-        facebook,
+        facebook
       }
-    }).then((results) => {
-      localStorage.setItem('businessId', results.data.createBusiness.business.id);
-      notify(results.data.createBusiness.success[0]);
+    })
+      .then((results) => {
+        localStorage.setItem(
+          'businessId',
+          results.data.createBusiness.business.id
+        );
+        notify(results.data.createBusiness.success[0]);
 
-      // check whether we should jump to finish page
-      const newStep = boxChecked ? steps.length : activeStep + 1;
-      this.setState({
-        isLoading: false,
-        checked: false,
-        activeStep: newStep,
-        unhideMainButtons: false,
-        outletsActive: false,
-        businessId: results.data.createBusiness.business.id
+        // check whether we should jump to finish page
+        const newStep = boxChecked ? steps.length : activeStep + 1;
+        this.setState({
+          isLoading: false,
+          checked: false,
+          activeStep: newStep,
+          unhideMainButtons: false,
+          outletsActive: false,
+          businessId: results.data.createBusiness.business.id
+        });
+      })
+      .catch((error) => {
+        notify(error.message.slice(15));
+        this.setState({
+          isLoading: false,
+          serverError: error.message.slice(14),
+          isError: true
+        });
       });
-    }).catch((error) => {
-      notify(error.message.slice(15));
-      this.setState({ isLoading: false, serverError: error.message.slice(14), isError: true });
-    });
-  }
+  };
 
   addOutlet = () => {
     this.setState({ outletIsLoading: true });
@@ -855,11 +864,12 @@ export class StepperNav extends React.Component {
       addressLine2,
       localGovernmentArea,
       businessId,
-      cityId,
+      country,
+      city: cityName,
       dateLaunched,
       kindId,
       phoneNumber,
-      outletType,
+      outletType
     } = this.state;
 
     const { createOutlet } = this.props;
@@ -870,41 +880,45 @@ export class StepperNav extends React.Component {
         addressLine2,
         localGovernmentArea,
         businessId,
-        cityId,
+        country,
+        cityName,
         dateLaunched,
         kindId,
         phoneNumber
       }
-    }).then((results) => {
-      notify(results.data.createOutlet.success);
-      const id = Number(results.data.createOutlet.outlet.id);
-      this.setState({
-        outletId: id
-      });
-      this.toggleIsAcknowledged();
-      if (outletType === 'storefront') {
-        this.addReceiptTemplate();
-      }
-      return results;
-    }).then((results) => {
-      if (outletType === 'warehouse') {
-        const { outlet } = results.data.createOutlet;
-        this.setState(PrevState => ({
-          outletSet: [...PrevState.outletSet, outlet],
+    })
+      .then((results) => {
+        notify(results.data.createOutlet.success);
+        const id = Number(results.data.createOutlet.outlet.id);
+        this.setState({
+          outletId: id
+        });
+        this.toggleIsAcknowledged();
+        if (outletType === 'storefront') {
+          this.addReceiptTemplate();
+        }
+        return results;
+      })
+      .then((results) => {
+        if (outletType === 'warehouse') {
+          const { outlet } = results.data.createOutlet;
+          this.setState(PrevState => ({
+            outletSet: [...PrevState.outletSet, outlet],
+            outletIsLoading: false,
+            unhideMainButtons: true,
+            outletsActive: true
+          }));
+        }
+      })
+      .catch((error) => {
+        notify(error.message.split(': ')[1]);
+        this.setState({
           outletIsLoading: false,
-          unhideMainButtons: true,
-          outletsActive: true,
-        }));
-      }
-    }).catch((error) => {
-      notify('Something went wrong, Please check your inputs');
-      this.setState({
-        outletIsLoading: false,
-        serverError: error.message.slice(14),
-        sError: true
+          serverError: error.message.slice(14),
+          sError: true
+        });
       });
-    });
-  }
+  };
 
   createReceiptTemplate = () => {
     const {
@@ -922,7 +936,7 @@ export class StepperNav extends React.Component {
       subtotal,
       totalTax,
       receiptOpen,
-      outletId,
+      outletId
     } = this.state;
     const { createReceiptTemplate } = this.props;
     createReceiptTemplate({
@@ -941,54 +955,53 @@ export class StepperNav extends React.Component {
         subtotal,
         totalTax,
         receiptOpen,
-        outletId,
+        outletId
       }
-    }).then((results) => {
-      const { id } = results.data.createReceiptTemplate.receiptTemplate;
-      this.setState({ receiptId: id });
-      this.addRegister();
-    }).catch((error) => {
-      notify('Something went wrong, Please check your inputs');
-      this.setState({
-        outletIsLoading: false,
-        serverError: error.message.slice(14),
-        sError: true
+    })
+      .then((results) => {
+        const { id } = results.data.createReceiptTemplate.receiptTemplate;
+        this.setState({ receiptId: id });
+        this.addRegister();
+      })
+      .catch((error) => {
+        notify('Something went wrong, Please check your inputs');
+        this.setState({
+          outletIsLoading: false,
+          serverError: error.message.slice(14),
+          sError: true
+        });
       });
-    });
-  }
+  };
 
   createRegister = () => {
     const {
-      registerName,
-      outletId,
-      receiptId,
-      outletSet,
+      registerName, outletId, receiptId, outletSet
     } = this.state;
     const { createRegister } = this.props;
     createRegister({
       variables: {
         registerName,
         outletId,
-        receiptId,
+        receiptId
       }
-    }).then((results) => {
-      const { outlet } = results.data.createRegister.register;
-      const newOutletSet = outletSet.filter(
-        item => item.id !== outlet.id
-      );
-      this.setState({
-        outletSet: [...newOutletSet, outlet],
-        outletIsLoading: false,
-        unhideMainButtons: true,
-        outletsActive: true,
+    })
+      .then((results) => {
+        const { outlet } = results.data.createRegister.register;
+        const newOutletSet = outletSet.filter(item => item.id !== outlet.id);
+        this.setState({
+          outletSet: [...newOutletSet, outlet],
+          outletIsLoading: false,
+          unhideMainButtons: true,
+          outletsActive: true
+        });
+      })
+      .catch((error) => {
+        notify(error.message);
+        this.setState({
+          outletIsLoading: false
+        });
       });
-    }).catch((error) => {
-      notify(error.message);
-      this.setState({
-        outletIsLoading: false,
-      });
-    });
-  }
+  };
 
   editOutlet = () => {
     this.setState({ outletIsLoading: true });
@@ -998,12 +1011,13 @@ export class StepperNav extends React.Component {
       addressLine1,
       addressLine2,
       localGovernmentArea,
-      cityId,
+      country,
+      city: cityName,
       phoneNumber,
       dateLaunched,
       kindId,
       outletType,
-      outletSet,
+      outletSet
     } = this.state;
     const { updateOutlet } = this.props;
     updateOutlet({
@@ -1013,41 +1027,43 @@ export class StepperNav extends React.Component {
         addressLine1,
         addressLine2,
         localGovernmentArea,
-        cityId,
+        country,
+        cityName,
         phoneNumber,
         dateLaunched,
-        kindId,
+        kindId
       }
-    }).then((results) => {
-      notify(results.data.updateOutlet.success);
-      this.toggleIsAcknowledged();
-      if (outletType === 'storefront') {
-        this.addReceiptTemplate();
-      }
-      return results;
-    }).then((results) => {
-      if (outletType === 'warehouse') {
-        const { outlet } = results.data.updateOutlet;
-        const newOutletSet = outletSet.filter(
-          item => item.id !== outlet.id
-        );
+    })
+      .then((results) => {
+        notify(results.data.updateOutlet.success);
+        this.toggleIsAcknowledged();
+        if (outletType === 'storefront') {
+          this.addReceiptTemplate();
+        }
+        return results;
+      })
+      .then((results) => {
+        if (outletType === 'warehouse') {
+          const { outlet } = results.data.updateOutlet;
+          const newOutletSet = outletSet.filter(item => item.id !== outlet.id);
+          this.setState({
+            outletSet: [...newOutletSet, outlet],
+            outletIsLoading: false,
+            outletsActive: true,
+            unhideMainButtons: true,
+            edittingOutlet: false
+          });
+        }
+      })
+      .catch((error) => {
+        notify(error.message.split(': ')[1]);
         this.setState({
-          outletSet: [...newOutletSet, outlet],
           outletIsLoading: false,
-          outletsActive: true,
-          unhideMainButtons: true,
-          edittingOutlet: false,
+          serverError: error.message.slice(14),
+          sError: true
         });
-      }
-    }).catch((error) => {
-      notify(error.message);
-      this.setState({
-        outletIsLoading: false,
-        serverError: error.message.slice(14),
-        sError: true
       });
-    });
-  }
+  };
 
   EditReceiptTemplate = () => {
     const {
@@ -1066,7 +1082,7 @@ export class StepperNav extends React.Component {
       subtotal,
       totalTax,
       receiptOpen,
-      outletId,
+      outletId
     } = this.state;
     const { updateReceiptTemplate } = this.props;
     updateReceiptTemplate({
@@ -1086,79 +1102,81 @@ export class StepperNav extends React.Component {
         subtotal,
         totalTax,
         receiptOpen,
-        outletId,
+        outletId
       }
-    }).then(() => {
-      this.editRegister();
-    }).catch((error) => {
-      notify('Something went wrong, Please check your inputs');
-      this.setState({
-        outletIsLoading: false,
-        serverError: error.message.slice(14),
-        sError: true
+    })
+      .then(() => {
+        this.editRegister();
+      })
+      .catch((error) => {
+        notify('Something went wrong, Please check your inputs');
+        this.setState({
+          outletIsLoading: false,
+          serverError: error.message.slice(14),
+          sError: true
+        });
       });
-    });
-  }
+  };
 
   editRegister = () => {
-    const {
-      registerId,
-      registerName,
-      outletSet,
-    } = this.state;
+    const { registerId, registerName, outletSet } = this.state;
     const registerIdInt = Number(registerId);
     const { updateRegister } = this.props;
     updateRegister({
       variables: {
         registerIdInt,
-        registerName,
+        registerName
       }
-    }).then((results) => {
-      const { outlet } = results.data.updateRegister.register;
-      const newOutletSet = outletSet.filter(
-        item => item.id !== outlet.id
-      );
-      this.setState({
-        outletSet: [...newOutletSet, outlet],
-        outletIsLoading: false,
-        outletsActive: true,
-        unhideMainButtons: true,
-        edittingOutlet: false,
+    })
+      .then((results) => {
+        const { outlet } = results.data.updateRegister.register;
+        const newOutletSet = outletSet.filter(item => item.id !== outlet.id);
+        this.setState({
+          outletSet: [...newOutletSet, outlet],
+          outletIsLoading: false,
+          outletsActive: true,
+          unhideMainButtons: true,
+          edittingOutlet: false
+        });
+      })
+      .catch((error) => {
+        notify(error.message);
+        this.setState({
+          outletIsLoading: false
+        });
       });
-    }).catch((error) => {
-      notify(error.message);
-      this.setState({
-        outletIsLoading: false,
-      });
-    });
-  }
+  };
 
   removeOutlet = (id) => {
     const { outletSet } = this.state;
     const { deleteOutlet } = this.props;
     deleteOutlet({
       variables: { id }
-    }).then((results) => {
-      notify(results.data.deleteOutlet.success);
-      const outlets = outletSet.filter(outlet => outlet.id !== id);
-      this.setState({ outletSet: outlets });
-    }).catch((error) => {
-      notify(error.message);
-    });
-  }
+    })
+      .then((results) => {
+        notify(results.data.deleteOutlet.success);
+        const outlets = outletSet.filter(outlet => outlet.id !== id);
+        this.setState({ outletSet: outlets });
+      })
+      .catch((error) => {
+        notify(error.message);
+      });
+  };
 
   removeReceiptTemplate = () => {
     const { receiptId } = this.state;
     const { deleteReceipt } = this.props;
     deleteReceipt({
       variables: { receiptId }
-    }).then((results) => {
-      this.editOutlet();
-      return results;
-    }).catch((error) => {
-      notify(error.message);
-    });
-  }
+    })
+      .then((results) => {
+        this.editOutlet();
+        return results;
+      })
+      .catch((error) => {
+        notify(error.message);
+      });
+  };
 
   finishAddOutlet = () => {
     const { activeStep, boxChecked } = this.state;
@@ -1168,9 +1186,9 @@ export class StepperNav extends React.Component {
     this.setState({
       activeStep: newStep,
       checked: false,
-      roles: userRoles.roles,
+      roles: userRoles.roles
     });
-  }
+  };
 
   classifyFormErrors = (errorMessage) => {
     this.setState({ isLoading: false, isError: true });
@@ -1184,7 +1202,7 @@ export class StepperNav extends React.Component {
       return this.setState({ emailError: errorMessage });
     }
     return notify(errorMessage);
-  }
+  };
 
   addUser = () => {
     this.setState({ isLoading: true });
@@ -1199,9 +1217,8 @@ export class StepperNav extends React.Component {
       outlet,
       startingDate,
       userId,
-      editMode,
+      editMode
     } = this.state;
-
 
     const { addUser, adminUserUpdate } = this.props;
     if (!editMode) {
@@ -1215,36 +1232,38 @@ export class StepperNav extends React.Component {
           outlet,
           phone,
           jobTitle,
-          startingDate,
+          startingDate
         }
-      }).then((results) => {
-        const { addUser: fetchedUser } = results.data;
-        if (fetchedUser.errors) {
-          this.classifyFormErrors(fetchedUser.errors[0].slice(22));
-        } else {
-          this.setState(prevState => ({
-            showUsers: true,
-            isLoading: false,
-            isError: false,
-            formError: false,
-            users: prevState.users.concat({
-              firstName: fName,
-              lastName: lName,
-              username: userUsername,
-              email: userEmail,
-              roleId,
-              outlet,
-              phone,
-              jobTitle,
-              startingDate,
-              isActive: false,
-            })
-          }));
-          notify('User registered successfully');
-        }
-      }).catch((error) => {
-        this.classifyFormErrors(error.message.slice(15));
-      });
+      })
+        .then((results) => {
+          const { addUser: fetchedUser } = results.data;
+          if (fetchedUser.errors) {
+            this.classifyFormErrors(fetchedUser.errors[0].slice(22));
+          } else {
+            this.setState(prevState => ({
+              showUsers: true,
+              isLoading: false,
+              isError: false,
+              formError: false,
+              users: prevState.users.concat({
+                firstName: fName,
+                lastName: lName,
+                username: userUsername,
+                email: userEmail,
+                roleId,
+                outlet,
+                phone,
+                jobTitle,
+                startingDate,
+                isActive: false
+              })
+            }));
+            notify('User registered successfully');
+          }
+        })
+        .catch((error) => {
+          this.classifyFormErrors(error.message.slice(15));
+        });
     } else {
       adminUserUpdate({
         variables: {
@@ -1255,25 +1274,35 @@ export class StepperNav extends React.Component {
           userEmail,
           phone,
           jobTitle,
-          startingDate,
+          startingDate
         }
-      }).then((results) => {
-        this.setState({
-          showUsers: true, isLoading: false, isError: false
+      })
+        .then((results) => {
+          this.setState({
+            showUsers: true,
+            isLoading: false,
+            isError: false
+          });
+          notify(results.data.adminUpdateUser.message[1]);
+        })
+        .catch((error) => {
+          this.classifyFormErrors(error.message.slice(15));
         });
-        notify(results.data.adminUpdateUser.message[1]);
-      }).catch((error) => {
-        this.classifyFormErrors(error.message.slice(15));
-      });
     }
-  }
+  };
 
   static contextType = StateContext;
 
   render() {
     const {
-      activeStep, checked, isLoading, unhideMainButtons, showUsers, users,
-      editMode, boxChecked
+      activeStep,
+      checked,
+      isLoading,
+      unhideMainButtons,
+      showUsers,
+      users,
+      editMode,
+      boxChecked
     } = this.state;
     const { classes } = this.props;
 
@@ -1298,9 +1327,7 @@ export class StepperNav extends React.Component {
               >
                 {steps.map(label => (
                   <Step key={label}>
-                    <StepLabel
-                      StepIconComponent={StepperIcon}
-                    >
+                    <StepLabel StepIconComponent={StepperIcon}>
                       {label}
                     </StepLabel>
                   </Step>
@@ -1311,15 +1338,15 @@ export class StepperNav extends React.Component {
                   {this.getStepContent(activeStep)}
                   <div className={classes.buttons}>
                     {((activeStep !== 0 && showUsers && unhideMainButtons)
-                        || (showUsers && activeStep === 3 && unhideMainButtons)) && (
+                      || (showUsers && activeStep === 3 && unhideMainButtons)) && (
                       <Button
-                          onClick={this.handleBackButton}
-                          className={classes.backButton}
-                          variant="text"
-                          id="back-button"
-                        >
-                            Back
-                        </Button>
+                        onClick={this.handleBackButton}
+                        className={classes.backButton}
+                        variant="text"
+                        id="back-button"
+                      >
+                        Back
+                      </Button>
                     )}
                     {!showUsers && activeStep === 3 && (
                       <Button
@@ -1328,73 +1355,66 @@ export class StepperNav extends React.Component {
                         variant="text"
                         id="back-button"
                       >
-                          Cancel
+                        Cancel
                       </Button>
                     )}
-
-                    {isLoading
-                      ? (<Loader />)
-                      : (
-                        unhideMainButtons && (
-                        // eslint-disable-next-line no-nested-ternary
-                          (activeStep !== 3) ? (
-                            <Fab
-                              variant="extended"
-                              color="primary"
-                              disabled={!checked}
-                              onClick={this.handleNextButton}
-                              className={classes.button}
-                              id="next-button"
-                            >
-                              {activeStep === steps.length - 1 || boxChecked
-                                ? 'Finish' : 'Next'}
-                            </Fab>
-                          ) : (
-                          // eslint-disable-next-line no-nested-ternary
-                            showUsers && users.length > 0 ? (
-                              <Fab
-                                variant="extended"
-                                color="primary"
-                                disabled={false}
-                                onClick={this.handleNextButton}
-                                className={classes.button}
-                                id="next-button"
-                              >
-                                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                              </Fab>
-                            ) : (
-                              editMode ? (
-                                <Fab
-                                  variant="extended"
-                                  color="primary"
-                                  disabled={false}
-                                  onClick={this.handleNextButton}
-                                  className={classes.button}
-                                  id="next-button"
-                                >
-                                        Save Changes
-                                      </Fab>
-                              ) : (
-                                <Fab
-                                  variant="extended"
-                                  color="primary"
-                                  disabled={!checked}
-                                  onClick={this.handleNextButton}
-                                  className={classes.button}
-                                  id="next-button"
-                                >
-                                          Invite
-                                </Fab>
-                              )
-                            )
-                          )
-                        )
-                      )
-                    }
+                    {isLoading ? (
+                      <Loader />
+                    ) : (
+                      unhideMainButtons
+                      // eslint-disable-next-line no-nested-ternary
+                      && (activeStep !== 3 ? (
+                        <Fab
+                          variant="extended"
+                          color="primary"
+                          disabled={!checked}
+                          onClick={this.handleNextButton}
+                          className={classes.button}
+                          id="next-button"
+                        >
+                          {activeStep === steps.length - 1 || boxChecked
+                            ? 'Finish'
+                            : 'Next'}
+                        </Fab>
+                      ) // eslint-disable-next-line no-nested-ternary
+                        : showUsers && users.length > 0 ? (
+                          <Fab
+                            variant="extended"
+                            color="primary"
+                            disabled={false}
+                            onClick={this.handleNextButton}
+                            className={classes.button}
+                            id="next-button"
+                          >
+                            {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                          </Fab>
+                        ) : editMode ? (
+                          <Fab
+                            variant="extended"
+                            color="primary"
+                            disabled={false}
+                            onClick={this.handleNextButton}
+                            className={classes.button}
+                            id="next-button"
+                          >
+                          Save Changes
+                          </Fab>
+                        ) : (
+                          <Fab
+                            variant="extended"
+                            color="primary"
+                            disabled={!checked}
+                            onClick={this.handleNextButton}
+                            className={classes.button}
+                            id="next-button"
+                          >
+                          Invite
+                          </Fab>
+                        ))
+                    )}
                   </div>
                 </React.Fragment>
               </Paper>
-
             </React.Fragment>
           )}
         </main>
@@ -1419,33 +1439,50 @@ StepperNav.propTypes = {
   addUser: PropTypes.func.isRequired,
   adminUserUpdate: PropTypes.func.isRequired,
   assignedOutlets: PropTypes.instanceOf(Object).isRequired,
-  userRoles: PropTypes.instanceOf(Object).isRequired,
+  userRoles: PropTypes.instanceOf(Object).isRequired
 };
 
-const UPDATE_ADMIN_USER_MUTATION = graphql(UPDATE_ADMIN_USER, { name: 'editAdmin' });
+const UPDATE_ADMIN_USER_MUTATION = graphql(UPDATE_ADMIN_USER, {
+  name: 'editAdmin'
+});
 const GET_USER_INFO_QUERY = graphql(GET_USER_INFO, { name: 'userData' });
-const GET_COUNTRIES_QUERY = graphql(GET_ALL_COUNTRIES, { name: 'countriesData' });
-const ADD_BUSINESS_MUTATION = graphql(CREATE_BUSSINESS, { name: 'createBusiness' });
+const GET_COUNTRIES_QUERY = graphql(GET_ALL_COUNTRIES, {
+  name: 'countriesData'
+});
+const ADD_BUSINESS_MUTATION = graphql(CREATE_BUSSINESS, {
+  name: 'createBusiness'
+});
 const ADD_OUTLET_MUTATION = graphql(CREATE_OUTLET, { name: 'createOutlet' });
-const ADD_RECEIPT_TEMP_MUTATION = graphql(CREATE_RECEIPT_TEMP, { name: 'createReceiptTemplate' });
-const ADD_REGISTER_MUTATION = graphql(CREATE_REGISTER, { name: 'createRegister' });
+const ADD_RECEIPT_TEMP_MUTATION = graphql(CREATE_RECEIPT_TEMP, {
+  name: 'createReceiptTemplate'
+});
+const ADD_REGISTER_MUTATION = graphql(CREATE_REGISTER, {
+  name: 'createRegister'
+});
 const UPDATE_OUTLET_MUTATION = graphql(UPDATE_OUTLET, { name: 'updateOutlet' });
 const DELETE_OUTLET_MUTATION = graphql(DELETE_OUTLET, { name: 'deleteOutlet' });
-const UPDATE_RECEIPT_TEMP_MUTATION = graphql(UPDATE_RECEIPT_TEMP, { name: 'updateReceiptTemplate' });
-const UPDATE_REGISTER_MUTATION = graphql(UPDATE_REGISTER, { name: 'updateRegister' });
-const DELETE_RECEIPT_TEMP_MUTATION = graphql(DELETE_RECEIPT_TEMPLATE, { name: 'deleteReceipt' });
+const UPDATE_RECEIPT_TEMP_MUTATION = graphql(UPDATE_RECEIPT_TEMP, {
+  name: 'updateReceiptTemplate'
+});
+const UPDATE_REGISTER_MUTATION = graphql(UPDATE_REGISTER, {
+  name: 'updateRegister'
+});
+const DELETE_RECEIPT_TEMP_MUTATION = graphql(DELETE_RECEIPT_TEMPLATE, {
+  name: 'deleteReceipt'
+});
 const ADD_USER = graphql(ADD_NEW_USER, { name: 'addUser' });
-const ADMIN_USER_UPDATE = graphql(ADMIN_UPDATE_USER, { name: 'adminUserUpdate' });
+const ADMIN_USER_UPDATE = graphql(ADMIN_UPDATE_USER, {
+  name: 'adminUserUpdate'
+});
 const GET_USER_ROLES = graphql(GET_ROLES, { name: 'userRoles' });
-const GET_ASSIGNED_OUTLETS = graphql(GET_OUTLETS,
-  {
-    name: 'assignedOutlets',
-    options: {
-      variables: {
-        id: localStorage.businessId,
-      },
+const GET_ASSIGNED_OUTLETS = graphql(GET_OUTLETS, {
+  name: 'assignedOutlets',
+  options: {
+    variables: {
+      id: localStorage.businessId
     }
-  });
+  }
+});
 
 export default compose(
   UPDATE_ADMIN_USER_MUTATION,
@@ -1464,5 +1501,5 @@ export default compose(
   ADD_USER,
   ADMIN_USER_UPDATE,
   GET_USER_ROLES,
-  GET_ASSIGNED_OUTLETS,
+  GET_ASSIGNED_OUTLETS
 )(withAuth(withStyles(styles)(StepperNav)));

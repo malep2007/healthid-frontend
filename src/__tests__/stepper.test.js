@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import SteppedNav, { StepperNav } from '../components/setup/Stepper';
 import BusinessSetUp from '../components/setup/businessSetup';
 import AdminSetUp from '../components/setup/adminSetup';
+import OutletSetUp from '../components/setup/outletSetup';
 import withAuth from '../components/withAuth';
 import UserSetup from '../components/setup/userSetup';
 import FinalScreen from '../components/setup/finalScreen';
@@ -247,6 +248,7 @@ describe('Test stepper component', () => {
   beforeEach(() => {
     wrapper.instance().setState({
       activeStep: 0,
+      boxChecked: false
     });
   });
 
@@ -344,7 +346,8 @@ describe('Test stepper component', () => {
 
   it('renders OutletSetup Component when next button is clicked', () => {
     wrapper.setState({ checked: true, isLoading: false, activeStep: 2 });
-    expect(wrapper.find('OutletSetUp').length).toBe(1);
+    wrapper.instance().getStepContent(2);
+    expect(wrapper.find(OutletSetUp)).toHaveLength(1);
   });
 
   it('skips to the addbusiness section when 1 is passed to handleNextButton', () => {
@@ -499,30 +502,6 @@ describe('Test stepper component', () => {
     expect(wrapper.instance().state.formError).toBeTruthy();
   });
 
-  it('calls setLocale if name is country ', () => {
-    event = {
-      target: {
-        name: 'country',
-        value: 'value'
-      }
-    };
-    const setLocaleSpy = jest.spyOn(wrapper.instance(), 'setLocale');
-    wrapper.instance().handleInPutChange(event);
-    expect(setLocaleSpy).toHaveBeenCalled();
-  });
-
-  it('calls setCityId if name is city ', () => {
-    event = {
-      target: {
-        name: 'city',
-        value: 'value'
-      }
-    };
-    const setCityIdSpy = jest.spyOn(wrapper.instance(), 'setCityId');
-    wrapper.instance().handleInPutChange(event);
-    expect(setCityIdSpy).toHaveBeenCalled();
-  });
-
   it('calls setOutletKindId if name is outletType ', () => {
     event = {
       target: {
@@ -555,43 +534,6 @@ describe('Test stepper component', () => {
     };
     wrapper.instance().handleInPutChange(event);
     expect(wrapper.instance().state.kindId).toBe(1);
-  });
-
-  it('sets state cityId when setCityId is called with a city name ', () => {
-    wrapper.setState({
-      cities: [{
-        id: '5',
-        name: 'Mombasa'
-      }],
-    });
-    event = {
-      target: {
-        name: 'city',
-        value: 'Mombasa'
-      }
-    };
-    wrapper.instance().handleInPutChange(event);
-    expect(wrapper.instance().state.cityId).toBe(5);
-  });
-
-  it('sets state when setLocale is called with a country name ', () => {
-    wrapper.setState({
-      countries: [{
-        name: 'Uganda',
-        citySet: [{
-          id: '2',
-          name: 'Kampala'
-        }]
-      }],
-    });
-    event = {
-      target: {
-        name: 'country',
-        value: 'Uganda'
-      }
-    };
-    wrapper.instance().handleInPutChange(event);
-    expect(wrapper.instance().state.cityId).toBe(2);
   });
 
   it('sets state when toggleRegisterDisplay is called', () => {

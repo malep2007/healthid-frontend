@@ -3,7 +3,8 @@ import gql from 'graphql-tag';
 const UPDATE_OUTLET = gql`
   mutation updateOutlet(
     $outletId: Int!,
-    $cityId: Int,
+    $country: String
+    $cityName: String
     $dateLaunched: Date,
     $kindId: Int,
     $outletName: String
@@ -14,7 +15,8 @@ const UPDATE_OUTLET = gql`
   ){
     updateOutlet(
       id: $outletId,
-      cityId: $cityId,
+      country: $country,
+      cityName: $cityName,
       dateLaunched: $dateLaunched,
       kindId: $kindId,
       name: $outletName,

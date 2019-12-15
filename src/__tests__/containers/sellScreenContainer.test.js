@@ -84,6 +84,14 @@ describe('SellScreenContainer', () => {
     wrapper.instance().handleChange(event);
     expect(wrapper.state('buyingForValue')).toEqual('self');
   });
+  it('handles handleSaleDialogClose', () => {
+    wrapper.instance().handleSaleDialogClose();
+    expect(wrapper.state('openSaleDetailsDialog')).toBeFalsy;
+  });
+  it('handles handleEditSelectedCustomer', () => {
+    wrapper.instance().handleEditSelectedCustomer();
+    expect(wrapper.state('openCustomerDialog')).toBeTruthy;
+  });
   it('does not filter products when searchValue is less than 2 characters', async () => {
     const funcMock = (value) => new Promise((resolve, reject) => {
       if (value.length > 2) {

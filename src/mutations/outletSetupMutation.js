@@ -7,7 +7,8 @@ const CREATE_OUTLET = gql`
     $addressLine2: String
     $localGovernmentArea: String
     $businessId: String
-    $cityId: Int
+    $country: String
+    $cityName: String
     $dateLaunched: Date
     $kindId: Int
     $phoneNumber: String
@@ -18,7 +19,8 @@ const CREATE_OUTLET = gql`
       addressLine2: $addressLine2,
       lga: $localGovernmentArea,
       businessId: $businessId,
-      cityId: $cityId,
+      country: $country,
+      cityName: $cityName,
       dateLaunched: $dateLaunched,
       kindId: $kindId,
       phoneNumber: $phoneNumber,
