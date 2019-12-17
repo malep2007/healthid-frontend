@@ -2,14 +2,14 @@ import gql from 'graphql-tag';
 
 export const CREATE_PRODUCT_CATEGORY = gql`
 mutation createProductCategory(
-  $outletId: Int!
+  $businessId: String!
   $isVat: Boolean!
   $markup: Int!
   $name: String!
   $loyaltyWeight: Int!
 ){
   createProductCategory (
-    outletId: $outletId
+    businessId: $businessId
     isVatApplicable: $isVat
     markup: $markup
     name: $name

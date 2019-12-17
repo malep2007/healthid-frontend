@@ -162,14 +162,14 @@ export class Categories extends Component {
   }
 
   handleCreate = () => {
-    const outletId = window.location.href.split('/')[5];
+    const businessId = localStorage.getItem('businessId');
     const { addCategory } = this.state;
     const { createProductCategory, categories } = this.props;
     const { refetch } = categories;
 
     return createProductCategory({
       variables: {
-        outletId,
+        businessId,
         isVat: addCategory.isVat,
         markup: addCategory.salesMarkup,
         name: addCategory.name,
@@ -457,7 +457,7 @@ Categories.propTypes = {
 export default compose(
   graphql(GET_PRODUCT_CATEGORIES, {
     name: 'categories',
-    options: () => ({ variables: { outletId: window.location.href.split('/')[5] } })
+    options: () => ({ variables: { businessId: localStorage.getItem('businessId') } })
   }),
   graphql(CREATE_PRODUCT_CATEGORIES, {
     name: 'createProductCategory'

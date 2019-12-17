@@ -25,6 +25,7 @@ import withAuth from '../withAuth';
 
 import { StateContext } from '../../providers/stateProvider';
 
+
 export class Preferences extends Component {
   state = {
     nearExpiry: true,

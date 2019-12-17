@@ -2,10 +2,10 @@ import gql from 'graphql-tag';
 
 const GET_PRODUCT_CATEGORIES = gql`
 query productCategories(
-    $outletId: Int!
+    $businessId: String!
     ){
   productCategories(
-    outletId: $outletId,
+    businessId: $businessId,
     ){
     id
     name
