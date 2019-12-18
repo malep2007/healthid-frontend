@@ -1,13 +1,13 @@
 import gql from 'graphql-tag';
 
 const GET_PRODUCTS_SUPPLIERS_CATEGORIES = gql`
-query ($outletId: Int!){
+query ($businessId: String!){
   approvedSuppliers{
   id,
   name
   }
   productCategories(
-    outletId: $outletId,
+    businessId: $businessId,
     ){
     id
     name

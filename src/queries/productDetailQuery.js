@@ -47,10 +47,12 @@ const PRODUCT_DETAIL_QUERY = gql`
         expiryDate
         unitCost
       }
-      outlet {
-        outletpreference {
-          outletCurrency {
-            symbol
+      business {
+        outletSet {
+          outletpreference {
+            outletCurrency {
+              symbol
+            }
           }
         }
       }

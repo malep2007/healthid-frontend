@@ -50,7 +50,7 @@ export const ProductDetailRender = (props) => {
     product: {
       id,
       batchInfo,
-      outlet,
+      business,
       productName,
       salesPrice,
       skuNumber,
@@ -72,7 +72,6 @@ export const ProductDetailRender = (props) => {
     },
     classes,
   } = props;
-
   const [, dispatch] = Object.values(useStateValue());
 
   React.useEffect(() => {
@@ -84,8 +83,10 @@ export const ProductDetailRender = (props) => {
 
   const withPriceField = AddPriceField(batchInfo);
   let currency = '₦';
-  if (outlet.outletpreference) {
-    currency = outlet.outletpreference.outletCurrency.symbol;
+  if (business.outletSet) {
+    currency = business.outletSet.map(
+      outletprefer => outletprefer.outletpreference.outletCurrency
+    ).symbol;
   }
 
   const renderTableCell = (align, style, name) => (

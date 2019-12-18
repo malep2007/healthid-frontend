@@ -283,29 +283,29 @@ export class AddProduct extends Component {
   render() {
     return (
       <div>
-        <Query query={GET_INITIAL_DATA} variables={{ outletId: localStorage.outletId || 1 }}>
+        <Query query={GET_INITIAL_DATA} variables={{ businessId: localStorage.businessId || 1 }}>
           {({ loading, error, data }) => (loading && <DataTableLoader />)
             || (error || null) || (
-              <div>
-                <BackAction header="Add Product (Proposed)" link="/products/approved" />
-                <ProductForm
-                  state={this.state}
-                  initialData={data}
-                  handleProductName={this.handleProductName}
-                  handleChange={this.handleChange}
-                  handleAddition={this.handleAddition}
-                  handleDelete={this.handleDelete}
-                  onSelectFile={this.onSelectFile}
-                  handleOnDrop={this.handleImageDrop}
-                  handleOnCropChange={this.handleOnCropChange}
-                  handleCategoryChange={this.handleCategoryChange}
-                  handleClose={this.handleClose}
-                  handleSave={this.handleSave}
-                  handleSendForApproval={this.handleSendForApproval}
-                  handleAddAnotherProduct={this.handleAddAnotherProduct}
-                />
-              </div>
-            )
+            <div>
+              <BackAction header="Add Product (Proposed)" link="/products/approved" />
+              <ProductForm
+                state={this.state}
+                initialData={data}
+                handleProductName={this.handleProductName}
+                handleChange={this.handleChange}
+                handleAddition={this.handleAddition}
+                handleDelete={this.handleDelete}
+                onSelectFile={this.onSelectFile}
+                handleOnDrop={this.handleImageDrop}
+                handleOnCropChange={this.handleOnCropChange}
+                handleCategoryChange={this.handleCategoryChange}
+                handleClose={this.handleClose}
+                handleSave={this.handleSave}
+                handleSendForApproval={this.handleSendForApproval}
+                handleAddAnotherProduct={this.handleAddAnotherProduct}
+              />
+            </div>
+          )
           }
         </Query>
       </div>

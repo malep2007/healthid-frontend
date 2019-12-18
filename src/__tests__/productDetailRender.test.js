@@ -46,12 +46,14 @@ const props = {
       expiryDate: 1,
       commentary: '',
     }],
-    outlet: {
-      outletpreference: {
-        outletCurrency: {
-          symbol: '#'
+    business: {
+      outletSet: [{
+        outletpreference: {
+          outletCurrency: {
+            symbol: "₦"
+          }
         }
-      }
+      }]
     },
     quantityInStock: 1
   },

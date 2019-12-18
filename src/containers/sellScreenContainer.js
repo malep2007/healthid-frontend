@@ -51,7 +51,9 @@ export class SellScreenContainer extends Component {
     const { products, customers } = this.props;
     const productsWithQuantity = products.filter(product => product.quantityInStock > 0);
     const currency = products.length > 0
-      ? products[0].outlet.outletpreference.outletCurrency.symbol
+      ? products[0].business.outletSet.map(
+        outletprefer => outletprefer.outletpreference.outletCurrency
+      ).symbol
       : initialState.currency;
 
     this.setState({

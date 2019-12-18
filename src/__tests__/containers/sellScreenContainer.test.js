@@ -16,8 +16,8 @@ const context = ['kitty', jest.fn()]
 
 const props = {
   products: [
-    { id: 1, productName: 'Panadol', outlet: { outletpreference: { outletCurrency: { symbol: '#' } } } },
-    { id: 2, productName: 'Panadol', outlet: { outletpreference: { outletCurrency: { symbol: '#' } } } },
+    { id: 1, productName: 'Panadol', business: {outletSet: [ {outletpreference: { outletCurrency: { symbol: '#' } } }] } },
+    { id: 2, productName: 'Panadol', business: {outletSet: [ {outletpreference: { outletCurrency: { symbol: '#' } } }] } },
   ],
   session: {
     me: {
@@ -125,10 +125,12 @@ describe('SellScreenContainer', () => {
                     dispensingSize: {
                       name: "tablets"
                     },
-                    outlet: {
-                      outletpreference: {
-                        outletCurrency: {
-                          symbol: "₦"
+                    business: {
+                      outletSet: {
+                        outletpreference: {
+                          outletCurrency: {
+                            symbol: "₦"
+                          }
                         }
                       }
                     },
@@ -165,10 +167,12 @@ describe('SellScreenContainer', () => {
                       dispensingSize: {
                         name: "tablets"
                       },
-                      outlet: {
-                        outletpreference: {
-                          outletCurrency: {
-                            symbol: "₦"
+                      business: {
+                        outletSet: {
+                          outletpreference: {
+                            outletCurrency: {
+                              symbol: "₦"
+                            }
                           }
                         }
                       },

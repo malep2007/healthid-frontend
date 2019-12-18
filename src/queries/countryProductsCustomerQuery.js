@@ -11,10 +11,12 @@ query {
     dispensingSize {
       name
     }
-    outlet {
-      outletpreference {
-        outletCurrency {
-          symbol
+    business {
+      outletSet {
+        outletpreference {
+          outletCurrency {
+            symbol
+          }
         }
       }
     }

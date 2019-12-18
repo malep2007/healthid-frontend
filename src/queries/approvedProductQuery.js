@@ -11,10 +11,12 @@ const APPROVED_PRODUCTS_QUERY = gql`
       dispensingSize {
         name
       }
-      outlet {
-        outletpreference {
-          outletCurrency {
-            symbol
+      business {
+        outletSet {
+          outletpreference {
+            outletCurrency {
+              symbol
+            }
           }
         }
       }
