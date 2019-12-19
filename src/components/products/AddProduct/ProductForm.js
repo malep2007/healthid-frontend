@@ -23,11 +23,10 @@ const ProductForm = (props) => {
   } = props;
 
   const {
-    approvedSuppliers,
+    business: { supplierBusiness },
     productCategories,
     dispensingSize,
   } = initialData;
-
 
   const disableButton = !productName || !brand || !manufacturer || !productDescription
     || !manufacturer || !preferredSupplierId || !backupSupplierId || !categoryId
@@ -121,11 +120,11 @@ const ProductForm = (props) => {
                 }}
               >
                 (
-                {approvedSuppliers && (
-                  approvedSuppliers.map(supplier => (
+                {supplierBusiness.length > 0 ? (
+                  supplierBusiness.map(supplier => (
                     <MenuItem className="preferredSupplier" key={supplier.id} value={supplier.id}>{supplier.name}</MenuItem>
                   ))
-                )
+                ) : <MenuItem className="preferredSupplier">No preferred supplier</MenuItem>
                 }
               </Select>
             </FormControl>
@@ -147,11 +146,12 @@ const ProductForm = (props) => {
                   id: 'backup-supplier',
                 }}
               >
-                {approvedSuppliers && (
-                  approvedSuppliers.map(supplier => (
+                {supplierBusiness.length > 0 ? (
+                  supplierBusiness.map(supplier => (
                     <MenuItem className="backupSupplier" key={supplier.id} value={supplier.id}>{supplier.name}</MenuItem>
                   ))
-                )}
+                ) : <MenuItem className="backupSupplier">No backup supplier</MenuItem>
+                }
               </Select>
             </FormControl>
           </Grid>
@@ -289,12 +289,14 @@ const ProductForm = (props) => {
 ProductForm.propTypes = {
   state: PropTypes.instanceOf(Object).isRequired,
   initialData: PropTypes.shape({
-    approvedSuppliers: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string,
-        name: PropTypes.string,
-      })
-    ),
+    business: PropTypes.shape({
+      supplierBusiness: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.string,
+          name: PropTypes.string
+        })
+      )
+    }),
     productCategories: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string,

@@ -281,10 +281,15 @@ export class AddProduct extends Component {
   static contextType = StateContext;
 
   render() {
-    console.log('this.props', this.props);
     return (
       <div>
-        <Query query={GET_INITIAL_DATA} variables={{ businessId: localStorage.businessId || 1 }}>
+        <Query
+          query={GET_INITIAL_DATA}
+          variables={{
+            outletId: localStorage.outletId || 1,
+            businessId: localStorage.businessId || 1
+          }}
+        >
           {({ loading, error, data }) => (loading && <DataTableLoader />)
             || (error || null) || (
             <div>

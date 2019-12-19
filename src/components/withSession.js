@@ -9,6 +9,10 @@ const withSession = Component => props => (
 
       if (data && data.me.activeOutlet) {
         localStorage.setItem('outletId', data.me.activeOutlet.id);
+      } else if (data && data.me.businessUser) {
+        localStorage.setItem('businessId', data.me.businessUser.id);
+      } else {
+        return null;
       }
 
       return (

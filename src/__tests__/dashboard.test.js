@@ -124,10 +124,21 @@ describe('Render Dashboard component', () => {
     expect(wrapper.find('Dashboard').instance().state.anchorEl).toBeFalsy();
   });
 
+  it('invokes handleLogOut method and sets state', () => {
+    wrapper.find('Dashboard').instance().handleLogOut(event);
+    expect(wrapper.find('Dashboard').instance().state.anchorEl).toBeFalsy();
+  });
+
   it('invokes handleOnClick method with a truthy isActive state property and sets state', () => {
     wrapper.find('Dashboard').instance().handleOnClick(event1);
     wrapper.find('Dashboard').instance().handleOnClick(event2);
     wrapper.find('Dashboard').instance().handleOnClick(event3);
+    wrapper.find('Dashboard').instance().handleOnClick(event4);
+    wrapper.find('Dashboard').instance().handleOnClick(event5);
+    wrapper.find('Dashboard').instance().handleOnClick(event6);
+    wrapper.find('Dashboard').instance().handleOnClick(event7);
+    wrapper.find('Dashboard').instance().handleOnClick(event8);
+    wrapper.find('Dashboard').instance().handleOnClick(event9);
     expect(wrapper.find('Dashboard').instance().state.isActive).toBeFalsy();
   });
 });

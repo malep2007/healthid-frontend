@@ -21,20 +21,22 @@ describe('Render Product Form component', () => {
       loading: false,
     },
     initialData: {
-      approvedSuppliers: [
-        {
-          id: 'bu5ixuq72',
-          name: 'Unilever'
-        },
-        {
-          id: '2',
-          name: 'sean2'
-        },
-        {
-          id: '1',
-          name: 'first'
-        }
-      ],
+      business: {
+        supplierBusiness: [
+          {
+            id: 'bu5ixuq72',
+            name: 'Unilever'
+          },
+          {
+            id: '2',
+            name: 'sean2'
+          },
+          {
+            id: '1',
+            name: 'first'
+          }
+        ],
+      },
       productCategories: [
         {
           id: '45',

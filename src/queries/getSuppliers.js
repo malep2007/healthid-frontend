@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
-export const GET_ALL_SUPPLIERS = (pageCount, pageNumber) => gql`
+export const GET_ALL_SUPPLIERS = (pageCount, pageNumber, value) => gql`
 query{
-  allSuppliers(pageCount: ${pageCount}, pageNumber: ${pageNumber}){
+  allSuppliers(pageCount: ${pageCount}, pageNumber: ${pageNumber}, isApproved: ${value}){
     id
     name
     user{

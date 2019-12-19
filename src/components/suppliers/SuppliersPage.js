@@ -10,7 +10,6 @@ import DataTableLoader from '../dataTable/dataTableLoader';
 import '../../assets/styles/stock/stock_products.scss';
 import { GET_ALL_SUPPLIERS, FILTER_SUPPLIERS } from '../../queries/getSuppliers';
 import { getSuppliers } from '../utils/filter';
-
 import { StateContext } from '../../providers/stateProvider';
 
 export class SuppliersPage extends Component {
@@ -202,17 +201,14 @@ export class SuppliersPage extends Component {
     );
   }
 }
-
 SuppliersPage.propTypes = {
   session: PropTypes.objectOf(PropTypes.object),
   history: PropTypes.oneOfType([PropTypes.string, PropTypes.object, PropTypes.number]),
   match: PropTypes.objectOf(PropTypes.any).isRequired,
   scrollStepInPx: PropTypes.number.isRequired,
 };
-
 SuppliersPage.defaultProps = {
   session: { me: {} },
   history: {}
 };
-
 export default withAuth(withRouter(SuppliersPage));

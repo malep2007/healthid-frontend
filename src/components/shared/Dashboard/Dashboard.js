@@ -33,6 +33,7 @@ export class Dashboard extends Component {
     localStorage.removeItem('auth_token');
     localStorage.removeItem('rest_token');
     localStorage.removeItem('outletId');
+    localStorage.removeItem('businessId');
     this.setState({ anchorEl: null, open: false });
     history.push('/');
   }
