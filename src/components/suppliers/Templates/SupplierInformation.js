@@ -6,6 +6,7 @@ const SupplierInformation = (props) => {
   const {
     classes, renderTextField, supplier
   } = props;
+  const { supplierMeta } = supplier;
   return (
     <Fragment>
       <div className={classes.dividerDiv}>
@@ -28,11 +29,13 @@ const SupplierInformation = (props) => {
         </Grid>
         <Grid item xs={4}>
           {renderTextField(
-            classes.descriptionFields, 'paymentTerms', 'Payment Terms', supplier.paymentTerms.name
+            classes.descriptionFields, 'paymentTerms', 'Payment Terms',
+            supplierMeta.length && supplierMeta[0].paymentTerms
           )}
         </Grid>
         <Grid item xs={4}>
-          {renderTextField(classes.newTextFields, 'creditDays', 'Credit Days', supplier.creditDays)}
+          {renderTextField(classes.newTextFields, 'creditDays', 'Credit Days',
+            supplierMeta.length && supplierMeta[0].creditDays)}
         </Grid>
       </Grid>
     </Fragment>

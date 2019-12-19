@@ -6,6 +6,10 @@ import capitalize from '../../utils/capitalize';
 
 const SupplierDescription = (props) => {
   const { classes, renderTextField, supplier } = props;
+  const { supplierContacts, supplierMeta, supplierratingSet } = supplier;
+  const rating = supplierratingSet[0] && supplierratingSet[0].rating;
+  const contacts = supplierContacts[0];
+  const meta = supplierMeta[0];
   return (
     <Fragment>
       <Grid
@@ -26,11 +30,11 @@ const SupplierDescription = (props) => {
               </div>
               <div>
                 <div><span className={classes.addressTextHeader}>Address</span></div>
-                <div style={{ marginTop: '5px' }}><span className={classes.addressText}>{`${supplier.addressLine1}`}</span></div>
-                <div><span className={classes.addressText}>{`${supplier.addressLine2},`}</span></div>
-                <div><span className={classes.addressText}>{`${capitalize(supplier.lga)},`}</span></div>
-                <div><span className={classes.addressText}>{supplier.city && `${supplier.city.name},`}</span></div>
-                <div><span className={classes.addressText}>{supplier.city && supplier.city.country && `${supplier.city.country.name}`}</span></div>
+                <div style={{ marginTop: '5px' }}><span className={classes.addressText}>{`${contacts && contacts.addressLine1}`}</span></div>
+                <div><span className={classes.addressText}>{`${(contacts && contacts.addressLine2) || ''},`}</span></div>
+                <div><span className={classes.addressText}>{`${capitalize(contacts && contacts.lga)},`}</span></div>
+                <div><span className={classes.addressText}>{`${contacts && contacts.city.name},`}</span></div>
+                <div><span className={classes.addressText}>{`${contacts && contacts.country.name}`}</span></div>
               </div>
             </Grid>
           </Grid>
@@ -38,7 +42,7 @@ const SupplierDescription = (props) => {
             <Card elevation={0} className={classes.card}>
               <CardMedia
                 className={classes.media}
-                image={supplier.logo}
+                image={meta && meta.logo}
                 title="Supplier Image"
               />
             </Card>
@@ -50,7 +54,7 @@ const SupplierDescription = (props) => {
               classes.descriptionFields,
               'email',
               'Email',
-              supplier.email
+              contacts && contacts.email
             )}
           </div>
         </Grid>
@@ -60,7 +64,7 @@ const SupplierDescription = (props) => {
               classes.descriptionFields,
               'mobile',
               'Mobile',
-              supplier.mobileNumber
+              contacts && contacts.mobileNumber
             )}
           </div>
         </Grid>
@@ -68,7 +72,7 @@ const SupplierDescription = (props) => {
           <div>
             {
               supplier.isApproved ? (
-                <Rating rating={supplier.rating} starClass="supplierStar" />
+                <Rating rating={rating} starClass="supplierStar" />
               )
                 : ''
             }

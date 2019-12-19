@@ -10,6 +10,10 @@ const props = {
     address: '​​​​​NNPC Towers, Central Business District, Abuja.',
     name: 'Damian Inc',
     mobile: '08137519698',
+    supplierContacts: [
+    ],
+    supplierMeta: [],
+    supplierratingSet: [],
     rating: '5',
     image:
       'https://justcreative.com/wp-content/uploads/2019/09/brand-strategy-workbook-1.jpg',

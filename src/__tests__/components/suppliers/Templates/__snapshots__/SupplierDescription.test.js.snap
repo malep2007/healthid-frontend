@@ -47,7 +47,7 @@ exports[`SupplierDescription should render the SupplierDescription component pro
             </div>
             <div>
               <span>
-                undefined,
+                ,
               </span>
             </div>
             <div>
@@ -56,10 +56,14 @@ exports[`SupplierDescription should render the SupplierDescription component pro
               </span>
             </div>
             <div>
-              <span />
+              <span>
+                undefined,
+              </span>
             </div>
             <div>
-              <span />
+              <span>
+                undefined
+              </span>
             </div>
           </div>
         </WithStyles(Grid)>

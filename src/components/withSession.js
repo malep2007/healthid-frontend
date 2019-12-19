@@ -11,8 +11,6 @@ const withSession = Component => props => (
         localStorage.setItem('outletId', data.me.activeOutlet.id);
       } else if (data && data.me.businessUser) {
         localStorage.setItem('businessId', data.me.businessUser.id);
-      } else {
-        return null;
       }
 
       return (

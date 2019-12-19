@@ -2,26 +2,31 @@ import gql from 'graphql-tag';
 
 const GET_SINGLE_SUPPLIER = gql`
 query($id: String){
-  singleSupplier(id: $id)
-  {
+  singleSupplier(id: $id){
     id
     name
-    supplierContacts{
+    tier {
       id
+      name
+    }
+    isApproved
+    supplierContacts{
       email
-      country { name }
-      city { name }
+      mobileNumber
       addressLine1
       addressLine2
-      mobileNumber
+      city{ name }
+      country{ name }
+    }
+    supplierratingSet{
+      rating
     }
     supplierMeta{
-      id
       displayName
       creditDays
+      logo
       paymentTerms
       commentary
-      adminComment
     }
   }
 }

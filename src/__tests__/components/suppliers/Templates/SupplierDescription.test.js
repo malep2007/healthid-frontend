@@ -16,6 +16,9 @@ const props = {
     email: 'test@gmail.com',
     tier: 'Manufacturer',
     paymentTerms: 'Daily',
+    supplierratingSet: [],
+    supplierMeta: [],
+    supplierContacts: [],
     creditDays: '3 days',
     notes: [
       {
