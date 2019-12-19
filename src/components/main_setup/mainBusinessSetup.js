@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import PropTypes, { object } from 'prop-types';
 import {
   Grid,
   Paper,
@@ -26,7 +26,7 @@ export const MainSetup = (props) => {
   }, []);
 
   const { session } = props;
-  const { businesses } = session.me;
+  const { businessUser } = session.me;
   return (
     <Fragment>
       <Grid container style={styles.container}>
@@ -47,11 +47,11 @@ export const MainSetup = (props) => {
             <Grid>
               <Grid item style={styles.contentHeader}>
                 <Typography variant="h6">
-                  User Businesses
+                  User Business
                 </Typography>
               </Grid>
             </Grid>
-            <MainBusinessList businessList={businesses} />
+            <MainBusinessList business={businessUser} />
           </Paper>
         </Grid>
       </Grid>
@@ -62,7 +62,7 @@ export const MainSetup = (props) => {
 MainSetup.propTypes = {
   session: PropTypes.shape({
     me: PropTypes.shape({
-      businesses: PropTypes.array,
+      businessUser: PropTypes.instanceOf(object).isRequired,
       outlets: PropTypes.array
     })
   }).isRequired,

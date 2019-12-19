@@ -1,6 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { object } from 'prop-types';
 import { Link } from 'react-router-dom';
+import _ from 'lodash';
 import {
   Table,
   TableBody,
@@ -11,30 +12,23 @@ import {
 import OpenInNew from '@material-ui/icons/OpenInNew';
 import { MainOutletSetupStyles } from '../../assets/styles/setup';
 
-export const MainBusinessList = (props) => {
-  const { businessList } = props;
-
-  if (businessList.length > 0) {
+export const MainBusiness = (props) => {
+  const { business } = props;
+  if (!_.isEmpty(business)) {
     return (
       <Table>
         <TableBody>
-          {
-            businessList.map(
-              business => (
-                <TableRow key={business.id}>
-                  <TableCell>{business.legalName}</TableCell>
-                  <TableCell>{business.email}</TableCell>
-                  <TableCell align="right">
-                    <IconButton>
-                      <Link to={`/main_setup/business_information/${business.id}`} style={MainOutletSetupStyles.optionsLink}>
-                        <OpenInNew />
-                      </Link>
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              )
-            )
-          }
+          <TableRow key={business.id}>
+            <TableCell>{business.legalName}</TableCell>
+            <TableCell>{business.businessEmail}</TableCell>
+            <TableCell align="right">
+              <IconButton>
+                <Link to={`/main_setup/business_information/${business.id}`} style={MainOutletSetupStyles.optionsLink}>
+                  <OpenInNew />
+                </Link>
+              </IconButton>
+            </TableCell>
+          </TableRow>
         </TableBody>
       </Table>
     );
@@ -43,8 +37,8 @@ export const MainBusinessList = (props) => {
   return null;
 };
 
-MainBusinessList.propTypes = {
-  businessList: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+MainBusiness.propTypes = {
+  business: PropTypes.instanceOf(object).isRequired
 };
 
-export default MainBusinessList;
+export default MainBusiness;

@@ -185,6 +185,19 @@ export const BusinessSetUpStyles = {
     opacity: '0.5',
     marginTop: '8px',
   },
+  paperEdit: {
+
+    marginTop: '8px',
+  },
+  contentHeader: {
+    padding: '1rem',
+    textAlign: 'center',
+    borderBottom: 'solid 1px #E8E8E8',
+    marginBottom: '3rem'
+  },
+  gridContainer: {
+    padding: '0 5rem 5rem 5rem'
+  },
   checkbox: {
     padding: '0 1rem'
   }
@@ -420,11 +433,56 @@ export const SetupHeader = {
   container: {
     padding: '1rem 0',
   },
+  wrapper: {
+    margin: '0 auto',
+  },
   backBox: {
     textAlign: 'center',
   },
   backButton: {
     borderRadius: '50%',
+  },
+  adjust: {
+    float: 'left',
+    marginLeft: '25px',
+  },
+  editButton: {
+    border: 'none',
+    color: 'white',
+    backgroundColor: '#1C7CFF',
+    width: '130px',
+    height: '40px',
+    'border-radius': '10px',
+    opacity: 1,
+    fontSize: '14px',
+    marginLeft: '80px',
+    textDecoration: 'none',
+    textTransform: 'uppercase',
+    textAlign: 'center',
+    paddingTop: '11px'
+  },
+  saveButton: {
+    border: 'none',
+    color: '#fff',
+    backgroundColor: '#424242',
+    width: '130px',
+    height: '40px',
+    borderRadius: '10px',
+    opacity: 1,
+    fontSize: '12px'
+  },
+  disabledSaveButton: {
+    border: 'none',
+    color: '#fff',
+    backgroundColor: '#A3A3A3',
+    width: '130px',
+    height: '40px',
+    borderRadius: '10px',
+    opacity: 1,
+    fontSize: '12px'
+  },
+  backText: {
+    marginRight: '59.5rem',
   },
   link: {
     width: '3rem',

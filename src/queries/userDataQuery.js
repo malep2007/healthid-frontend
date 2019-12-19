@@ -44,9 +44,14 @@ const GET_USER_INFO = gql`
       }
       businessUser {
         id
+        logo
         legalName
         tradingName
         addressLine1
+        addressLine2
+        city
+        country
+        localGovernmentArea
         phoneNumber
         twitter
         businessEmail
@@ -63,7 +68,6 @@ const GET_USER_INFO = gql`
       activeOutlet {
         id
         name
-        addressLine1
         city {
           name
         }

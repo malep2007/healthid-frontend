@@ -519,6 +519,12 @@ export class StepperNav extends React.Component {
     }));
   };
 
+  handleCheckboxChange = () => {
+    this.setState(prevState => ({
+      boxChecked: !prevState.boxChecked
+    }));
+  };
+
   toggleRegisterDisplay = (event) => {
     const { clickedOutlet } = this.state;
     const { id } = event.target;

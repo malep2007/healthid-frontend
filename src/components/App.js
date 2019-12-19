@@ -23,6 +23,7 @@ import ManageProfile from './main_setup/manageProfileSetup';
 import MainPreferences from './main_setup/mainPreferences';
 import MainBusinessInformation from './main_setup/mainBusinessSetup';
 import MainBusinessView from './main_setup/mainBusinessSetupView';
+import MainBusinessUpdate from './main_setup/mainBusinessSetupUpdate';
 import MainOutletSetup from './main_setup/mainOutletSetup';
 import MainOutletSetupForm from './main_setup/mainOutletSetupForm';
 import MainInvitedUsers from './main_setup/mainInvitedUsers';
@@ -49,6 +50,7 @@ const App = ({ session }) => {
         <Route exact path="/main_setup/preferences/:outletID" render={() => <MainPreferences session={session} />} />
         <Route exact path="/main_setup/business_information" render={() => <MainBusinessInformation session={session} />} />
         <Route exact path="/main_setup/business_information/:businessID" render={() => <MainBusinessView session={session} />} />
+        <Route exact path="/main_setup/business_information_update/:businessID" render={() => <MainBusinessUpdate session={session} />} />
         <Route exact path="/main_setup/outlets_registers" render={() => <MainOutletSetup session={session} />} />
         <Route exact path="/main_setup/outlets_registers/new" render={() => <MainOutletSetupForm session={session} />} />
         <Route exact path="/main_setup/users" render={() => <MainInvitedUsers session={session} />} />

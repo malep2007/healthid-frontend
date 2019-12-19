@@ -2,6 +2,7 @@ import gql from 'graphql-tag';
 
 const UPDATE_BUSSINESS = gql`
 mutation updateBusiness(
+    $businessId: String!,
     $legalName: String!,
     $tradingName: String!,
     $businessEmail: String!,
@@ -18,6 +19,7 @@ mutation updateBusiness(
     $facebook: String,
 ){
   updateBusiness(
+    id: $businessId,
     legalName: $legalName,
     tradingName: $tradingName,
     businessEmail: $businessEmail,

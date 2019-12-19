@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { object } from 'prop-types';
 import { Link } from 'react-router-dom';
 
 // MATERIAL UI COMPONENTS
@@ -24,7 +24,7 @@ import { useStateValue } from '../../providers/stateProvider';
 
 const MainSetup = (props) => {
   const { session } = props;
-  const { businesses } = session.me;
+  const { businessUser } = session.me;
   const [, dispatch] = Object.values(useStateValue());
 
   React.useEffect(() => {
@@ -34,11 +34,8 @@ const MainSetup = (props) => {
     });
   }, []);
 
-  const selectedBusiness = businesses.filter(
-    business => business.id === window.location.href.split('/')[5]
-  );
-
   const {
+    id,
     addressLine1,
     businessEmail,
     facebook,
@@ -48,7 +45,7 @@ const MainSetup = (props) => {
     tradingName,
     twitter,
     website,
-  } = selectedBusiness[0];
+  } = businessUser;
 
   return (
     <Fragment>
@@ -65,6 +62,9 @@ const MainSetup = (props) => {
             <Typography variant="h5">
               Back
             </Typography>
+            <Link to={`/main_setup/business_information_update/${id}`} style={SetupHeader.editButton}>
+              Edit
+            </Link>
           </Grid>
           <Paper style={styles.paper}>
             <Grid>
@@ -182,9 +182,9 @@ const MainSetup = (props) => {
 MainSetup.propTypes = {
   session: PropTypes.shape({
     me: PropTypes.shape({
-      businesses: PropTypes.array,
-      outlets: PropTypes.array
-    })
+      businessUser: PropTypes.instanceOf(object).isRequired,
+    }).isRequired,
+    outlets: PropTypes.array
   }).isRequired,
 };
 
