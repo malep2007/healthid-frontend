@@ -186,7 +186,6 @@ export const BusinessSetUpStyles = {
     marginTop: '8px',
   },
   paperEdit: {
-
     marginTop: '8px',
   },
   contentHeader: {
@@ -379,11 +378,20 @@ export const MainOutletSetupStyles = {
     alignItems: 'center',
     justifyContent: 'center',
   },
+  addButton: {
+    paddingTop: '0.5rem'
+  },
+  addButtonContainer: {
+    paddingTop: '0.3rem'
+  },
   formTitle: {
     width: '100%',
     padding: '0.5rem 3rem',
     color: '#424242',
     fontSize: '1.3em',
+  },
+  formUserTitle: {
+    padding: '1rem 0 0 2rem',
   },
   tableBox: {
     margin: '0 auto',
@@ -442,10 +450,6 @@ export const SetupHeader = {
   backButton: {
     borderRadius: '50%',
   },
-  adjust: {
-    float: 'left',
-    marginLeft: '25px',
-  },
   editButton: {
     border: 'none',
     color: 'white',
@@ -469,7 +473,8 @@ export const SetupHeader = {
     height: '40px',
     borderRadius: '10px',
     opacity: 1,
-    fontSize: '12px'
+    fontSize: '12px',
+    marginLeft: '35px'
   },
   disabledSaveButton: {
     border: 'none',
@@ -479,10 +484,38 @@ export const SetupHeader = {
     height: '40px',
     borderRadius: '10px',
     opacity: 1,
+    fontSize: '12px',
+    marginLeft: '35px'
+  },
+  addButton: {
+    border: '2px solid #424242',
+    color: '#424242',
+    width: '130px',
+    height: '40px',
+    borderRadius: '10px',
+    opacity: 1,
     fontSize: '12px'
   },
-  backText: {
-    marginRight: '59.5rem',
+  disabledAddButton: {
+    border: '2px solid #A3A3A3',
+    color: '#A3A3A3',
+    width: '130px',
+    height: '40px',
+    borderRadius: '10px',
+    opacity: 1,
+    fontSize: '12px'
+  },
+  buttonContainer: {
+    padding: '20px'
+  },
+  adjustUpdateBackButton: {
+    float: 'left',
+    marginLeft: '25px'
+  },
+  adjust: {
+    float: 'left',
+    marginLeft: '25px',
+    marginTop: '20px'
   },
   link: {
     width: '3rem',

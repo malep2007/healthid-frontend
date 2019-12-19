@@ -5,14 +5,17 @@ import {
   Grid,
   Button,
   Typography,
-  Paper,
+  Paper
 } from '@material-ui/core';
 
-import ArrowBack from '@material-ui/icons/ArrowBack';
+import { ArrowBack } from '@material-ui/icons';
 import withAuth from '../withAuth';
 import { MainOutletSetupStyles, SetupHeader } from '../../assets/styles/setup';
 import MainInvitedUsersList from './mainInvitedUsersList';
 import { useStateValue } from '../../providers/stateProvider';
+import addlogo from '../../assets/images/products/add.png';
+import { CustomIconButton } from '../stock_control/utils/utils';
+import Footer from '../shared/Footer';
 
 const MainInvitedUsers = ({ session }) => {
   const [, dispatch] = Object.values(useStateValue());
@@ -41,9 +44,21 @@ const MainInvitedUsers = ({ session }) => {
             </Typography>
           </Grid>
           <Paper>
-            <Typography variant="h6" style={MainOutletSetupStyles.formTitle}>
-              Users
-            </Typography>
+            <Grid container xs={12} style={MainOutletSetupStyles.formHeader}>
+              <Grid item xs={11}>
+                <Typography variant="h6" style={MainOutletSetupStyles.formUserTitle}>
+              USERS
+                </Typography>
+              </Grid>
+              <Grid item xs={1} style={MainOutletSetupStyles.addButtonContainer}>
+                <CustomIconButton
+                  toolTip="Add User"
+                  onClickHandler={() => window.location.assign('/main_setup/add_user')}
+                >
+                  <img src={addlogo} style={{ width: '25px' }} alt="" />
+                </CustomIconButton>
+              </Grid>
+            </Grid>
             <hr />
             <Grid item xs={11} style={MainOutletSetupStyles.tableBox}>
               <MainInvitedUsersList session={session} />
@@ -51,6 +66,7 @@ const MainInvitedUsers = ({ session }) => {
           </Paper>
         </Grid>
       </Grid>
+      <Footer />
     </Fragment>
   );
 };

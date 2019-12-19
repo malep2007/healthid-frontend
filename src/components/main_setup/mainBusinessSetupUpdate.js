@@ -370,7 +370,7 @@ export class BusinessUpdate extends Component {
       return (
         <Fragment>
           <Grid style={styles.container}>
-            <Grid style={SetupHeader.adjust}>
+            <Grid style={SetupHeader.adjustUpdateBackButton}>
               <Grid item xs={1} style={SetupHeader.backBox}>
                 <Button style={SetupHeader.backButton}>
                   <Link to={`/main_setup/business_information/${businessId}`} style={SetupHeader.link}>

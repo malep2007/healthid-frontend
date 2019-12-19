@@ -34,6 +34,7 @@ import SingleSupplierPage from './suppliers/SingleSupplierPage';
 import OrdersAndSuppliers from '../containers/orders/orders';
 import ImportSuppliers from './suppliers/Templates/ImportSuppliers/ImportSuppliers';
 import ProductMenuComingSoon from './products/productMenuComingSoon';
+import AddUser from './main_setup/addUser';
 import { useStateValue } from '../providers/stateProvider';
 
 const App = ({ session }) => {
@@ -56,6 +57,7 @@ const App = ({ session }) => {
         <Route exact path="/main_setup/outlets_registers" render={() => <MainOutletSetup session={session} />} />
         <Route exact path="/main_setup/outlets_registers/new" render={() => <MainOutletSetupForm session={session} />} />
         <Route exact path="/main_setup/users" render={() => <MainInvitedUsers session={session} />} />
+        <Route exact path="/main_setup/add_user" render={() => <AddUser session={session} />} />
         <Route exact path="/reset_password/:uid65/:token" component={ResetPassword} />
         <Route exact path="/products/:id/approve" render={() => <ApproveProductDetail session={session} />} />
         <Route exact path="/products" render={() => <ProductPage session={session} />} />
