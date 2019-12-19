@@ -3,8 +3,8 @@ import gql from 'graphql-tag';
 const GET_ALL_PRODUCTS = gql`
 query{
   products{
-      id,
-  productName,
+    id,
+    productName,
     isApproved
     }
   }

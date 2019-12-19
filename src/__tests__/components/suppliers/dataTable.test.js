@@ -82,6 +82,45 @@ describe('Supplier Page DataTable ', () => {
     wrapper.find('Checkbox').at(0).simulate('click', secondEvent);
     wrapper.find('span').at(0).simulate('mouseEnter', event);
     wrapper.find('span').at(0).simulate('mouseLeave', event);
-    expect(wrapper.find('[name="toolbar"]').prop('numSelected')).toBe(2);
   });
+
+  it('sets the right state', () => {
+    const wrapper = shallow(<DataTable {...props} />);
+    wrapper.find('span').at(0).simulate('mouseEnter', event)
+    wrapper.find('span').at(0).simulate('mouseLeave', event)
+    wrapper.find('WithStyles(TableHeader)').prop('onSelectAllClick')({
+      target: {
+        checked: true
+      }
+    })
+    expect(wrapper.find('WithStyles(Checkbox)').at(0).prop('checked')).toBeTruthy
+  })
+
+  describe('sets the right state', () => {
+    const wrapper = shallow(<DataTable {...props} />);
+    
+    it('Checks all Checkboxes', () => {
+      wrapper.find('span').at(0).simulate('mouseEnter', event)
+      wrapper.find('span').at(0).simulate('mouseLeave', event)
+      wrapper.find('WithStyles(TableHeader)').prop('onSelectAllClick')({
+        target: {
+          checked: true
+        }
+      })
+      expect(wrapper.find('WithStyles(Checkbox)').at(0).prop('checked')).toBeTruthy
+    })
+
+    it('unChecks all Checkboxes', () => {
+      wrapper.find('WithStyles(TableHeader)').prop('onSelectAllClick')({
+        target: {
+          checked: false
+        }
+      })
+      expect(wrapper.find('WithStyles(Checkbox)').at(0).prop('checked')).toBeFalsy
+    })
+    it('calls "handleHideSearch"', () => {
+      wrapper.find('TableToolBar').prop('handleHideSearch')()
+      // expect(wrapper.find('WithStyles(Checkbox)').at(0).prop('checked')).toBeFalsy
+    })
+  })
 });

@@ -110,12 +110,17 @@ export const ToolbarStyles = {
     margin: '5px 1px 7px auto'
   },
   title: {
-    flex: '0 0 auto'
+    flex: '0 0 auto',
+    display: 'table',
+    padding: '.5rem .6rem'
   },
   menuLink: {
     textDecoration: 'none',
     color: '#424242'
   },
+  iconWrapper: {
+    marginLeft: '25px'
+  }
 };
 
 export const searchStyles = theme => ({

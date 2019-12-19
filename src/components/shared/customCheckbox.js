@@ -33,14 +33,14 @@ CustomCheckbox.propTypes = {
   checked: PropTypes.bool,
   handleChange: PropTypes.func,
   classes: PropTypes.instanceOf(Object),
-  label: PropTypes.instanceOf(Object),
+  label: PropTypes.instanceOf(Array),
 };
 
 CustomCheckbox.defaultProps = {
   checked: false,
   handleChange: () => { },
   classes: {},
-  label: {}
+  label: []
 };
 
 export default withStyles(checkboxstyles)(CustomCheckbox);

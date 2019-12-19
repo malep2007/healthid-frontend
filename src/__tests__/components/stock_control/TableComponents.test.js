@@ -77,22 +77,27 @@ describe('TableSearch ', () => {
 });
 
 describe('TableHeader ', () => {
-  it('renders without crashing', () => {
-    const props = {
-      onSelectAllClick: jest.fn(),
-      order: 'asc',
-      orderBy: 'name',
-      numSelected: 3,
-      rowCount: 6,
-      classes: {},
-      isSearchActive: false,
-      onRequestSort: jest.fn(),
-      headRows: ['name', 'id']
-    };
-    const wrapper = mount(<TableHeader {...props} />);
+  const props = {
+    onSelectAllClick: jest.fn(),
+    order: 'asc',
+    orderBy: 'name',
+    numSelected: 3,
+    rowCount: 6,
+    classes: {},
+    isSearchActive: false,
+    onRequestSort: jest.fn(),
+    headRows: ['name', 'id']
+  };
 
+  it('renders without crashing', () => {
+  const wrapper = mount(<TableHeader {...props} />);
     expect(wrapper.find('[padding="checkbox"]').at(1).childAt(0).props().children.props.checked).toBe(false);
-    expect(wrapper.find('[padding="checkbox"]').at(1).childAt(0).props().children.props.indeterminate).toBe(true);
+  });
+  it('calls "renderSortIcon"', () => {
+    let mockCreateSortHandler = jest.fn()
+    const wrapper = mount(<TableHeader {...props} createSortHandler={mockCreateSortHandler} />)
+    wrapper.find('TableSortLabel').at(0).simulate('click')
+    expect(wrapper.props().onRequestSort).toBeCalled()
   });
 });
 

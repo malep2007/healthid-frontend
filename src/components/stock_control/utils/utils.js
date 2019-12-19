@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import {
-  Popper, Paper, Grow, ClickAwayListener, Tooltip, IconButton
+  Popper, Paper, Grow, ClickAwayListener, Tooltip, IconButton, Grid,
+  Button, Typography
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { ToolbarStyles } from '../../../assets/styles/stock/stock';
@@ -30,11 +31,13 @@ export const stableSort = (array, cmp) => {
 
 export const getSorting = (order, orderBy) => (order === 'desc' ? (a, b) => desc(a, b, orderBy) : (a, b) => -desc(a, b, orderBy));
 
+export const getSortedData = (data, page, rowsPerPage, order, orderBy) => stableSort(data, getSorting(order, orderBy));
+
 export const CustomIconButton = withStyles(ToolbarStyles)(
   ({
     toolTip, buttonRef, onClickHandler, children, classes
   }) => (
-    <Tooltip title={toolTip} style={{ marginRight: '25px' }}>
+    <Tooltip title={toolTip} className={classes.iconWrapper}>
       <IconButton
         className={classes.IconButton}
         buttonRef={buttonRef}
@@ -63,7 +66,8 @@ CustomIconButton.defaultProps = {
 
 export const RenderPopper = withStyles(ToolbarStyles)(
   ({
-    anchorEl, onClickAway, open, children, classes, className, popperPlacement
+    anchorEl, onClickAway, open, children, classes, className, popperPlacement,
+    modifiers
   }) => (
     <Popper
       className={clsx(classes.popper, className && className)}
@@ -72,6 +76,7 @@ export const RenderPopper = withStyles(ToolbarStyles)(
       anchorEl={anchorEl}
       transition
       disablePortal
+      modifiers={modifiers}
     >
       {({ TransitionProps, placement }) => (
         <Grow
@@ -103,4 +108,50 @@ RenderPopper.defaultProps = {
   popperPlacement: 'bottom',
   children: <span />,
   className: 'class'
+};
+
+export const AddBatchButtons = ({
+  styles, handleAddBatch, handleAddMoreBatches, validated
+}) => (
+  <Grid style={styles.profileHeader}>
+    <Typography variant="h5">Back</Typography>
+    <Grid item align="right" style={styles.buttonWrapper}>
+      <Button
+        key="cancel-button"
+        variant="outlined"
+        style={styles.addButton}
+        color="secondary"
+        disabled={validated()}
+        onClick={handleAddMoreBatches}
+      >
+        add new
+      </Button>
+      <Button
+        id="add-button"
+        key="add-button"
+        variant="contained"
+        type="submit"
+        disabled={validated()}
+        color="secondary"
+        style={styles.saveButton}
+        onClick={handleAddBatch}
+      >
+        save
+      </Button>
+    </Grid>
+  </Grid>
+);
+
+AddBatchButtons.propTypes = {
+  styles: PropTypes.objectOf(Object),
+  validated: PropTypes.func,
+  handleAddBatch: PropTypes.func,
+  handleAddMoreBatches: PropTypes.func
+};
+
+AddBatchButtons.defaultProps = {
+  styles: {},
+  validated: {},
+  handleAddBatch: () => {},
+  handleAddMoreBatches: () => {}
 };

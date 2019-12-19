@@ -2,26 +2,20 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import {
-  Fade,
-  Popper,
-  Checkbox,
-  Paper,
-  TableRow,
-  TablePagination,
-  TableCell,
-  TableBody,
-  Table
+  Fade, Popper, Paper, TableRow, TablePagination, TableCell,
+  TableBody, Table
 } from '@material-ui/core';
-
 import ProductCard from '../ProductCard';
 import TableHeader from './TableHeader';
 import TableToolBar from './TableToolBar';
+import CustomCheckbox from '../../shared/customCheckbox';
 import { TableStyles } from '../../../assets/styles/stock/stock';
-import { stableSort, getSorting, RenderPopper } from '../utils/utils';
+import { getSortedData, RenderPopper } from '../utils/utils';
 import BatchCard from '../../../container/stock/BatchCard';
 
 export const DataTable = ({
-  classes, columns, data, title, onRowClick, isAdmin
+  classes, columns, data, title, onRowClick, isAdmin, totalCount,
+  rowsPerPage, page, handleChangePage, handleChangeRowsPerPage
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [editPopperAnchor, setEditPopperAnchor] = useState(null);
@@ -34,8 +28,6 @@ export const DataTable = ({
   const [hoveredItem, setHoveredItem] = useState({});
   const [orderBy, setOrderBy] = useState('name');
   const [selected, setSelected] = useState([]);
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleRequestSort = (_, property) => {
     const isDesc = orderBy === property && order === 'desc';
@@ -46,7 +38,7 @@ export const DataTable = ({
 
   React.useEffect(() => {
     setRows(data);
-  });
+  }, [data]);
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
@@ -75,14 +67,6 @@ export const DataTable = ({
     }
 
     setSelected(newSelected);
-  };
-
-  const handleChangePage = (_, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
   };
 
   const handleTextChange = (event) => {
@@ -119,6 +103,20 @@ export const DataTable = ({
     setSelected(newSelected);
   };
 
+  const handleHideSearch = () => {
+    setIsSearchActive(false);
+    setRows(data);
+    setPrevSearchValue('');
+  };
+
+  const handleClickSearch = () => {
+    setIsSearchActive(!isSearchActive);
+  };
+
+  const handleClickDeselectAll = () => {
+    setSelected([]);
+  };
+
   const onEditQuantity = () => {
     const anchorElement = document.querySelectorAll('.tool-bar-elevation');
     setEditPopperAnchor(anchorElement[0]);
@@ -127,8 +125,6 @@ export const DataTable = ({
 
   const isSelected = name => selected.indexOf(name) !== -1;
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-
   const selectedRow = rows.filter(word => word.id === selected[0])[0];
   return (
     <div className={classes.root}>
@@ -136,21 +132,15 @@ export const DataTable = ({
         <TableToolBar
           name="toolbar"
           isAdmin={isAdmin}
-          title={`${rows.length} ${title}`}
+          title={`${totalCount} ${title}`}
           numSelected={selected.length}
           handleTextChange={handleTextChange}
-          handleClickDeselectAll={() => {
-            setSelected([]);
-          }}
+          handleClickDeselectAll={handleClickDeselectAll}
           isSearchActive={isSearchActive}
-          handleEdit={() => onEditQuantity()}
-          handleHideSearch={() => {
-            setIsSearchActive(false);
-            setRows(data);
-            setPrevSearchValue('');
-          }}
-          handleClickSearch={() => setIsSearchActive(!isSearchActive)}
-          handleClickInverseSelection={() => handleClickInverseSelection()}
+          handleEdit={onEditQuantity}
+          handleHideSearch={handleHideSearch}
+          handleClickSearch={handleClickSearch}
+          handleClickInverseSelection={handleClickInverseSelection}
         />
         <div className={classes.tableWrapper}>
           <Table className={classes.table} aria-labelledby="tableTitle">
@@ -164,8 +154,7 @@ export const DataTable = ({
               headRows={columns}
             />
             <TableBody>
-              {stableSort(rows, getSorting(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              {getSortedData(rows, page, rowsPerPage, order, orderBy)
                 .map((row) => {
                   const isItemSelected = isSelected(row.id);
                   const {
@@ -182,8 +171,8 @@ export const DataTable = ({
                         onRowClick(id);
                       }}
                     >
-                      <TableCell padding="checkbox">
-                        <Checkbox
+                      <TableCell padding="checkbox" align="center">
+                        <CustomCheckbox
                           checked={isItemSelected}
                           onClick={(event) => {
                             event.stopPropagation();
@@ -191,6 +180,7 @@ export const DataTable = ({
                           }}
                         />
                       </TableCell>
+                      <TableCell align="left">{id}</TableCell>
                       <TableCell align="left">
                         <span
                           onMouseEnter={(event) => {
@@ -212,20 +202,15 @@ export const DataTable = ({
                     </TableRow>
                   );
                 })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 49 * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
             </TableBody>
           </Table>
         </div>
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={rows.length}
+          count={totalCount}
           rowsPerPage={rowsPerPage}
-          page={page}
+          page={page - 1}
           backIconButtonProps={{
             'aria-label': 'Previous Page'
           }}
@@ -276,7 +261,12 @@ DataTable.propTypes = {
   data: PropTypes.arrayOf(Object).isRequired,
   title: PropTypes.string.isRequired,
   isAdmin: PropTypes.bool.isRequired,
-  onRowClick: PropTypes.func.isRequired
+  onRowClick: PropTypes.func.isRequired,
+  totalCount: PropTypes.number.isRequired,
+  rowsPerPage: PropTypes.number.isRequired,
+  page: PropTypes.number.isRequired,
+  handleChangePage: PropTypes.func.isRequired,
+  handleChangeRowsPerPage: PropTypes.func.isRequired
 };
 
 export default withStyles(TableStyles)(DataTable);

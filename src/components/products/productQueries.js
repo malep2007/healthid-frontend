@@ -45,6 +45,7 @@ export const GET_APPROVED_PRODUCTS = gql`
       }
     }
     totalProductsPagesCount
+    productsTotalNumber
   }
 `;
 export const GET_PROPOSED_PRODUCTS = gql`

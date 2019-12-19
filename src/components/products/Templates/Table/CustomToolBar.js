@@ -138,7 +138,7 @@ export class CustomToolBar extends Component {
           <TableSearch onHide={handleHideSearch} handleTextChange={handleSearchTextChange} />
         ) : ('')}
         <Fragment>
-          <Tooltip title="Search" style={{ marginRight: '25px' }}>
+          <Tooltip title="Search">
             <IconButton
               className={!isSearchActive ? classes.iconButtonActive : classes.iconButton}
               buttonRef={(node) => {
@@ -162,7 +162,7 @@ export class CustomToolBar extends Component {
           >
             <img src={addlogo} style={{ width: '20px' }} alt="" />
           </CustomIconButton>
-          <Tooltip title="Switch table view" style={{ marginRight: '25px' }}>
+          <Tooltip title="Switch table view" style={{ marginLeft: '25px' }}>
             <IconButton
               className={!openViewMenu ? classes.iconButtonActive : classes.iconButton}
               buttonRef={(node) => {
@@ -231,7 +231,7 @@ export class CustomToolBar extends Component {
           >
             <img src={expirieslogo} style={{ width: '28px' }} alt="" />
           </CustomIconButton>
-          <Tooltip title="Export List" style={{ marginRight: '25px' }}>
+          <Tooltip title="Export List" style={{ marginLeft: '25px' }}>
             <IconButton
               onClick={this.handleSavePrintOpen}
             >
@@ -246,7 +246,7 @@ export class CustomToolBar extends Component {
             handlePrintButton={this.handlePrintButton}
             handleSaveButton={this.handleSaveButton}
           />
-          <Tooltip title="Manage Columns" style={{ marginTop: '1px' }}>
+          <Tooltip title="Manage Columns" style={{ margin: '1px 0 0 25px' }}>
             <IconButton
               className={!openViewColumnMenu ? classes.iconButtonActive : classes.iconButton}
               buttonRef={(node) => {
@@ -275,7 +275,12 @@ export class CustomToolBar extends Component {
                 style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
               >
                 <Paper className={classes.paper} style={{ width: '250px', height: '450px', overflow: 'auto' }}>
-                  <Paper className={classes.paper} style={{ padding: '3px', borderRadius: '1px', boxShadow: '1px 1px #e8e8e8', position: 'sticky', top: 0, zIndex: '500' }}>
+                  <Paper
+                    className={classes.paper}
+                    style={{
+                      padding: '3px', borderRadius: '1px', boxShadow: '1px 1px #e8e8e8', position: 'sticky', top: 0, zIndex: '500'
+                    }}
+                  >
                     <p style={{
                       fontSize: '11px', color: '#a4a4a4', marginLeft: '10px',
                     }}

@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import { Typography, Toolbar } from '@material-ui/core';
+import { Typography, Toolbar, Grid } from '@material-ui/core';
 
 import CustomToolBar from './CustomToolBar';
 import SelectionToolBar from './SelectionToolBar';
@@ -28,36 +28,37 @@ export const TableToolBar = (props) => {
         'tool-bar-elevation': numSelected > 0
       })}
     >
-      <div style={classes.title}>
-        {numSelected > 0 ? (
-          <Typography color="inherit" variant="subtitle1">
-            {`${numSelected} row(s) selected`}
-          </Typography>
-        ) : (
-          <Typography variant="h6" id="tableTitle">
-            {title}
-          </Typography>
-        )}
-      </div>
-      <div style={classes.spacer} />
-      <div style={classes.actions}>
-        {numSelected > 0 ? (
-          <SelectionToolBar
-            handleClickInverseSelection={handleClickInverseSelection}
-            handleClickDeselectAll={handleClickDeselectAll}
-            handleEdit={handleEdit}
-            selected={numSelected}
-          />
-        ) : (
-          <CustomToolBar
-            isAdmin={isAdmin}
-            handleClickSearch={handleClickSearch}
-            isSearchActive={isSearchActive}
-            handleHideSearch={handleHideSearch}
-            handleTextChange={handleTextChange}
-          />
-        )}
-      </div>
+      <Grid container justify="space-between">
+        <div style={classes.title}>
+          {numSelected > 0 ? (
+            <Typography color="inherit" variant="subtitle1">
+              {`${numSelected} row(s) selected`}
+            </Typography>
+          ) : (
+            <Typography variant="subtitle1" id="tableTitle">
+              {title}
+            </Typography>
+          )}
+        </div>
+        <div>
+          {numSelected > 0 ? (
+            <SelectionToolBar
+              handleClickInverseSelection={handleClickInverseSelection}
+              handleClickDeselectAll={handleClickDeselectAll}
+              handleEdit={handleEdit}
+              selected={numSelected}
+            />
+          ) : (
+            <CustomToolBar
+              isAdmin={isAdmin}
+              handleClickSearch={handleClickSearch}
+              isSearchActive={isSearchActive}
+              handleHideSearch={handleHideSearch}
+              handleTextChange={handleTextChange}
+            />
+          )}
+        </div>
+      </Grid>
     </Toolbar>
   );
 };

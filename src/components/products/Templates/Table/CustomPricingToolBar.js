@@ -46,7 +46,7 @@ export class CustomPricingToolBar extends Component {
           <TableSearch onHide={handleHideSearch} handleTextChange={handleSearchTextChange} />
         ) : ('')}
         <Fragment>
-          <Tooltip title="Search" style={{ marginRight: '25px' }}>
+          <Tooltip title="Search" className={classes.iconWrapper}>
             <IconButton
               className={!isSearchActive ? classes.iconButtonActive : classes.iconButton}
               buttonRef={(node) => {
@@ -69,7 +69,7 @@ export class CustomPricingToolBar extends Component {
           >
             <img src={addlogo} style={{ width: '20px' }} alt="" />
           </CustomIconButton>
-          <Tooltip title="Export List" style={{ marginRight: '25px' }}>
+          <Tooltip title="Export List" className={classes.iconWrapper}>
             <IconButton>
               <img src={exportlogo} style={{ width: '20px' }} alt="" />
             </IconButton>

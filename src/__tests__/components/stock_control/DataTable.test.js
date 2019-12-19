@@ -72,8 +72,5 @@ describe('DataTable ', () => {
     expect(wrapper.find('[name="toolbar"]').prop('numSelected')).toBe(2);
     wrapper.find('[title="Deselect All"]').at(1).childAt(0).simulate('click');
     expect(wrapper.find('[name="toolbar"]').prop('numSelected')).toBe(0);
-    wrapper.find('Checkbox').at(0).simulate('click', event);
-    wrapper.find('Checkbox').at(0).simulate('click', secondEvent);
-    expect(wrapper.find('[name="toolbar"]').prop('numSelected')).toBe(2);
   });
 });

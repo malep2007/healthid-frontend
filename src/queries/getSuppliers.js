@@ -136,3 +136,50 @@ export const FILTER_SUPPLIERS = (type, value) => {
     return null;
   }
 };
+
+export const FILTER_APPROVED_SUPPLIERS = gql`
+  query ($isApproved: Boolean, $supplier: String ) {
+    filterSuppliers(
+      isApproved: $isApproved
+      name_Icontains: $supplier
+    ){
+    edges {
+      node {
+      id
+      name
+      isApproved
+      user{
+        id
+      }
+      supplierscontactsSet{
+        email
+        mobileNumber
+        addressLine1
+        addressLine2
+        country{
+          name
+        }
+        city{
+            country{
+              name
+            }
+        }
+      }
+      suppliersmetaSet{
+        displayName
+        logo
+        paymentTerms
+        creditDays
+        commentary
+      }
+      suppliernoteSet {
+        note
+      }
+      tier {
+        name
+      }
+      }
+    }
+  }
+}
+`;

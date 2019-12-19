@@ -6,7 +6,9 @@ import ResetPassword from './authentication/PasswordReset';
 import StepperNav from './setup/Stepper';
 import Dashboard from './shared/Dashboard/Dashboard';
 import ComingSoon from './shared/ComingSoon';
-import ViewProducts from './stock_control/viewProducts';
+import StockControl from './stock_control/stockControl';
+import IndividualBatch from './stock_control/individualBatch';
+import ImportBatches from './stock_control/importBatches';
 import ProductPage from './products/ProductPage';
 import ProductPricingPage from './products/ProductPricingPage';
 import UserProfile from './profile/Profile';
@@ -60,7 +62,9 @@ const App = ({ session }) => {
         <Route exact path="/products/:status" render={() => <ProductPage session={session} />} />
         <Route exact path="/profile" component={UserProfile} />
         <Route exact path="/products/:id/details" render={() => <ProductDetail session={session} />} />
-        <Route exact path="/stock" render={() => <ViewProducts session={session} />} />
+        <Route exact path="/stock" render={() => <StockControl session={session} />} />
+        <Route exact path="/stock/add_single" render={() => <IndividualBatch session={session} />} />
+        <Route exact path="/stock/add_csv" render={() => <ImportBatches session={session} />} />
         <Route exact path="/suppliers/add" render={() => <AddSupplier session={session} />} />
         <Route
           exact

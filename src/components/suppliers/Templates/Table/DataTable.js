@@ -40,12 +40,12 @@ export const DataTable = ({
   handleRequestSort,
   loading,
 }) => {
-  const [setAnchorEl] = useState(null);
+  const [, setAnchorEl] = useState(null);
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [prevSearchValue, setPrevSearchValue] = useState('');
   const [openPopper, setOpenPopper] = useState(false);
   const [rows, setRows] = useState(data);
-  const [setHoveredItem] = useState({});
+  const [, setHoveredItem] = useState({});
   const [selected, setSelected] = useState([]);
 
   React.useEffect(() => {
@@ -91,6 +91,12 @@ export const DataTable = ({
     setOpenPopper(true);
   };
 
+  const handleHideSearch = () => {
+    setIsSearchActive(false);
+    setRows(data);
+    setPrevSearchValue('');
+  };
+
   const handleClickInverseSelection = () => {
     const newSelected = [];
 
@@ -124,11 +130,7 @@ export const DataTable = ({
             setSelected([]);
           }}
           isSearchActive={isSearchActive}
-          handleHideSearch={() => {
-            setIsSearchActive(false);
-            setRows(data);
-            setPrevSearchValue('');
-          }}
+          handleHideSearch={handleHideSearch}
           handleClickSearch={() => setIsSearchActive(!isSearchActive)}
           handleClickInverseSelection={() => handleClickInverseSelection()}
           status={status}

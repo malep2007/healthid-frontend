@@ -1,7 +1,7 @@
 export const SubmitFileStyles = {
   submitButton: {
     marginTop: '6%',
-    borderRadius: '25px',
+    borderRadius: '8px',
     backgroundColor: '#FAF33E',
     color: '#424242',
     fontWeight: 'bold',

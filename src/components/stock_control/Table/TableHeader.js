@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import {
-  TableSortLabel, Checkbox, TableRow, TableHead, TableCell
+  TableSortLabel, TableRow, TableHead, TableCell
 } from '@material-ui/core';
 
 import sortAscendingIcon from '../../../assets/images/stock/sort_ascending_icon.png';
 import sortDescendingIcon from '../../../assets/images/stock/sort_descending_icon.png';
 import stockControlStyles, { TableHeaderStyles } from '../../../assets/styles/stock/stock';
+import CustomCheckbox from '../../shared/customCheckbox';
 
 const TableHeader = ({
   onSelectAllClick,
@@ -50,11 +51,10 @@ const TableHeader = ({
   return (
     <TableHead>
       <TableRow>
-        <TableCell className={classes.headerWrapper} padding="checkbox">
-          <Checkbox
-            indeterminate={numSelected > 0 && numSelected < rowCount}
+        <TableCell className={classes.headerWrapper} padding="checkbox" align="center">
+          <CustomCheckbox
             checked={numSelected === rowCount}
-            onClick={onSelectAllClick}
+            onChange={onSelectAllClick}
           />
         </TableCell>
         {headRows.map(row => (

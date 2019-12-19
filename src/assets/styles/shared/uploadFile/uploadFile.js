@@ -7,7 +7,7 @@ export const DragFileStyles = {
   },
   fileButton: {
     marginTop: '4%',
-    borderRadius: '25px',
+    borderRadius: '8px',
     color: '#939393',
     marginLeft: '32%',
     border: '1px solid #939393',

@@ -83,7 +83,6 @@ const OutletList = ({
                           <Typography variant="subtitle2" style={OutletsTable.typoNormal} id={item.id} onClick={toggleRegisterDisplay}>
                             {item.name}
                             {','}
-                            {/* {item.city.name} */}
                           </Typography>
                         </TableCell>
                         <TableCell align="right" style={OutletsTable.tableCell}>

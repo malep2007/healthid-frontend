@@ -83,10 +83,8 @@ export const ProductDetailRender = (props) => {
 
   const withPriceField = AddPriceField(batchInfo);
   let currency = '₦';
-  if (business.outletSet) {
-    currency = business.outletSet.map(
-      outletprefer => outletprefer.outletpreference.outletCurrency
-    ).symbol;
+  if (business.outletSet[0].length > 0) {
+    currency = business.outletSet[0].outletpreference.outletCurrency.symbol;
   }
 
   const renderTableCell = (align, style, name) => (

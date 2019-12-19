@@ -11,7 +11,7 @@ class ProductNavBar extends Component {
         { grid: 'grid1', label: 'Products', url: '/products' },
         { grid: 'grid2', label: 'Promotion & Sales Prompt', url: '/productmenucomingsoon' },
         { grid: 'grid3', label: 'Pricing & Loyalty', url: '/product/pricing' },
-        { grid: 'grid4', label: 'Stock Control', url: '/productmenucomingsoon' },
+        { grid: 'grid4', label: 'Stock Control', url: '/stock' },
         { grid: 'grid5', label: 'Consultations', url: '/productmenucomingsoon' }
       ]
     };

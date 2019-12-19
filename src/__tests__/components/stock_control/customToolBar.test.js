@@ -9,47 +9,49 @@ import {
 } from '../../../assets/images/stock/StockIcons';
 
 describe('CustomToolBar ', () => {
-  it('renders without crashing', () => {
-    const props = {
-      classes: { svg: {} },
-      handleClickSearch: jest.fn(),
-      isSearchActive: false,
-      handleHideSearch:jest.fn(),
-      handleTextChange: jest.fn()
-    };
-    const event = {
-      target: {}
-    };
+  const props = {
+    classes: { svg: {} },
+    isAdmin: true,
+    handleClickSearch: jest.fn(),
+    isSearchActive: false,
+    handleHideSearch:jest.fn(),
+    handleTextChange: jest.fn()
+  };
+  const event = {
+    target: {}
+  };
+  const wrapper = shallow(<CustomToolBar {...props} />);
 
-    const wrapper = shallow(<CustomToolBar {...props} />);
+  it('renders without crashing', () => {
     wrapper.instance().handleToggle();
     wrapper.instance().handleToggleStock();
-    wrapper.instance().anchorEl = {
-      contains: jest.fn()
-    };
-    wrapper.instance().StockElement = {
-      contains: jest.fn()
-    };
+    wrapper.instance().anchorEl = {contains: jest.fn()};
+    wrapper.instance().StockElement = {contains: jest.fn()};
     wrapper.instance().handleCloseStock(event);
-    expect(wrapper.find('[title="Low quantity"]').length).toBe(1);
     expect(wrapper.find('[title="Stock count"]').length).toBe(0);
-    expect(wrapper.find('[title="Export List"]').length).toBe(1);
   });
 
-  it('responds to on click events', () => {
-    const props = {
-      classes: { svg: {} },
-      handleClickSearch: jest.fn(),
-      isSearchActive: false,
-      handleHideSearch:jest.fn(),
-      handleTextChange: jest.fn()
-    };
+  it('handles "handleToggleBatch"', () => {
+    wrapper.instance().handleToggleBatch();
+    expect(wrapper.state('batchOpen')).toBeFalsy
+  })
 
-    const wrapper = mount(<CustomToolBar {...props} />);
-    wrapper.find('[aria-haspopup="true"]').at(0).simulate('click');
-    wrapper.find('[aria-haspopup="true"]').at(1).simulate('click');
-    expect(wrapper.find('[aria-haspopup="true"]').length).toBe(10);
-  });
+  it('handles "handleCloseBatch"', () => {
+    wrapper.instance().addBatchEl = {contains: jest.fn()};
+    wrapper.instance().handleCloseBatch(event);
+    expect(wrapper.state('batchOpen')).toBeFalsy
+  })
+
+  it('renders "CustomIconButton" and ', () => {
+    wrapper.instance().addBatchEl = {contains: jest.fn()};
+    wrapper.instance().handleCloseBatch(event);
+    expect(wrapper.state('batchOpen')).toBeFalsy
+  })
+
+  it('renders "TableSearch"', () => {
+    wrapper.setProps({ ...props, isSearchActive: true })
+    expect(wrapper.find('WithStyles(TableSearch)').length).toBe(1)
+  })
 });
 
 describe('Stock  control icons ', () => {
