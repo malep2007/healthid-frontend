@@ -5,41 +5,24 @@ query($id: String){
   singleSupplier(id: $id)
   {
     id
-    addressLine1
-    addressLine2
-    isApproved
-    mobileNumber
-    email
     name
-    lga
-    city{
-      name
-      country{
-        id
-        name
-      }
-    }
-    commentary
-    paymentTerms{
+    supplierContacts{
       id
-      name
+      email
+      country { name }
+      city { name }
+      addressLine1
+      addressLine2
+      mobileNumber
     }
-    creditDays
-    suppliernoteSet{
+    supplierMeta{
       id
-      note
-      createdAt
-      supplier{
-        user{
-          firstName
-          lastName
-        }
-      }
+      displayName
+      creditDays
+      paymentTerms
+      commentary
+      adminComment
     }
-    tier{
-      name
-    }
-    logo
   }
 }
 `;

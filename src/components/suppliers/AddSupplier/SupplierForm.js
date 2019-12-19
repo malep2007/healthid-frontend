@@ -45,7 +45,7 @@ const SupplierForm = (props) => {
       addressLine1,
       addressLine2,
       lga,
-      paymentTermsId,
+      paymentTerms,
       commentary,
       commentError,
       commentHelperText,
@@ -93,7 +93,7 @@ const SupplierForm = (props) => {
     || !email
     || !mobileNumber
     || !addressLine1
-    || !paymentTermsId
+    || !paymentTerms
     || emailError
     || nameError
     || mobileNumberError

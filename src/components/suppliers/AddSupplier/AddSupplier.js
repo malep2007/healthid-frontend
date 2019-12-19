@@ -46,7 +46,7 @@ export class AddSupplier extends Component {
     tierId: '',
     countryId: '',
     logo: '',
-    paymentTermsId: '1',
+    paymentTerms: 'CASH_ON_DELIVERY',
     creditDays: 0,
     loading: false,
     imageFile: '',
@@ -72,10 +72,10 @@ export class AddSupplier extends Component {
   handleSliderChange = (event) => {
     if (event === 0) {
       this.setState({ creditDays: event });
-      this.setState({ paymentTermsId: '1' });
+      this.setState({ paymentTerms: 'CASH_ON_DELIVERY' });
     } else {
       this.setState({ creditDays: event });
-      this.setState({ paymentTermsId: '2' });
+      this.setState({ paymentTerms: 'ON_CREDIT' });
     }
   }
 
@@ -148,7 +148,7 @@ export class AddSupplier extends Component {
 
   handlePaymentTermsChange = (event) => {
     const { value } = event.target;
-    this.setState({ paymentTermsId: value });
+    this.setState({ paymentTerms: value });
   };
 
   handleMobileChange = (value) => {
@@ -196,14 +196,13 @@ export class AddSupplier extends Component {
       addressLine1,
       addressLine2,
       lga,
-      paymentTermsId,
+      paymentTerms,
       commentary,
       tierId,
       countryId,
       creditDays,
       logo
     } = this.state;
-    const paymentsTermsId = parseInt(paymentTermsId, 10);
     const citId = parseInt(cityId, 10);
     this.setState({ loading: true });
     addSupplier({
@@ -214,7 +213,7 @@ export class AddSupplier extends Component {
         addressLine1,
         addressLine2,
         lga,
-        paymentsTermsId,
+        paymentTerms,
         commentary,
         citId,
         tierId,
@@ -226,8 +225,8 @@ export class AddSupplier extends Component {
       .then((res) => {
         const { history, refetch } = this.props;
         const { addSupplier: addedSupplier = {} } = res.data;
-        const { name: supplierName = {}, supplierId } = addedSupplier.supplier;
-        notify(`${supplierName} with id ${supplierId} has been added and sent for approval`);
+        const { name: supplierName = {}, id } = addedSupplier.supplier;
+        notify(`${supplierName} with id ${id} has been added and sent for approval`);
 
         if (btnClicked === 'save') {
           history.push('/suppliers');
@@ -263,7 +262,7 @@ export class AddSupplier extends Component {
         tierId: '',
         countryId: '',
         logo: '',
-        paymentTermsId: '1',
+        paymentTerms: 'CASH_ON_DELIVERY',
         creditDays: '',
         loading: false,
         imageFile: '',
